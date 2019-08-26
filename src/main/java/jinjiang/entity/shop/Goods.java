@@ -9,7 +9,7 @@ import java.util.List;
 @Entity
 @Table(name = "goods")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Goods {
+public class Goods {//商品
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;//编号

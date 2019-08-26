@@ -2,65 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="66f375b9-c5c0-4459-95f8-73ab2750f6a1" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/MainApplication.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/aop/LogAspect.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/bl/account/UserBlServiceImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/bl/upload/UploadServiceImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/blservice/account/UserBlService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/blservice/upload/UploadService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/config/CORSConfiguration$1.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/config/CORSConfiguration.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/config/MultipartAutoConfiguration.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/config/filter/JwtAuthenticationTokenFilter.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/dao/account/UserDao.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/account/Address.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/account/Discount.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/account/Level.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/account/User.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/shop/Goods.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/entity/shop/Shop.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/exception/NotExistException.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/exception/SystemException.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/exception/UsernameDoesNotFoundException.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/exception/WrongUsernameOrPasswordException.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/publicdatas/account/Role.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/BoolResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/InfoResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/Response.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/Result.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/ResultCode.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/ResultGenerator.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/SuccessResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/UserLoginResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/response/WrongResponse.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/WebSecurityConfig.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtRole.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtServiceImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtUser.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtUserDetailsService.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/security/jwt/JwtUserDetailsServiceImpl.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/springcontroller/account/UserController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/springcontroller/upload/UploadController.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/AESDecodeUtils.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/DistanceUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/FormatDateTime.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/HttpUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/MD5.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/OrderUUIDUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/PathUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/PayCommonUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/RandomUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/Ratio.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/ScheduleUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/UserInfoUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/classes/jinjiang/util/XMLUtil.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/config/application.yml" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/out/production/resources/config/jrq.jks" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java" />
+      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -189,36 +137,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserBlService.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="242">
-              <caret line="21" column="27" lean-forward="false" selection-start-line="21" selection-start-column="27" selection-end-line="21" selection-end-column="27" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserBlServiceImpl.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="121">
-              <caret line="78" column="44" lean-forward="false" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
-              <folding>
-                <element signature="e#2048#2049#0" expanded="true" />
-                <element signature="e#2094#2095#0" expanded="true" />
-                <element signature="e#2155#2156#0" expanded="true" />
-                <element signature="e#2197#2198#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="177">
-              <caret line="86" column="35" lean-forward="true" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="50" />
+              <caret line="86" column="35" lean-forward="false" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -227,18 +150,8 @@
       <file leaf-file-name="Goods.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="application.yml" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+            <state relative-caret-position="86">
+              <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -247,19 +160,111 @@
       <file leaf-file-name="Shop.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+            <state relative-caret-position="65">
+              <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="UserDao.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java">
+      <file leaf-file-name="Admin.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="11" column="1" lean-forward="false" selection-start-line="11" selection-start-column="1" selection-end-line="11" selection-end-column="1" />
+            <state relative-caret-position="180">
+              <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="30" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Ad.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="IntegralGoods.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="109">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+              <folding>
+                <element signature="e#1229#1230#0" expanded="true" />
+                <element signature="e#1254#1255#0" expanded="true" />
+                <element signature="e#1290#1291#0" expanded="true" />
+                <element signature="e#1318#1319#0" expanded="true" />
+                <element signature="e#1349#1350#0" expanded="true" />
+                <element signature="e#1376#1377#0" expanded="true" />
+                <element signature="e#1416#1417#0" expanded="true" />
+                <element signature="e#1448#1449#0" expanded="true" />
+                <element signature="e#1480#1481#0" expanded="true" />
+                <element signature="e#1511#1512#0" expanded="true" />
+                <element signature="e#1556#1557#0" expanded="true" />
+                <element signature="e#1596#1597#0" expanded="true" />
+                <element signature="e#1626#1627#0" expanded="true" />
+                <element signature="e#1655#1656#0" expanded="true" />
+                <element signature="e#1696#1697#0" expanded="true" />
+                <element signature="e#1732#1733#0" expanded="true" />
+                <element signature="e#1767#1768#0" expanded="true" />
+                <element signature="e#1798#1799#0" expanded="true" />
+                <element signature="e#1846#1847#0" expanded="true" />
+                <element signature="e#1886#1887#0" expanded="true" />
+                <element signature="e#1929#1930#0" expanded="true" />
+                <element signature="e#1962#1963#0" expanded="true" />
+                <element signature="e#2020#2021#0" expanded="true" />
+                <element signature="e#2064#2065#0" expanded="true" />
+                <element signature="e#2107#2108#0" expanded="true" />
+                <element signature="e#2140#2141#0" expanded="true" />
+                <element signature="e#2198#2199#0" expanded="true" />
+                <element signature="e#2242#2243#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Order.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="251">
+              <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+              <folding>
+                <element signature="e#1282#1283#0" expanded="true" />
+                <element signature="e#1307#1308#0" expanded="true" />
+                <element signature="e#1343#1344#0" expanded="true" />
+                <element signature="e#1371#1372#0" expanded="true" />
+                <element signature="e#1404#1405#0" expanded="true" />
+                <element signature="e#1433#1434#0" expanded="true" />
+                <element signature="e#1477#1478#0" expanded="true" />
+                <element signature="e#1513#1514#0" expanded="true" />
+                <element signature="e#1545#1546#0" expanded="true" />
+                <element signature="e#1573#1574#0" expanded="true" />
+                <element signature="e#1615#1616#0" expanded="true" />
+                <element signature="e#1649#1650#0" expanded="true" />
+                <element signature="e#1689#1690#0" expanded="true" />
+                <element signature="e#1725#1726#0" expanded="true" />
+                <element signature="e#1783#1784#0" expanded="true" />
+                <element signature="e#1833#1834#0" expanded="true" />
+                <element signature="e#1867#1868#0" expanded="true" />
+                <element signature="e#1897#1898#0" expanded="true" />
+                <element signature="e#1943#1944#0" expanded="true" />
+                <element signature="e#1981#1982#0" expanded="true" />
+                <element signature="e#2023#2024#0" expanded="true" />
+                <element signature="e#2055#2056#0" expanded="true" />
+                <element signature="e#2111#2112#0" expanded="true" />
+                <element signature="e#2153#2154#0" expanded="true" />
+                <element signature="e#2187#2188#0" expanded="true" />
+                <element signature="e#2217#2218#0" expanded="true" />
+                <element signature="e#2263#2264#0" expanded="true" />
+                <element signature="e#2296#2297#0" expanded="true" />
+                <element signature="e#2329#2330#0" expanded="true" />
+                <element signature="e#2358#2359#0" expanded="true" />
+                <element signature="e#2402#2403#0" expanded="true" />
+                <element signature="e#2438#2439#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -699,13 +704,19 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Discount.java" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Level.java" />
-        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" />
         <option value="$PROJECT_DIR$/src/main/resources/config/application.yml" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/User.java" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java" />
         <option value="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/account/Discount.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java" />
+        <option value="$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java" />
       </list>
     </option>
   </component>
@@ -779,53 +790,6 @@
               <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="bl" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="bl" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="blservice" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="blservice" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -837,6 +801,26 @@
               <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
               <item name="account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="admin" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
+              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="order" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
@@ -847,40 +831,6 @@
               <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
               <item name="shop" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="springcontroller" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="jinjiang" type="462c0819:PsiDirectoryNode" />
-              <item name="springcontroller" type="462c0819:PsiDirectoryNode" />
-              <item name="account" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="jinjiang" type="b2602c69:ProjectViewProjectNode" />
-              <item name="jinjiang" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="8a07ba80:GradleTreeStructureProvider$GradleModuleDirectoryNode" />
-              <item name="resources" type="462c0819:PsiDirectoryNode" />
-              <item name="config" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -903,6 +853,16 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="RequestMappingsPanelOrder2" value="2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="jinjiang.entity.order" />
+      <recent name="jinjiang.entity.shop" />
+      <recent name="jinjiang.entity.admin" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/java/jinjiang/entity/account" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -1045,15 +1005,15 @@
       <option name="presentableId" value="Default" />
       <updated>1566799879692</updated>
       <workItem from="1566799881806" duration="3384000" />
-      <workItem from="1566805025674" duration="5990000" />
+      <workItem from="1566805025674" duration="12744000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="9374000" />
+    <option name="totallyTimeSpent" value="16128000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="23" width="1280" height="709" extended-state="6" />
+    <frame x="0" y="23" width="1280" height="709" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1073,7 +1033,7 @@
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2536349" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -1311,22 +1271,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="47" column="0" lean-forward="false" selection-start-line="47" selection-start-column="0" selection-end-line="47" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Address.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
@@ -1394,10 +1338,10 @@
         <state relative-caret-position="121">
           <caret line="78" column="44" lean-forward="false" selection-start-line="78" selection-start-column="44" selection-end-line="78" selection-end-column="44" />
           <folding>
-            <element signature="e#2048#2049#0" expanded="true" />
-            <element signature="e#2094#2095#0" expanded="true" />
-            <element signature="e#2155#2156#0" expanded="true" />
-            <element signature="e#2197#2198#0" expanded="true" />
+            <element signature="e#2048#2049#0" expanded="false" />
+            <element signature="e#2094#2095#0" expanded="false" />
+            <element signature="e#2155#2156#0" expanded="false" />
+            <element signature="e#2197#2198#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -1405,7 +1349,7 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
-          <caret line="8" column="8" lean-forward="true" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+          <caret line="8" column="8" lean-forward="false" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
           <folding />
         </state>
       </provider>
@@ -1490,8 +1434,166 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="177">
-          <caret line="86" column="35" lean-forward="true" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="50" />
+          <caret line="86" column="35" lean-forward="false" selection-start-line="86" selection-start-column="35" selection-end-line="86" selection-end-column="50" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/account/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/account/Level.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/account/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/shop/Shop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/shop/Goods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/account/entity/account/Discount.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="65">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="109">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="23" selection-end-column="0" />
+          <folding>
+            <element signature="e#1229#1230#0" expanded="true" />
+            <element signature="e#1254#1255#0" expanded="true" />
+            <element signature="e#1290#1291#0" expanded="true" />
+            <element signature="e#1318#1319#0" expanded="true" />
+            <element signature="e#1349#1350#0" expanded="true" />
+            <element signature="e#1376#1377#0" expanded="true" />
+            <element signature="e#1416#1417#0" expanded="true" />
+            <element signature="e#1448#1449#0" expanded="true" />
+            <element signature="e#1480#1481#0" expanded="true" />
+            <element signature="e#1511#1512#0" expanded="true" />
+            <element signature="e#1556#1557#0" expanded="true" />
+            <element signature="e#1596#1597#0" expanded="true" />
+            <element signature="e#1626#1627#0" expanded="true" />
+            <element signature="e#1655#1656#0" expanded="true" />
+            <element signature="e#1696#1697#0" expanded="true" />
+            <element signature="e#1732#1733#0" expanded="true" />
+            <element signature="e#1767#1768#0" expanded="true" />
+            <element signature="e#1798#1799#0" expanded="true" />
+            <element signature="e#1846#1847#0" expanded="true" />
+            <element signature="e#1886#1887#0" expanded="true" />
+            <element signature="e#1929#1930#0" expanded="true" />
+            <element signature="e#1962#1963#0" expanded="true" />
+            <element signature="e#2020#2021#0" expanded="true" />
+            <element signature="e#2064#2065#0" expanded="true" />
+            <element signature="e#2107#2108#0" expanded="true" />
+            <element signature="e#2140#2141#0" expanded="true" />
+            <element signature="e#2198#2199#0" expanded="true" />
+            <element signature="e#2242#2243#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="14" column="11" lean-forward="false" selection-start-line="14" selection-start-column="11" selection-end-line="14" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="14" column="25" lean-forward="false" selection-start-line="14" selection-start-column="25" selection-end-line="14" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="40" column="0" lean-forward="true" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="251">
+          <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
+          <folding>
+            <element signature="e#1282#1283#0" expanded="true" />
+            <element signature="e#1307#1308#0" expanded="true" />
+            <element signature="e#1343#1344#0" expanded="true" />
+            <element signature="e#1371#1372#0" expanded="true" />
+            <element signature="e#1404#1405#0" expanded="true" />
+            <element signature="e#1433#1434#0" expanded="true" />
+            <element signature="e#1477#1478#0" expanded="true" />
+            <element signature="e#1513#1514#0" expanded="true" />
+            <element signature="e#1545#1546#0" expanded="true" />
+            <element signature="e#1573#1574#0" expanded="true" />
+            <element signature="e#1615#1616#0" expanded="true" />
+            <element signature="e#1649#1650#0" expanded="true" />
+            <element signature="e#1689#1690#0" expanded="true" />
+            <element signature="e#1725#1726#0" expanded="true" />
+            <element signature="e#1783#1784#0" expanded="true" />
+            <element signature="e#1833#1834#0" expanded="true" />
+            <element signature="e#1867#1868#0" expanded="true" />
+            <element signature="e#1897#1898#0" expanded="true" />
+            <element signature="e#1943#1944#0" expanded="true" />
+            <element signature="e#1981#1982#0" expanded="true" />
+            <element signature="e#2023#2024#0" expanded="true" />
+            <element signature="e#2055#2056#0" expanded="true" />
+            <element signature="e#2111#2112#0" expanded="true" />
+            <element signature="e#2153#2154#0" expanded="true" />
+            <element signature="e#2187#2188#0" expanded="true" />
+            <element signature="e#2217#2218#0" expanded="true" />
+            <element signature="e#2263#2264#0" expanded="true" />
+            <element signature="e#2296#2297#0" expanded="true" />
+            <element signature="e#2329#2330#0" expanded="true" />
+            <element signature="e#2358#2359#0" expanded="true" />
+            <element signature="e#2402#2403#0" expanded="true" />
+            <element signature="e#2438#2439#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
