@@ -57,6 +57,7 @@ public class UserBlServiceImpl implements UserBlService {
 			newUser.setRemark(user.getRemark());
 			newUser.setTakeBalance(user.getTakeBalance());
 			newUser.setUsername(user.getUsername());
+			newUser.setShopId(user.getShopId());
 			userDao.save(newUser);
 		} else {
 			throw new NotExistException("User ID", user.getId());
