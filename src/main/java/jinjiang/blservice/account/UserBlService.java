@@ -2,8 +2,7 @@ package jinjiang.blservice.account;
 
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
-import jinjiang.parameters.account.UserUpdateVO;
-import jinjiang.parameters.account.UserVO;
+
 
 import java.util.List;
 

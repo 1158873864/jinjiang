@@ -1,0 +1,53 @@
+#server:
+#  port: 8080
+server:
+  port: 8080
+  ssl:
+      key-store: config/mycert.jks
+      key-store-password: 93UQiHqB
+      key-store-type: JKS
+logging:
+  level:
+    org.springframework:
+      data: DEBUG
+      security: DEBUG
+jwt:
+  claimKey:
+    username: "username"
+    authorities: "authorities"
+  secret: "wfhg9hr-1jfpjf-p3j-=vgf0pvmo3k=2-3rj0-3j=gn[=3-g[mj"
+  header: Authorization
+  tokenHead: "Bearer "
+oos:
+  accessKey: "LTAIHH1AzXgeofde"
+  secretKey: "VewUZGM7miUFplRCfo3nGTTFuKeJWX"
+  endPoint: "http://oss-cn-hangzhou.aliyuncs.com"
+  bucketName: "take-out"
+spring:
+  jpa:
+    database: mysql
+    properties:
+      dialect: org.hibernate.dialect.MySQL5Dialect
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: true
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/jinjiang?useUnicode=true&characterEncoding=UTF-8&useSSL=false
+    username: root
+    password: 123456
+  aop:
+    auto: true
+    proxy-target-class: false
+  mail:
+       host: smtp.qq.com
+       username: 1919739928@qq.com
+       password: jmcmnfqgidbmdfeb
+       properties:
+          mail:
+            smtp:
+              auth: true
+              starttls:
+                 enables: true
+                 required: true
