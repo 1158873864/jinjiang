@@ -1,10 +1,13 @@
 package jinjiang.entity.account;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "level")
+@Table(name = "discount")
+@GenericGenerator(name = "jpa-uuid", strategy = "uuid")
 public class Discount {
     @Id
     @GeneratedValue(generator = "jpa-uuid")

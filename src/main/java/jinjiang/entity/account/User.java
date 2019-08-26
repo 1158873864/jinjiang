@@ -37,7 +37,6 @@ public class User {
     @Column(name = "birthday")
     private String birthday;//用户生日
 
-
     @Column(name = "email")
     private String email;//用户邮箱
 

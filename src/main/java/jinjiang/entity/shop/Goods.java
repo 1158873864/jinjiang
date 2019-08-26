@@ -35,10 +35,12 @@ public class Goods {
     @Column(name = "imageUrl")
     private String imageUrl; //商品图片
 
-    @Column(name = "swiperImgs")
+    @Column
+    @ElementCollection(targetClass = String.class)
     private List<String> swiperImgs; //商品轮播图图片
 
-    @Column(name = "detailImgs")
+    @Column
+    @ElementCollection(targetClass = String.class)
     private List<String> detailImgs; //商品详情图片
 
     @Column(name = "discountId")
