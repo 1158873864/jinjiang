@@ -17,5 +17,11 @@ public interface UserBlService {
 
     List<User> findAll();
 
+    List<User> findByIdentity(String identity);
+
+    List<User> findByShopId(String shopId);
+
+    List<User> findIdentityAndShop(String identity,String shopId);
+
     void setDefaultAddress(String userId,String addressId) throws NotExistException;
 }

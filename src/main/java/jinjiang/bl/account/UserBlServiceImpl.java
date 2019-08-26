@@ -69,6 +69,21 @@ public class UserBlServiceImpl implements UserBlService {
 		return userDao.findAll();
 	}
 
+	@Override
+	public List<User> findByIdentity(String identity) {
+		return userDao.findByIdentity(identity);
+	}
+
+	@Override
+	public List<User> findByShopId(String shopId) {
+		return userDao.findByShopId(shopId);
+	}
+
+	@Override
+	public List<User> findIdentityAndShop(String identity,String shopId) {
+		return userDao.findByIdentityAndShopId(identity,shopId);
+	}
+
 
 	@Override
 	public User findById(String id) throws NotExistException {

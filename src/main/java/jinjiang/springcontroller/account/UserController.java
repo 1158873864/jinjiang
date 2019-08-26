@@ -40,7 +40,7 @@ public class UserController {
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> deleteUserById(@RequestParam("id") String id) throws NotExistException {
+    public ResponseEntity<Result> deleteUser(@RequestParam("id") String id) throws NotExistException {
         userBlService.deleteUser(id);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
@@ -48,7 +48,7 @@ public class UserController {
     @ApiOperation(value = "修改用户", notes = "修改用户")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Result> updateUserById(@Valid @RequestBody User user) throws NotExistException {
+    public ResponseEntity<Result> updateUser(@Valid @RequestBody User user) throws NotExistException {
         userBlService.updateUser(user);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
@@ -59,9 +59,36 @@ public class UserController {
     })
     @RequestMapping(value = "/find/id", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> getUserById(@RequestParam("id") String id) throws NotExistException {
+    public ResponseEntity<Result> findUserById(@RequestParam("id") String id) throws NotExistException {
         Map<String, Object> result = new HashMap<>();
         result.put("user",userBlService.findById(id));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据身份查找用户", notes = "")
+    @RequestMapping(value = "/find/identity", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByIdentity(@RequestParam("identity") String identity) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findByIdentity(identity));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据门店查找用户", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByShopId(@RequestParam("shopId") String shopId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findByShopId(shopId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据门店和身份查找用户", notes = "")
+    @RequestMapping(value = "/find/identity-shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByIdentityAndShopId(@RequestParam("identity") String identity,@RequestParam("shopId") String shopId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findIdentityAndShop(identity,shopId));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
