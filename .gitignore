@@ -1,9 +1,9 @@
 .idea/workspace.xml
 /.idea
-.DS_Store
+*.DS_Store
 /build
 *.iml
-.gradle
+/.gradle
 *.bin
 *.lock
 *.class
