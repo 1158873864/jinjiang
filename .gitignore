@@ -12,3 +12,4 @@
 *.yml
 /out
 /record
+gradle/wrapper/gradle-wrapper.properties
