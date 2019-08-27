@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "shop")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Shop {
+public class Shop {//门店
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;//编号

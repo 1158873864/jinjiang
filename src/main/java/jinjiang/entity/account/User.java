@@ -58,10 +58,13 @@ public class User {
     @Column(name = "regtime")
     private String regtime; //注册时间
 
+    @Column(name = "shopId")
+    private String shopId; //所属酒庄的id
+
     public User() {
     }
 
-    public User(String username, String openid, String name, String mobilePhone, String defaultAddress, String faceUrl, String identity, String birthday, String email, String remark, String level, double balance, double takeBalance, int integral, String regtime) {
+    public User(String username, String openid, String name, String mobilePhone, String defaultAddress, String faceUrl, String identity, String birthday, String email, String remark, String level, double balance, double takeBalance, int integral, String regtime, String shopId) {
         this.username = username;
         this.openid = openid;
         this.name = name;
@@ -77,6 +80,7 @@ public class User {
         this.takeBalance = takeBalance;
         this.integral = integral;
         this.regtime = regtime;
+        this.shopId = shopId;
     }
 
     public String getId() {
@@ -205,5 +209,13 @@ public class User {
 
     public void setRegtime(String regtime) {
         this.regtime = regtime;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

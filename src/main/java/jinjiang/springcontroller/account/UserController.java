@@ -4,6 +4,7 @@ import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -40,7 +41,7 @@ public class UserController {
     @ApiOperation(value = "删除用户", notes = "删除用户")
     @RequestMapping(value = "/delete", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> deleteUserById(@RequestParam("id") String id) throws NotExistException {
+    public ResponseEntity<Result> deleteUser(@RequestParam("id") String id) throws NotExistException {
         userBlService.deleteUser(id);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
@@ -48,7 +49,7 @@ public class UserController {
     @ApiOperation(value = "修改用户", notes = "修改用户")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Result> updateUserById(@Valid @RequestBody User user) throws NotExistException {
+    public ResponseEntity<Result> updateUser(@Valid @RequestBody User user) throws NotExistException {
         userBlService.updateUser(user);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
@@ -59,18 +60,45 @@ public class UserController {
     })
     @RequestMapping(value = "/find/id", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> getUserById(@RequestParam("id") String id) throws NotExistException {
+    public ResponseEntity<Result> findUserById(@RequestParam("id") String id) throws NotExistException {
         Map<String, Object> result = new HashMap<>();
         result.put("user",userBlService.findById(id));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据身份查找用户", notes = "")
+    @RequestMapping(value = "/find/identity", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByIdentity(@RequestParam("identity") String identity, Pageable pageable) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findByIdentity(identity,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据门店查找用户", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByShopId(@RequestParam("shopId") String shopId,Pageable pageable) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findByShopId(shopId,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据门店和身份查找用户", notes = "")
+    @RequestMapping(value = "/find/identity-shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByIdentityAndShopId(@RequestParam("identity") String identity,@RequestParam("shopId") String shopId,Pageable pageable) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("user",userBlService.findIdentityAndShop(identity,shopId,pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
     @ApiOperation(value = "所有用户", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> getAllUser() {
+    public ResponseEntity<Result> getAllUser(Pageable pageable) {
         Map<String, Object> result = new HashMap<>();
-        result.put("users",userBlService.findAll());
+        result.put("users",userBlService.findAll(pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 

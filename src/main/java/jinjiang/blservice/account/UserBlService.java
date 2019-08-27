@@ -2,6 +2,8 @@ package jinjiang.blservice.account;
 
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 
 import java.util.List;
@@ -15,7 +17,13 @@ public interface UserBlService {
 
     User findById(String id) throws NotExistException;
 
-    List<User> findAll();
+    Page<User> findAll(Pageable pageable);
+
+    Page<User> findByIdentity(String identity,Pageable pageable);
+
+    Page<User> findByShopId(String shopId,Pageable pageable);
+
+    Page<User> findIdentityAndShop(String identity,String shopId,Pageable pageable);
 
     void setDefaultAddress(String userId,String addressId) throws NotExistException;
 }
