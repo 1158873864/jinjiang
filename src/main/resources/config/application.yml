@@ -2,10 +2,10 @@
 #  port: 8080
 server:
   port: 3389
-  ssl:
-      key-store: config/mycert.jks
-      key-store-password: 93UQiHqB
-      key-store-type: JKS
+#  ssl:
+#      key-store: config/mycert.jks
+#      key-store-password: 93UQiHqB
+#      key-store-type: JKS
 logging:
   level:
     org.springframework:
