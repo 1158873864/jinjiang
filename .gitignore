@@ -11,3 +11,4 @@
 *.jar
 *.xml
 *.yml
+/out
