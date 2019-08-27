@@ -2,6 +2,8 @@ package jinjiang.bl.account;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import jinjiang.blservice.account.UserBlService;
 import jinjiang.dao.account.UserDao;
@@ -65,23 +67,23 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
-	public List<User> findAll() {
-		return userDao.findAll();
+	public Page<User> findAll(Pageable pageable) {
+		return userDao.findAll(pageable);
 	}
 
 	@Override
-	public List<User> findByIdentity(String identity) {
-		return userDao.findByIdentity(identity);
+	public Page<User> findByIdentity(String identity,Pageable pageable) {
+		return userDao.findByIdentity(identity,pageable);
 	}
 
 	@Override
-	public List<User> findByShopId(String shopId) {
-		return userDao.findByShopId(shopId);
+	public Page<User> findByShopId(String shopId,Pageable pageable) {
+		return userDao.findByShopId(shopId,pageable);
 	}
 
 	@Override
-	public List<User> findIdentityAndShop(String identity,String shopId) {
-		return userDao.findByIdentityAndShopId(identity,shopId);
+	public Page<User> findIdentityAndShop(String identity,String shopId,Pageable pageable) {
+		return userDao.findByIdentityAndShopId(identity,shopId,pageable);
 	}
 
 
