@@ -1,0 +1,34 @@
+<!--pages/particulars/curriculum/curriculum.wxml-->
+<!--index.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+
+<view class="container container--color-white">
+
+<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
+    <!--搜索框-->
+    <view>
+      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的商品吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
+    </view>
+  </view>
+
+<view class="gridview" style='background:white;'>
+  <view class="gridview-item" wx:for="{{integrals}}" wx:key="id" wx:for-index="index">
+    
+       <image class='integral_image' mode='widthFix' src='../../img/integral.jpg'></image>
+       <view class="black_txt2">金酱2016陈酿酒               </view>
+            <view class="black_txt2">500ml*瓶</view>
+        <view class="integral_convert">
+           <image class='integral_convert_image' src='../../img/金币.png'></image>
+            <view class="orange_txt">兑换积分:668</view>
+            
+        </view>
+        <image class='integral_button' src='../../img/rightnow.png'></image>
+  </view>
+
+</view>
+
+</view>
+

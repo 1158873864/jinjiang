@@ -1,0 +1,5 @@
+<view class="block"> 
+    <view class="title1">{{title}}</view>
+    <image class="img" src="{{img}}"></image>
+    <text space="emsp" class="title">{{content}}</text>
+</view>

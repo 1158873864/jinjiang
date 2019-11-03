@@ -1,0 +1,182 @@
+/* pages/me/me.wxss */
+@import '/style/common.wxss';
+@import '/template/publishBar/publishBar.wxss';
+
+
+
+
+
+
+/*本页面css属性*/
+page{
+  background-color: rgb(241, 241, 241);
+}
+.header {
+  padding-top: 10px;
+  margin-bottom: 10px;
+  height: 120px;
+  padding-bottom: 5px;
+  width: 100%;
+  background: url('https://take-out.oss-cn-hangzhou.aliyuncs.com/%E8%B4%A6%E6%88%B7%E8%83%8C%E6%99%AF.png')
+}
+.header1 {
+  padding-top: 10px;
+  margin-bottom: 10px;
+  height: 220px;
+  padding-bottom: 5px;
+  width: 100%;
+  background: url('https://take-out.oss-cn-hangzhou.aliyuncs.com/%E8%B4%A6%E6%88%B7%E8%83%8C%E6%99%AF.png')
+}
+/*关于我的名片的属性*/
+
+
+.card__main {
+  display: flex;
+}
+.card_left {
+  font-size: 20px;
+  color: white;
+  align-items: center;
+  width: 40%;
+  height: 120px;
+  margin-left: 15%;
+  margin-top: 30px;
+}
+.card_left1 {
+  font-size: 20px;
+  color: white;
+  align-items: center;
+  width: 30%;
+  height: 120px;
+  margin-left: 20px;
+  margin-top: 30px;
+}
+.card_left2 {
+  font-size: 20px;
+  color: white;
+  align-items: center;
+  width: 100%;
+  height: 120px;
+  margin-left: 40%;
+  margin-top: 30px;
+}
+.card_left3 {
+  font-size: 20px;
+  color: white;
+  align-items: center;
+  width: 40%;
+  height: 100px;
+  margin-left: 15%;
+}
+.card_right {
+  display: block;
+  font-size: 21px;
+  color: white;
+  align-items: center;
+  width: 40%;
+  height: 120px;
+}
+.card_line{
+  background-color: white;
+  width: 2px;
+  height: 100px;
+}
+.card_line1{
+  background-color: white;
+  width: 2px;
+  height: 80px;
+}
+.card_image{
+  height: 1.6rem;
+  width: 5em;
+  margin-left: 11rem;
+}
+.card__detail {
+  display: flex;
+  align-items: center;
+}
+.card__detail--wrapper {
+  margin: 0 0 10px 0;
+}
+.card__name {
+  display: inline-block;
+  font-size: 1rem;
+  font-weight: bold;
+  color: white;
+}
+.card__medal {
+  display: inline-block;
+  margin: 0 0 0 5px;
+  width: 20px;
+  height: 20px;
+}
+.card__text {
+  display: block;
+  color: white;
+}
+
+
+.share{
+  margin-top: 1.2rem;
+  height: 2.3rem;
+  width: 18rem;
+}
+.share1{
+  margin-top: 0.5rem;
+  height: 2.3rem;
+  width: 18rem;
+}
+.detail{
+  width: 100%;
+  background-color: white;
+  margin-top: 15px;
+
+}
+
+.box {
+  width: 95%;
+  margin: 0 auto;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  /* border-radius: 10px; */
+  margin-top: 15px;
+  box-shadow: 0px 5px 10px rgba(0,0,0,0.1);
+}
+
+.vessel {
+  width: 93%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.img {
+  width: 120px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.img_bofang {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+.right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.title {
+  font-size: 18px;
+  color: rgb(54, 54, 54);
+}
+.shoping{
+  /* border: 1px solid red; */
+  margin-left: 10rem;
+  margin-top: 0.5rem;
+  font-size: 17px;
+}

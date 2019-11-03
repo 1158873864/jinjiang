@@ -1,0 +1,20 @@
+/* pages/me/me.wxss */
+@import '/style/common.wxss';
+@import '/template/publishBar/publishBar.wxss';
+
+/*本页面css属性*/
+
+
+
+
+
+
+.color{
+  color: rgb(255, 102, 0)
+}
+.div-line{
+  background:rgb(196, 196, 196);
+  width:96%;
+  margin-left: 5px;
+  height:1px;
+}

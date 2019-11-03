@@ -1,0 +1,221 @@
+.shoppingcarmain{
+  padding: 20rpx 0rpx;
+}
+.carlist-item{
+  display: flex;
+  height: 145rpx;
+  padding: 20rpx;
+  border-bottom: 1px solid #ddd;
+}
+.checkicon{
+  width: 40rpx; 
+  padding-right: 20rpx;
+}
+.checkicon image{
+  width:40rpx;
+  height: 40rpx;
+  vertical-align: middle
+
+}
+.allchecked{
+   width:100rpx;
+   line-height: 100rpx;
+}
+.allchecked image{
+  width:40rpx;
+  height: 40rpx;
+  vertical-align: middle
+}
+.carlist-item-img{
+  border:1px solid #ddd;
+  width: 140rpx;
+  height: 140rpx
+}
+.carlist-item-img image{
+  width: 100%;
+  height: 100%
+}
+.carlist-item-info{
+  flex: 1;
+  padding-left:20px;
+}
+.m_top25{
+  margin-top: 25rpx;
+}
+.m_top15{
+  margin-top: 15rpx;
+}
+.font-size28{
+  font-size: 28rpx;
+}
+.font-size24{
+  font-size: 24rpx;
+}
+.color_33{
+  color: #ffffff;
+}
+.color_34{
+  color: #3d3d3d;
+}
+.color_ff0{
+  color: #ff0202;
+}
+.color_a3{
+  color: #a3a3a3
+}
+.color_ffe{
+  color:#e16531
+}
+.bg_color00{
+  background: #000;
+}
+.bg_colorffe{
+  background: #e16531;
+}
+.flex{
+  display: flex;
+}
+.addnum{
+  flex:1;
+  margin-top: 40rpx;
+  width: 100%;
+  text-align: right;
+}
+.addnum view{
+  /* margin-left: 100rpx; */
+  float: right;
+  width:69rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  text-align:center;
+  border:1rpx solid #999;
+}
+.fxiedbtm{
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  background: #f7f7f7;
+  padding-left: 20rpx;
+  z-index: 99;
+  box-sizing: border-box;
+  
+}
+.btngroup{
+  flex: 1;
+  text-align: right
+}
+.btngroup view{
+  width: 180rpx;
+  display: inline-block;
+  font-size: 34rpx;
+  text-align: center;
+}
+
+
+
+.box {
+  width: 95%;
+  margin: 0 auto;
+  background-color: white;
+  padding-top: 10px;
+  padding-bottom: 15px;
+  /* border-radius: 10px; */
+  margin-top: 15px;
+  box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
+}
+
+.vessel {
+  width: 93%;
+  display: flex;
+  justify-content: space-between;
+  margin: 0 auto;
+}
+
+.img {
+  width: 120px;
+  height: 100px;
+  border-radius: 5px;
+}
+
+.img_bofang {
+  height: 100%;
+  width: 100%;
+  border-radius: 5px;
+}
+.right {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-left: 10px;
+}
+
+.title {
+  font-size: 17px;
+  color: rgb(54, 54, 54);
+}
+.red_txt {
+  font-size: 16px;
+  color: red;
+}
+.shoping{
+  /* border: 1px solid red; */
+  display: flex;
+  margin-top: 30px;
+}
+
+.money {
+  font-size: 12px;
+  color: black;
+  font-weight:800;
+  text-align: center;
+}
+
+.img_cart {
+   font-size: 17px;
+    color:  rgb(54, 54, 54);
+    margin-top: 5px;
+}
+.position{
+   width: 35px;
+   height: 35px;
+   margin-left: -10px;
+   margin-right: -8px;
+}
+.selected{
+   width: 20px;
+   height: 20px;
+   margin-left: 0px;
+   margin-right: 10px;
+   margin-top: 40px;
+}
+
+.right1{
+  width: 15px;
+  height: 15px;
+  margin-left: 100px;
+  margin-top: 4px;
+}
+.right2{
+  width: 15px;
+  height: 13px;
+  margin-top: 4px;
+  border-top: 1px solid rgb(88, 88, 88);
+  border-bottom: 1px solid rgb(88, 88, 88);
+  
+}
+.right_txt{
+  font-size: 13px;
+  color: rgb(88, 88, 88);
+  padding-left: 5px;
+  padding-bottom: 10px;
+  margin-top: -3px;
+}
+.right3{
+  width: 15px;
+  height: 15px;
+  margin-top: 4px;
+}

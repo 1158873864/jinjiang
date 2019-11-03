@@ -1,0 +1,32 @@
+<!--pages/modifyMyCard/modifyMyCard.wxml-->
+<view class='container container--color-gray'>
+  <view style='width: 100%;'>
+    <view class='infos column'>
+      <view class='info'>
+        <text class='info__key'>进货商品</text>
+        <view>
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{starts}}">
+  <view class='article_row'>
+    
+    <text class="start_middle">{{start}}</text>
+    
+  </view> 
+  </picker>
+</view>
+      </view>
+       
+      <!-- <view class='div-line'></view> -->
+      <view class='info'>
+        <text class='info__key'>数量</text>
+        <input class='info__value' placeholder='请输入数量' bindinput='updatePhone'></input>
+      </view>
+      <!-- <view class='div-line'></view> -->
+      <view class='info'>
+        <text class='info__key'>合计金额</text>
+        <view class='info__value' style="color:red">¥666</view>
+      </view>
+      <!-- <view class='div-line'></view> -->
+      </view>
+      </view>
+  <button class='jrq__button save-btn' bindtap='onSave'>保存并返回</button>
+</view>

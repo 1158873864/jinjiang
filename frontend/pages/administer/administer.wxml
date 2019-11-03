@@ -1,0 +1,58 @@
+<!--index.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+
+  <!--内容  -->
+  <view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array}}" wx:key="id">
+        <view class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<view class="div-line"></view>
+  <view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array1}}" wx:key="id">
+        <view class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+<view class="div-line"></view>
+  <view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array2}}" wx:key="id">
+        <view class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>

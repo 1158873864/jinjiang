@@ -1,0 +1,85 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/near/near",
+    "pages/integral/integral",
+    "pages/integral1/integral1",
+    "pages/shoppingcar/shoppingcar",
+    "pages/me/me",
+    "pages/goods/goods",
+    "pages/recommend/recommend",
+    "pages/culture/culture",
+    "pages/cultureDetail/cultureDetail",
+    "pages/nearDetail/nearDetail",
+    "pages/spread/spread",
+    "pages/manager/manager",
+    "pages/level/level",
+    "pages/member/member",
+    "pages/birthday/birthday",
+    "pages/account/account",
+    "pages/consume/consume",
+    "pages/deduct/deduct",
+    "pages/memberConsume/memberConsume",
+    "pages/shareholder/shareholder",
+    "pages/expense/expense",
+    "pages/modifyMyCard/modifyMyCard",
+    "pages/projects/project",
+    "pages/publishMyArticle/publishMyArticle",
+    "pages/administer/administer",
+    "pages/goodsDetail/goodsDetail",
+    "pages/checkout/checkout",
+    "pages/order/order",
+    "pages/orderDetail/orderDetail",
+    "pages/address/address",
+    "pages/addressAdd/addressAdd",
+    "pages/coupon/coupon",
+    "pages/cart/cart",
+    "pages/submitExpense/submitExpense",
+    "pages/apply/apply"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#000000",
+    "navigationBarTitleText": "金酱酒庄",
+    "navigationBarTextStyle": "white",
+    "enablePullDownRefresh": true
+  },
+  "tabBar": {
+    "backgroundColor": "#1b1b1b",
+    "color": "#fff",
+    "selectedColor": "#C09B54",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "iconPath": "img/index.png",
+        "selectedIconPath": "img/index-icon.png",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/near/near",
+        "iconPath": "img/near.png",
+        "selectedIconPath": "img/near-icon.png",
+        "text": "附近"
+      },
+      {
+        "pagePath": "pages/integral/integral",
+        "iconPath": "img/integral.png",
+        "selectedIconPath": "img/integral-icon.png",
+        "text": "积分商城"
+      },
+      {
+        "pagePath": "pages/shoppingcar/shoppingcar",
+        "iconPath": "img/shoppingCart.png",
+        "selectedIconPath": "img/shoppingCart-icon.png",
+        "text": "购物车"
+      },
+      {
+        "pagePath": "pages/me/me",
+        "iconPath": "img/me.png",
+        "selectedIconPath": "img/me-icon.png",
+        "text": "我的"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

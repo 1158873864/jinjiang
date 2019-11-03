@@ -1,0 +1,22 @@
+<!--pages/me/me.wxml-->
+
+<view class="container">
+  <view class='header'>
+      <view class='card__main'>
+        <image class='card__left' src='{{myInfo.face}}'></image>
+        <view class='card__right'>
+          <view class='card__detail card__detail--wrapper'>
+            <text class='card__name'>{{myInfo.username}}</text>
+            
+          </view>
+          <text class='card__text'>电话：xxxxxxx</text>    
+          <text class='card__text'>地址：xxxxxxx</text>  
+          
+        </view>
+        
+      </view>
+      
+  </view>
+
+</view>
+  

@@ -1,0 +1,147 @@
+<!--pages/me/me.wxml-->
+
+<view class="container">
+  <view class='header'>
+      <view class='card__main'>
+        <image class='card__left' src='../../img/face2.jpg'></image>
+        <view class='card__right'>
+          <view class='card__detail card__detail--wrapper'>
+            <text class='card__name'>庄主</text>
+            
+          </view>
+          <text class='card__text'> id:43533252349823424000</text>
+          <text class='card__text'>注册时间:2019-10-19</text>
+          
+        </view>
+        
+      </view>
+      <view class="div-line1"></view>
+      <view  style="color:white;font-size:17px;margin-left: 8px; margin-bottom: 8px;">
+         余额:0
+      </view>
+  </view>
+
+  <view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array}}" wx:key="id">
+        <view wx:if='{{item.show}}' class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="div-line2"></view>
+
+</view>
+
+<view class="title">
+      <image class="title-img" src="../../img/title.png"></image>
+      <view class="title-txt">会员</view>
+</view>
+
+<view class="div-line3"></view>
+
+<view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array1}}" wx:key="id">
+        <view wx:if='{{item.show}}' class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<view class="div-line2"></view>
+
+
+<view class="title">
+      <image class="title-img" src="../../img/title.png"></image>
+      <view class="title-txt">账户</view>
+</view>
+
+<view class="div-line3"></view>
+
+<view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array2}}" wx:key="id">
+        <view wx:if='{{item.show}}' class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<view class="div-line2"></view>
+
+<view class="title">
+      <image class="title-img" src="../../img/title.png"></image>
+      <view class="title-txt">明细</view>
+</view>
+
+<view class="div-line3"></view>
+
+<view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array3}}" wx:key="id">
+        <view wx:if='{{item.show}}' class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<view class="div-line2"></view>
+
+<view class="title">
+      <image class="title-img" src="../../img/title.png"></image>
+      <view class="title-txt">其他</view>
+</view>
+
+<view class="div-line3"></view>
+
+<view class='box-tll'>
+    <view class='box'>
+      <view class='conten' wx:for-items="{{array4}}" wx:key="id">
+        <view wx:if='{{item.show}}' class='diteall' catchtap="catchTapCategory" open-type="switchTab" data-goodsid="{{item.id}}">
+          <view>
+            <view class='conten-image'>
+              <view class='conten-text'>
+                <image src='{{item.src}}' class='img'></image>
+              </view>
+            </view>
+          </view>
+          <text class='txt'>{{item.text}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+<view class="div-line2"></view>

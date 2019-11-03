@@ -1,0 +1,41 @@
+<!--购物车页面-->
+<view class="shoppingcarmain">
+    <view class='box'  wx:for="{{list}}" wx:key="id">
+    <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+      <view class='vessel'>
+      <image class="selected" src='../../img/selected.png'></image>
+        <view class='img'>
+          <image class='img_bofang' src='../../img/shop.jpg'></image>
+        </view>
+        <view class='right'>
+          <view class='title'>金酱2019陈酿酒</view>
+          <view class='title'>500ml*ml</view>
+          <view class='shoping'>
+            <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
+            <view class='red_txt'>¥668</view>
+            <image class='right1' src='../../img/减少.png'></image>
+            <view class="right2">
+               <view class="right_txt">1</view>
+            </view>
+           <image class='right3' src='../../img/增加.png'></image>
+          </view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+    
+    <view class='fxiedbtm flex'>
+      <view class='allchecked'bindtap="allSelect">
+        <image style="width:19px;height:19px;" src="{{isAllSelect?'../../img/selected.png':'../../img/circle.png'}}"></image>
+        <text class='font-size28 color_34'>全选</text>
+      </view>
+      <view class='font-size28' style='padding-top:5rpx'>       
+        <text class='color_ff0' style='margin-left:20rpx'>总计:￥{{totalMoney}}</text>
+      </view>
+      <view class='btngroup'>
+        <view bindtap='overpayFn' class='bg_colorffe color_33'>结算</view>
+      </view>
+    </view>
+  
+</view>

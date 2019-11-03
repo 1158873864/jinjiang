@@ -1,0 +1,24 @@
+<!--pages/modifyMyCard/modifyMyCard.wxml-->
+<view class='container container--color-gray'>
+  <view style='width: 100%;'>
+    <view class='infos column'>
+      <view class='info'>
+        <text class='info__key'>报销金额</text>
+        <input class='info__value' placeholder='请输入数字' bindinput='updateName'></input>
+      </view>
+      <!-- <view class='div-line'></view> -->
+      <view class='info'>
+        <text class='info__key'>报销类别</text>
+        <input class='info__value' placeholder='采购经费' bindinput='updatePhone'></input>
+      </view>
+      <!-- <view class='div-line'></view> -->
+      
+      <view class='info'>
+        <text class='info__key'>详细描述:</text>
+        <textarea class='info__value info__textarea' auto-height="true" placeholder='详细描述' bindinput='updateIntro'></textarea>
+      </view>
+     
+    </view>
+  </view>
+  <button class='jrq__button save-btn' bindtap='onSave'>提交</button>
+</view>
