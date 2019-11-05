@@ -1,10 +1,10 @@
 package jinjiang.bl.shop;
 
+import jinjiang.blservice.shop.Goods2BlService;
 import jinjiang.blservice.shop.GoodsBlService;
-import jinjiang.dao.shop.GoodsDao;
+import jinjiang.dao.shop.Goods2Dao;
 import jinjiang.dao.shop.ShopDao;
-import jinjiang.entity.account.User;
-import jinjiang.entity.shop.Goods;
+import jinjiang.entity.shop.Goods2;
 import jinjiang.entity.shop.Shop;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,34 +18,34 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class GoodsBlServiceImpl implements GoodsBlService{
-    private final GoodsDao goodsDao;
+public class Goods2BlServiceImpl implements Goods2BlService {
+    private final Goods2Dao goodsDao;
     private final ShopDao shopdao;
 
     @Autowired
-    public GoodsBlServiceImpl(GoodsDao goods,ShopDao shopdao){
+    public Goods2BlServiceImpl(Goods2Dao goods, ShopDao shopdao){
         this.goodsDao=goods;
         this.shopdao=shopdao;
     }
 
     @Override
-    public void addGoods(Goods goods) {
+    public void addGoods(Goods2 goods) {
         goodsDao.save(goods);
     }
 
     @Override
     public void deleteGoods(String id) throws NotExistException {
-       Optional<Goods> goods=goodsDao.findById(id);
+       Optional<Goods2> goods=goodsDao.findById(id);
        if (goods.isPresent()){
            goodsDao.deleteById(id);
        }
     }
 
     @Override
-    public void updateGoods(Goods goods) throws NotExistException {
-        Optional<Goods> good=goodsDao.findById(goods.getId());
+    public void updateGoods(Goods2 goods) throws NotExistException {
+        Optional<Goods2> good=goodsDao.findById(goods.getId());
         if (good.isPresent()){
-           Goods goodsone=good.get();
+           Goods2 goodsone=good.get();
             goodsone.setDiscountId(goods.getDiscountId());
             goodsone.setDetail(goods.getDetail());
             goodsone.setFreight(goods.getFreight());
@@ -68,8 +68,8 @@ public class GoodsBlServiceImpl implements GoodsBlService{
 
 
     @Override
-    public Goods findById(String id) throws NotExistException {
-        Optional<Goods> goods=goodsDao.findById(id);
+    public Goods2 findById(String id) throws NotExistException {
+        Optional<Goods2> goods=goodsDao.findById(id);
         if (goods.isPresent()){
             return goods.get();
         }else {
@@ -79,15 +79,15 @@ public class GoodsBlServiceImpl implements GoodsBlService{
     }
 
     @Override
-    public Page<Goods> findAll(Pageable pageable) {
+    public Page<Goods2> findAll(Pageable pageable) {
         return goodsDao.findAll(pageable);
     }
 
     @Override
-    public Page<Goods> find(String query, Pageable pageable) {
-        List<Goods> goodsList=goodsDao.findAll();
-        List<Goods> list=new ArrayList<>();
-        for(Goods goods:goodsList){
+    public Page<Goods2> find(String query, Pageable pageable) {
+        List<Goods2> goodsList=goodsDao.findAll();
+        List<Goods2> list=new ArrayList<>();
+        for(Goods2 goods:goodsList){
             String shopName="***";
             Optional<Shop> shop=shopdao.findById(goods.getShopId());
 
@@ -109,13 +109,13 @@ public class GoodsBlServiceImpl implements GoodsBlService{
     }
 
     @Override
-    public Page<Goods> findGoodsByShopId(String id,Pageable pageable)throws NotExistException {
+    public Page<Goods2> findGoodsByShopId(String id,Pageable pageable)throws NotExistException {
         //验证shop是否存在，存在再验证下面是否有商品是在属于商家；
         System.out.println();
         Optional<Shop> shop=shopdao.findById(id);
         System.out.println("===shop==="+shop.get());
         if (shop.isPresent()){
-            Page<Goods> goods=goodsDao.findAllByShopId(id,pageable);
+            Page<Goods2> goods=goodsDao.findAllByShopId(id,pageable);
             if (goods.getContent()!=null){
                 return goods;
             }else {

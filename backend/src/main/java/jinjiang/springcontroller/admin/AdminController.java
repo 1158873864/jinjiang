@@ -75,4 +75,13 @@ public class AdminController {
     }
 
 
+    @ApiOperation(value = "所有管理员", notes = "")
+    @RequestMapping(value = "/find/query", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> get(@RequestParam("query") String query,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",AdminServiceice.find(query, pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
 }

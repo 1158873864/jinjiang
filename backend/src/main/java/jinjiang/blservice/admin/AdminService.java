@@ -17,4 +17,6 @@ public interface AdminService {
     Admin findById(String id) throws NotExistException;
 
     Page<Admin> findAll(Pageable pageable);
+
+    Page<Admin> find(String query, Pageable pageable);
 }

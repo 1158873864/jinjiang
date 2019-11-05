@@ -3,8 +3,10 @@ package jinjiang.springcontroller.shop;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
+import jinjiang.blservice.shop.Goods2BlService;
 import jinjiang.blservice.shop.GoodsBlService;
 import jinjiang.entity.shop.Goods;
+import jinjiang.entity.shop.Goods2;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.Result;
 import jinjiang.response.ResultGenerator;
@@ -13,25 +15,26 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/goods")
-public class GoodsController {
+@RequestMapping("/goods2")
+public class Goods2Controller {
 
-    private final GoodsBlService goodsBlService;
+    private final Goods2BlService goodsBlService;
 
     @Autowired
-    public GoodsController(GoodsBlService goodsBlService) {
+    public Goods2Controller(Goods2BlService goodsBlService) {
         this.goodsBlService = goodsBlService;
     }
 
     @ApiOperation(value = "新增商品", notes = "新增商品")
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     @ResponseBody
-    public ResponseEntity<Result> addUser(@Valid @RequestBody Goods goods) throws NotExistException {
+    public ResponseEntity<Result> addUser(@Valid @RequestBody Goods2 goods) throws NotExistException {
 
         goodsBlService.addGoods(goods);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(), HttpStatus.OK);
@@ -48,7 +51,7 @@ public class GoodsController {
     @ApiOperation(value = "修改商品", notes = "修改商品")
     @RequestMapping(value = "/update", method = RequestMethod.PUT)
     @ResponseBody
-    public ResponseEntity<Result> updateUserById(@Valid @RequestBody Goods goods) throws NotExistException {
+    public ResponseEntity<Result> updateUserById(@Valid @RequestBody Goods2 goods) throws NotExistException {
         goodsBlService.updateGoods(goods);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }

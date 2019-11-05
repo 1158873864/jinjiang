@@ -74,4 +74,13 @@ public class IntegraGoodsController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "积分商品", notes = "")
+    @RequestMapping(value = "/find/query", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> get(@RequestParam("query") String query,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",integraGoodsBlservice.find(query, pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
 }

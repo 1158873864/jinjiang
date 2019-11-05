@@ -2,12 +2,18 @@ package jinjiang.bl.admin;
 
 import jinjiang.blservice.admin.AdminService;
 import jinjiang.dao.account.AdminDao;
+import jinjiang.entity.account.User;
 import jinjiang.entity.admin.Admin;
+import jinjiang.entity.shop.Shop;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -63,6 +69,25 @@ public class AdminBlServiceImpl  implements AdminService {
     @Override
     public Page<Admin> findAll(Pageable pageable) {
         return admindao.findAll(pageable);
+    }
+
+
+    @Override
+    public Page<Admin> find(String query, Pageable pageable) {
+        List<Admin> admins=admindao.findAll();
+        List<Admin> list=new ArrayList<>();
+        for(Admin admin:admins){
+            if(admin.getDate().indexOf(query)!=(-1)||admin.getPassword().indexOf(query)!=(-1)||admin.getUsername().indexOf(query)!=(-1)||admin.getId().indexOf(query)!=(-1)){
+                list.add(admin);
+            }
+        }
+        return listConvertToPage(list,pageable);
+    }
+
+    public <T> Page<T> listConvertToPage(List<T> list, Pageable pageable) {
+        int start = (int)pageable.getOffset();
+        int end = (start + pageable.getPageSize()) > list.size() ? list.size() : ( start + pageable.getPageSize());
+        return new PageImpl<T>(list.subList(start, end), pageable, list.size());
     }
 
 }

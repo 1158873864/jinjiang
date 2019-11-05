@@ -225,7 +225,27 @@ export const asyncRouterMap = [
         name: 'goodsList',
         meta: {
           perms: ['GET /admin/goods/list', 'POST /admin/goods/delete'],
-          title: '商品列表',
+          title: '热销产品列表',
+          noCache: true
+        }
+      },
+      {
+        path: 'integralGoods',
+        component: () => import('@/views/goods/integralGoods'),
+        name: 'integralGoods',
+        meta: {
+          perms: ['GET /admin/goods/list', 'POST /admin/goods/delete'],
+          title: '积分商品列表',
+          noCache: true
+        }
+      },
+      {
+        path: 'recommendGoods',
+        component: () => import('@/views/goods/recommendGoods'),
+        name: 'recommendGoods',
+        meta: {
+          perms: ['GET /admin/goods/list', 'POST /admin/goods/delete'],
+          title: '精品推荐商品列表',
           noCache: true
         }
       },
@@ -535,16 +555,6 @@ export const asyncRouterMap = [
         meta: {
           perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
           title: '管理员',
-          noCache: true
-        }
-      },
-      {
-        path: 'role',
-        component: () => import('@/views/sys/role'),
-        name: 'role',
-        meta: {
-          perms: ['GET /admin/role/list', 'POST /admin/role/create', 'POST /admin/role/update', 'POST /admin/role/delete', 'GET /admin/role/permissions', 'POST /admin/role/permissions'],
-          title: '角色管理',
           noCache: true
         }
       },

@@ -13,16 +13,13 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form label-position="left" class="table-expand">
-            <el-form-item label="优惠卷名称">
-              <span>{{ props.row.discountName }}</span>
-            </el-form-item>
-            <el-form-item label="商品封面图">
+            <el-form-item label="积分商品封面图">
                 <img v-if="props.row.imageUrl" :src="props.row.imageUrl" width="40">
             </el-form-item>
-            <el-form-item label="商品轮播图">
+            <el-form-item label="积分商品轮播图">
               <img v-for="pic in props.row.swiperImgs" :key="pic" :src="pic" width="40">
             </el-form-item>
-            <el-form-item label="商品详情">
+            <el-form-item label="积分商品详情">
               <span>{{ props.row.detail }}</span>
             </el-form-item>
 
@@ -36,19 +33,9 @@
 
       <el-table-column align="center" label="商品简介" prop="brief"/>
 
-      <el-table-column align="center" label="零售价" prop="price"/>
-
-      <el-table-column align="center" label="会员价格" prop="memberPrice"/>
-
-      <el-table-column align="center" label="进货价格" prop="stockPrice"/>
-
-      <el-table-column align="center" label="运费" prop="freight"/>
-
-      <el-table-column align="center" label="商品规格" prop="standard"/>
+      <el-table-column align="center" label="所需积分" prop="integral"/>
 
       <el-table-column align="center" label="剩余数量" prop="number"/>
-
-      <el-table-column align="center" label="酒庄" prop="shopName"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -66,39 +53,22 @@
         <el-form-item label="商品名称" prop="name">
           <el-input v-model="dataForm.name"/>
         </el-form-item>
+
         <el-form-item label="商品简介" prop="brief">
           <el-input v-model="dataForm.brief"/>
         </el-form-item>
 
-        <el-form-item label="零售价" prop="price">
-          <el-input v-model="dataForm.price"/>
+        <el-form-item label="所需积分" prop="integral">
+          <el-input v-model="dataForm.integral"/>
         </el-form-item>
 
-        <el-form-item label="会员价格" prop="memberPrice">
-          <el-input v-model="dataForm.memberPrice"/>
-        </el-form-item>
-
-        <el-form-item label="进货价格" prop="stockPrice">
-          <el-input v-model="dataForm.stockPrice"/>
-        </el-form-item>
-
-        <el-form-item label="运费" prop="freight">
-          <el-input v-model="dataForm.freight"/>
-        </el-form-item>
-
-        <el-form-item label="商品规格" prop="standard">
-          <el-input v-model="dataForm.standard"/>
-        </el-form-item>
 
         <el-form-item label="剩余数量" prop="number">
           <el-input v-model="dataForm.number"/>
         </el-form-item>
 
-        <el-form-item label="销售量" prop="sales">
-          <el-input v-model="dataForm.sales"/>
-        </el-form-item>
 
-        <el-form-item label="商品图片">
+        <el-form-item label="积分商品封面图">
           <span class="tip-pic">只能上传jpg/png文件，只有1张，且不超过500kb</span>
           <el-upload
             :action="uploadPath"
@@ -111,7 +81,7 @@
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="商品轮播图">
+        <el-form-item label="积分商品轮播图">
           <span class="tip-pic">只能上传jpg/png文件，至多5张，且不超过500kb</span>
           <el-upload
             :action="uploadPath"
@@ -126,21 +96,11 @@
           </el-upload>
         </el-form-item>
 
-        <el-form-item label="商品详细介绍">
+        <el-form-item label="积分商品详细介绍">
           <editor :init="editorInit" v-model="dataForm.detail"/>
         </el-form-item>
 
-        <el-form-item label="酒庄">
-          <el-select v-model="dataForm.shopId">
-            <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
-          </el-select>
-        </el-form-item>
 
-        <el-form-item label="可用优惠卷" prop="discountId">
-          <el-select v-model="dataForm.discountId">
-            <el-option v-for="item in discount" :key="item.id" :label="item.name" :value="item.id"/>
-          </el-select>
-        </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -202,7 +162,7 @@ import Pagination from '@/components/Pagination' // Secondary package based on e
 
 
 export default {
-    name: 'List',
+    name: 'IntegralGoods',
     components: { Pagination,Editor },
     data() {
       return {
@@ -226,18 +186,11 @@ export default {
           id: '',
           name: '',
           brief: '',
-          price: 0,
-          memberPrice: 0,
-          stockPrice: 0,
-          freight: 0,
-          standard: '',
+          integral: 0,
           number: 0,
-          sales: 0,
           imageUrl: '',
           swiperImgs: [],
-          detail: '',
-          discountId:'',
-          shopId:''
+          detail: ''
         },
         discount:[],
         levels:[],
@@ -281,41 +234,13 @@ export default {
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "goods/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "integragoods/find/all?page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
             this.list = response.data.data.items.content
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                console.log(res.data.data.items.name)
-                this.list[i].shopName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-              axios({
-                method: 'get',
-                url: config.baseApi + "discount/find/id?id="+ this.list[i].discountId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-
-                this.list[i].discountName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-            }
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -325,33 +250,6 @@ export default {
           this.listLoading = false
         });
 
-        axios({
-          method: 'get',
-          url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.shopIds = response.data.data.items.content
-
-        }).catch(error => {
-        });
-
-        axios({
-          method: 'get',
-          url: config.baseApi + "discount/find/all?&page="+ (this.listQuery.page-1)+"&size=20",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.discount = response.data.data.items.content
-
-        }).catch(error => {
-          this.discount = []
-
-        });
       },
       uploadImageUrl: function(response) {
         if(response.code==0){
@@ -394,41 +292,13 @@ export default {
         this.listLoading = true
         axios({
           method: 'get',
-          url: config.baseApi + "goods/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "integragoods/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
             this.list = response.data.data.items.content
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                console.log(res.data.data.items.name)
-                this.list[i].shopName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-              axios({
-                method: 'get',
-                url: config.baseApi + "discount/find/id?id="+ this.list[i].level,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-
-                this.list[i].discountName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-            }
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -443,18 +313,11 @@ export default {
           id: '',
           name: '',
           brief: '',
-          price: 0,
-          memberPrice: 0,
-          stockPrice: 0,
-          freight: 0,
-          standard: '',
+          integral: 0,
           number: 0,
-          sales: 0,
           imageUrl: '',
           swiperImgs: [],
-          detail: '',
-          discountId:'',
-          shopId:''
+          detail: ''
         }
       },
       handleCreate() {
@@ -471,7 +334,7 @@ export default {
 
             axios({
               method: 'post',
-              url: config.baseApi + "goods/add",
+              url: config.baseApi + "integragoods/add",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -482,7 +345,7 @@ export default {
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: '成功',
-                  message: '添加商品成功'
+                  message: '添加积分商品成功'
                 })
                 this.listQuery.page = 1
                 this.getList()
@@ -514,7 +377,7 @@ export default {
 
             axios({
               method: 'put',
-              url: config.baseApi + "goods/update",
+              url: config.baseApi + "integragoods/update",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -531,7 +394,7 @@ export default {
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: '成功',
-                  message: '更新商品成功'
+                  message: '更新积分商品成功'
                 })
 
               }
@@ -554,7 +417,7 @@ export default {
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "goods/delete?id="+row.id,
+          url: config.baseApi + "integragoods/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -564,7 +427,7 @@ export default {
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除商品成功'
+              message: '删除积分商品成功'
             })
 
           }

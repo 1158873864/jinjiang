@@ -76,14 +76,14 @@ App({
                       },
                       fail: (res) => {
                         wx.hideLoading()
-                        wx.showModal({
-                          title: '连接服务器失败',
-                          content: res.errMsg,
-                          showCancel: false,
-                          success: (res) => {
-                            that.onShow()
-                          }
-                        })
+                        // wx.showModal({
+                        //   title: '连接服务器失败',
+                        //   content: res.errMsg,
+                        //   showCancel: false,
+                        //   success: (res) => {
+                        //     that.onShow()
+                        //   }
+                        // })
                       }
                     })
                   },
@@ -112,17 +112,17 @@ App({
           },
           fail: function (res) {
             wx.hideLoading()
-            wx.showModal({
-              title: '连接服务器失败',
-              content: res.errMsg,
-              showCancel: false,
-              success: (res) => {
-                wx.showLoading({
-                  title: '载入中',
-                })
-                that.onShow()
-              }
-            })
+            // wx.showModal({
+            //   title: '连接服务器失败',
+            //   content: res.errMsg,
+            //   showCancel: false,
+            //   success: (res) => {
+            //     wx.showLoading({
+            //       title: '载入中',
+            //     })
+            //     that.onShow()
+            //   }
+            // })
           }
         })
       },

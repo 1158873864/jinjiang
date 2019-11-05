@@ -6,9 +6,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "goods")
+@Table(name = "goods2")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Goods {//商品
+public class Goods2 {//商品
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;//编号
@@ -56,10 +56,10 @@ public class Goods {//商品
     @Column(name = "shopId")
     private String shopId; //对应门店id
 
-    public Goods() {
+    public Goods2() {
     }
 
-    public Goods(String name, String brief, double price, double memberPrice, double stockPrice, double freight, String standard, int number, int sales, String imageUrl, List<String> swiperImgs, String detail, String discountId, String shopId) {
+    public Goods2(String name, String brief, double price, double memberPrice, double stockPrice, double freight, String standard, int number, int sales, String imageUrl, List<String> swiperImgs, String detail, String discountId, String shopId) {
         this.name = name;
         this.brief = brief;
         this.price = price;
