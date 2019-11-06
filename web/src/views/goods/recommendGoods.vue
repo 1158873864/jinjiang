@@ -202,7 +202,7 @@ import Pagination from '@/components/Pagination' // Secondary package based on e
 
 
 export default {
-    name: 'List',
+    name: 'recommendGoods',
     components: { Pagination,Editor },
     data() {
       return {
@@ -281,7 +281,7 @@ export default {
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "goods/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "goods2/find/all?page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -394,7 +394,7 @@ export default {
         this.listLoading = true
         axios({
           method: 'get',
-          url: config.baseApi + "goods/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "goods2/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -471,7 +471,7 @@ export default {
 
             axios({
               method: 'post',
-              url: config.baseApi + "goods/add",
+              url: config.baseApi + "goods2/add",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -514,7 +514,7 @@ export default {
 
             axios({
               method: 'put',
-              url: config.baseApi + "goods/update",
+              url: config.baseApi + "goods2/update",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -554,7 +554,7 @@ export default {
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "goods/delete?id="+row.id,
+          url: config.baseApi + "goods2/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }

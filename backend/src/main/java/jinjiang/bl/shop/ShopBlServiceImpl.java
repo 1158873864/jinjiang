@@ -1,7 +1,9 @@
 package jinjiang.bl.shop;
 
 import jinjiang.blservice.shop.ShopBlService;
+import jinjiang.dao.admin.DeductDao;
 import jinjiang.dao.shop.ShopDao;
+import jinjiang.entity.admin.Deduct;
 import jinjiang.entity.shop.Shop;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,15 +19,19 @@ import java.util.Optional;
 @Service
 public class ShopBlServiceImpl implements ShopBlService {
     private final ShopDao shopdao;
+    private final DeductDao deductDao;
 
     @Autowired
-    public ShopBlServiceImpl(ShopDao shopdao){
+    public ShopBlServiceImpl(ShopDao shopdao, DeductDao deductDao){
         this.shopdao=shopdao;
+        this.deductDao = deductDao;
     }
 
     @Override
     public void addShop(Shop shop) {
-        shopdao.save(shop);
+        String id=shopdao.save(shop).getId();
+        Deduct deduct=new Deduct(0.3,0.3,0.3,0.1,id);
+        deductDao.save(deduct);
     }
 
     @Override

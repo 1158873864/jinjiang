@@ -205,7 +205,15 @@ export const asyncRouterMap = [
 	        noCache: true
 	      }
 	    },
-
+      {
+        path: 'deduct',
+        component: () => import('@/views/shopmanage/deduct'),
+        name: 'deduct',
+        meta: {
+          title: '酒庄分成管理',
+          noCache: true
+        }
+      },
 	  ],
   },
   {
@@ -482,9 +490,9 @@ export const asyncRouterMap = [
         }
       },*/
       {
-        path: 'coupon',
-        component: () => import('@/views/promotion/coupon'),
-        name: 'coupon',
+        path: 'discount',
+        component: () => import('@/views/promotion/discount'),
+        name: 'discount',
         meta: {
           perms: ['GET /admin/coupon/list', 'POST /admin/coupon/create', 'POST /admin/coupon/update', 'POST /admin/coupon/delete'],
           title: '优惠券管理',
@@ -492,15 +500,14 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'couponDetail',
-        component: () => import('@/views/promotion/couponDetail'),
-        name: 'couponDetail',
+        path: 'coupon',
+        component: () => import('@/views/promotion/coupon'),
+        name: 'coupon',
         meta: {
-          perms: ['GET /admin/coupon/list', 'GET /admin/coupon/listuser'],
-          title: '优惠券详情',
+          perms: ['GET /admin/coupon/list', 'POST /admin/coupon/create', 'POST /admin/coupon/update', 'POST /admin/coupon/delete'],
+          title: '用户优惠卷管理',
           noCache: true
-        },
-        hidden: true
+        }
       },
       /*
       {
@@ -558,6 +565,36 @@ export const asyncRouterMap = [
           noCache: true
         }
       },
+      {
+        path: 'ad',
+        component: () => import('@/views/sys/ad'),
+        name: 'ad',
+        meta: {
+          perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
+          title: '广告位管理',
+          noCache: true
+        }
+      },
+      {
+        path: 'culture',
+        component: () => import('@/views/sys/culture'),
+        name: 'culture',
+        meta: {
+          perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
+          title: '文化推广',
+          noCache: true
+        }
+      },
+      {
+        path: 'complain',
+        component: () => import('@/views/sys/complain'),
+        name: 'complain',
+        meta: {
+          perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
+          title: '投诉建议列表',
+          noCache: true
+        }
+      }
     /*  {
         path: 'os',
         component: () => import('@/views/sys/os'),

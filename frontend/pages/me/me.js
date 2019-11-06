@@ -286,7 +286,7 @@ Page({
   onShow: function (options) {
     var that = this
     //获取个人信息
-    api.getMyInfo.call(this, app.getOpenid())
+    //api.getMyInfo.call(this, app.getOpenid())
   },
 
   //发布信息

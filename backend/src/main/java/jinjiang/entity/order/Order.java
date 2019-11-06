@@ -16,14 +16,23 @@ public class Order {//订单
     @Column(name = "userId")
     private String userId; //对应人员id
 
+    @Column(name = "address")
+    private String address; //送货地址
+
+    @Column(name = "mobilePone")
+    private String mobilePone; //联系手机
+
+    @Column(name = "person")
+    private String person; //收货人
+
+    @Column(name = "freight")
+    private double freight; //运费
+
     @Column(name = "price")
     private double price; //总价
 
     @Column(name = "discountPrice")
-    private double discountPrice; //折扣后价格
-
-    @Column(name = "address")
-    private String address; //送货地址
+    private double discountPrice; //优惠
 
     @Column
     @ElementCollection(targetClass = String.class)

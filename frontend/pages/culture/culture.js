@@ -11,38 +11,38 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList: []
+    courseList: [0,0,0,0,0]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options.courseGroupId) {
-      var courseGroupId = options.courseGroupId;
-      var that = this
-      wx.request({
-        url: app.globalData.backendUrl + "courseGroup/findById",
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        data: {
-          id: courseGroupId
-        },
-        success: (res) => {
-          res.data.courseGroupItem.courseList.forEach(item => {
-            item.image = app.globalData.picUrl + item.image
-          })
-          that.setData({
-            courseList: res.data.courseGroupItem.courseList
-          })
-        }
-      })
-    } else {
-      api.getCourseList.call(this)
-    }
+    // if (options.courseGroupId) {
+    //   var courseGroupId = options.courseGroupId;
+    //   var that = this
+    //   wx.request({
+    //     url: app.globalData.backendUrl + "courseGroup/findById",
+    //     header: {
+    //       'Authorization': 'Bearer ' + app.getToken(),
+    //       'content-type': 'application/x-www-form-urlencoded'
+    //     },
+    //     method: 'GET',
+    //     data: {
+    //       id: courseGroupId
+    //     },
+    //     success: (res) => {
+    //       res.data.courseGroupItem.courseList.forEach(item => {
+    //         item.image = app.globalData.picUrl + item.image
+    //       })
+    //       that.setData({
+    //         courseList: res.data.courseGroupItem.courseList
+    //       })
+    //     }
+    //   })
+    // } else {
+    //   api.getCourseList.call(this)
+    // }
   },
   //展示文章详情
   onTouchThisArticle: function(e) {

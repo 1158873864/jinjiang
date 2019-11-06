@@ -13,7 +13,7 @@ public class Ad {
 	private String id;
 
 	@Column(name = "image")
-	private String image; //图片路径
+	private String image; //图片
 
 	@Column(name = "link")
 	private String link; //广告导向的链接
@@ -22,7 +22,7 @@ public class Ad {
 	private boolean checked; //是否被选中在首页展示
 
 	@Column(name = "showPlace")
-	private String showPlace; //展示的位置："index"（首页）, "service"（业务）
+	private String showPlace; //展示的位置：上部，中部，下部
 
 	public Ad() {
 	}
