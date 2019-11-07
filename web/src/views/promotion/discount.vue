@@ -124,12 +124,6 @@
             <el-radio-button :label="1">直推奖</el-radio-button>
           </el-radio-group>
         </el-form-item>
-        <el-form-item v-show="dataForm.goodsType === 1">
-          目前不支持
-        </el-form-item>
-        <el-form-item v-show="dataForm.goodsType === 2">
-          目前不支持
-        </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="dialogFormVisible = false">取消</el-button>

@@ -172,7 +172,7 @@
           checked: false,
           showPlace: ''
         },
-        showplaces: ['首页上部','首页中部','首页下部'],
+        showplaces: ['首页1','首页2','首页3','首页4'],
         isYesNo:'',//显示直播间或者商品
         list: [
         ],

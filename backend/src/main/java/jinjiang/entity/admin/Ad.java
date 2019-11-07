@@ -22,7 +22,7 @@ public class Ad {
 	private boolean checked; //是否被选中在首页展示
 
 	@Column(name = "showPlace")
-	private String showPlace; //展示的位置：上部，中部，下部
+	private String showPlace; //展示的位置：首页1，首页2，首页3,首页4
 
 	public Ad() {
 	}

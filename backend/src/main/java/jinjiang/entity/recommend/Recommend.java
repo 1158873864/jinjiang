@@ -18,16 +18,16 @@ public class Recommend {
 	@Column(name = "user")
 	private String user; //被推荐人
 
-	@Column(name = "is")
-	private boolean is; //是否推荐成功
+	@Column(columnDefinition="bit(1) default false",nullable=false)
+	private boolean status; //是否推荐成功
 
 	public Recommend() {
 	}
 
-	public Recommend(String referrer, String user, boolean is) {
+	public Recommend(String referrer, String user, boolean status) {
 		this.referrer = referrer;
 		this.user = user;
-		this.is = is;
+		this.status = status;
 	}
 
 	public String getId() {
@@ -54,11 +54,11 @@ public class Recommend {
 		this.user = user;
 	}
 
-	public boolean isIs() {
-		return is;
+	public boolean isStatus() {
+		return status;
 	}
 
-	public void setIs(boolean is) {
-		this.is = is;
+	public void setStatus(boolean status) {
+		this.status = status;
 	}
 }

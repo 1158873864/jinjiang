@@ -6,7 +6,7 @@ Page({
   data: {
     isShow: true,
     isShowVIP: true,
-    articles: [],
+    articles: [0,0,0,0,0,0],
     writerFace: '',
     writerName: '',
     writerOpenid: '',

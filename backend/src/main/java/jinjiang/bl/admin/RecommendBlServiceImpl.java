@@ -47,8 +47,10 @@ public class RecommendBlServiceImpl implements RecommendService {
         Optional<Recommend> optionalRecommend=recommendDao.findById(recommend.getId());
         if (optionalRecommend.isPresent()){
            Recommend newRecommend=optionalRecommend.get();
-           newRecommend.setIs(recommend.isIs());
-
+           newRecommend.setStatus(recommend.isStatus());
+           newRecommend.setReferrer(recommend.getReferrer());
+           newRecommend.setUser(recommend.getUser());
+           recommendDao.save(newRecommend);
         }else {
             throw new NotExistException("address ID", recommend.getId());
         }

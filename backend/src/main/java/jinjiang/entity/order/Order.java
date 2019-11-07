@@ -42,7 +42,7 @@ public class Order {//订单
     private String BuyTime;//购买时间
 
     @Column(name = "status")
-    private String status; //状态，包含:待付款、待发货、待收货、待评价
+    private String status; //状态，包含:待付款、待发货、待收货、待评价、已完成
 
     public Order() {
     }

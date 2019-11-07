@@ -12,15 +12,13 @@
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
       <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
 
-      <el-table-column align="center" label="用户" prop="userName"/>
+      <el-table-column align="center" label="推荐人" prop="referrerName"/>
 
-      <el-table-column align="center" label="优惠券" prop="discountName"/>
+      <el-table-column align="center" label="被推荐人" prop="userName"/>
 
-      <el-table-column align="center" label="状态" prop="status"/>
-
-      <el-table-column align="center" label="开始时间" prop="startTime"/>
-
-      <el-table-column align="center" label="结束时间" prop="endTime"/>
+      <el-table-column align="center" label="是否推荐成功" prop="status">
+        <template slot-scope="scope">{{ scope.row.status | statusFilter }}</template>
+      </el-table-column>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -35,15 +33,15 @@
     <!-- 添加或修改对话框 -->
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="用户" prop="user">
-          <el-select v-model="dataForm.user">
-            <el-option v-for="item in users" :key="item.id" :label="item.name" :value="item.id"/>
+        <el-form-item label="推荐人" prop="referrer">
+          <el-select v-model="dataForm.referrer">
+            <el-option v-for="item in referrers" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
         </el-form-item>
 
-        <el-form-item label="优惠券" prop="discount">
-          <el-select v-model="dataForm.discount">
-            <el-option v-for="item in discounts" :key="item.id" :label="item.name" :value="item.id"/>
+        <el-form-item label="被推荐人" prop="user">
+          <el-select v-model="dataForm.user">
+            <el-option v-for="item in users" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
         </el-form-item>
 
@@ -53,15 +51,6 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item>
-          <el-col :span="11">
-            <el-date-picker v-model="dataForm.startTime" type="datetime"  format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"  placeholder="开始时间" style="width: 100%;"/>
-          </el-col>
-          <el-col :span="2" class="line">至</el-col>
-          <el-col :span="11">
-            <el-date-picker v-model="dataForm.endTime" type="datetime"  format="yyyy-MM-dd HH:mm:ss" value-format="yyyy-MM-dd HH:mm:ss"  placeholder="结束时间" style="width: 100%;"/>
-          </el-col>
-        </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -91,22 +80,15 @@ import {
 import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 export default {
-  name: 'Coupon',
+  name: 'Recommend',
   filters: {
-    shareholderIdFilter(shareholderId) {
-      axios({
-        method: 'get',
-        url: config.baseApi + "user/find/id?id="+shareholderId,
-        headers:{
-          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-        }
-      }).then(response => {
-        if(response.data.code==0){
-          return response.data.data.user.name
-        }
-      }).catch(error => {
-
-      });
+    statusFilter(status) {
+      if(status){
+        return "是"
+      }
+      else{
+        return "否"
+      }
 
     }
   },
@@ -128,15 +110,13 @@ export default {
       },
       dataForm: {
         id: '',
+        referrer: '',
         user: '',
-        discount: '',
-        status: '',
-        startTime: '',
-        endTime: ''
+        status: false
       },
-      statuses: ['未使用','已使用','已过期'],
+      statuses: [true,false],
       users:[],
-      discounts:[],
+      referrers:[],
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -160,7 +140,7 @@ export default {
 
     axios({
       method: 'get',
-      url: config.baseApi + "coupon/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+      url: config.baseApi + "recommend/find/all?page="+ (this.listQuery.page-1)+"&size=20",
       headers:{
         "X-Litemall-Admin-Token":sessionStorage.getItem('token')
       }
@@ -170,24 +150,22 @@ export default {
         for(let i=0;i<this.list.length;i++){
           axios({
             method: 'get',
+            url: config.baseApi + "user/find/id?id="+ this.list[i].referrer,
+            headers:{
+              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+            }
+          }).then(res => {
+            this.list[i].referrerName = res.data.data.items.name
+          }).catch(error => {
+          });
+          axios({
+            method: 'get',
             url: config.baseApi + "user/find/id?id="+ this.list[i].user,
             headers:{
               "X-Litemall-Admin-Token":sessionStorage.getItem('token')
             }
           }).then(res => {
             this.list[i].userName = res.data.data.items.name
-
-          }).catch(error => {
-          });
-          axios({
-            method: 'get',
-            url: config.baseApi + "discount/find/id?id="+ this.list[i].discount,
-            headers:{
-              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-            }
-          }).then(res => {
-            console.log(res.data.data.items.name)
-            this.list[i].discountName = res.data.data.items.name
 
           }).catch(error => {
           });
@@ -208,24 +186,12 @@ export default {
         "X-Litemall-Admin-Token":sessionStorage.getItem('token')
       }
     }).then(response => {
-
+      this.referrers= response.data.data.items.content
       this.users = response.data.data.items.content
-
     }).catch(error => {
     });
 
-    axios({
-      method: 'get',
-      url: config.baseApi + "discount/find/all?&page="+ (this.listQuery.page-1)+"&size=20",
-      headers:{
-        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-      }
-    }).then(response => {
 
-      this.discounts = response.data.data.items.content
-
-    }).catch(error => {
-    });
 
     },
     handleFilter() {
@@ -234,7 +200,7 @@ export default {
       this.listLoading = true
       axios({
         method: 'get',
-        url: config.baseApi + "coupon/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
+        url: config.baseApi + "recommend/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
         headers:{
           "X-Litemall-Admin-Token":sessionStorage.getItem('token')
         }
@@ -244,24 +210,22 @@ export default {
           for(let i=0;i<this.list.length;i++){
             axios({
               method: 'get',
+              url: config.baseApi + "user/find/id?id="+ this.list[i].referrer,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              this.list[i].referrerName = res.data.data.items.name
+            }).catch(error => {
+            });
+            axios({
+              method: 'get',
               url: config.baseApi + "user/find/id?id="+ this.list[i].user,
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               }
             }).then(res => {
               this.list[i].userName = res.data.data.items.name
-
-            }).catch(error => {
-            });
-            axios({
-              method: 'get',
-              url: config.baseApi + "discount/find/id?id="+ this.list[i].discount,
-              headers:{
-                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-              }
-            }).then(res => {
-              console.log(res.data.data.items.name)
-              this.list[i].discountName = res.data.data.items.name
 
             }).catch(error => {
             });
@@ -278,11 +242,9 @@ export default {
     resetForm() {
       this.dataForm = {
         id: '',
+        referrer: '',
         user: '',
-        discount: '',
-        status: '',
-        startTime: '',
-        endTime: ''
+        status: false
       }
     },
     handleCreate() {
@@ -299,7 +261,7 @@ export default {
 
           axios({
             method: 'post',
-            url: config.baseApi + "coupon/add",
+            url: config.baseApi + "recommend/add",
             headers:{
               "X-Litemall-Admin-Token":sessionStorage.getItem('token')
             },
@@ -342,7 +304,7 @@ export default {
 
           axios({
             method: 'put',
-            url: config.baseApi + "coupon/update",
+            url: config.baseApi + "recommend/update",
             headers:{
               "X-Litemall-Admin-Token":sessionStorage.getItem('token')
             },
@@ -355,6 +317,19 @@ export default {
                   this.list.splice(index, 1, this.dataForm)
                   axios({
                     method: 'get',
+                    url: config.baseApi + "user/find/id?id="+ this.dataForm.referrer,
+                    headers:{
+                      "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                    }
+                  }).then(res => {
+
+                    this.list[index].referrerName = res.data.data.items.name
+
+                  }).catch(error => {
+                  });
+
+                  axios({
+                    method: 'get',
                     url: config.baseApi + "user/find/id?id="+ this.dataForm.user,
                     headers:{
                       "X-Litemall-Admin-Token":sessionStorage.getItem('token')
@@ -363,16 +338,6 @@ export default {
 
                     this.list[index].userName = res.data.data.items.name
 
-                  }).catch(error => {
-                  });
-                  axios({
-                    method: 'get',
-                    url: config.baseApi + "discount/find/id?id="+ this.dataForm.discount,
-                    headers:{
-                      "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                    }
-                  }).then(res => {
-                    this.list[index].discountName = res.data.data.items.name
                   }).catch(error => {
                   });
                   break
@@ -405,7 +370,7 @@ export default {
       var data = {id:row.id};
       axios({
         method: 'get',
-        url: config.baseApi + "coupon/delete?id="+row.id,
+        url: config.baseApi + "recommend/delete?id="+row.id,
         headers:{
           "X-Litemall-Admin-Token":sessionStorage.getItem('token')
         }

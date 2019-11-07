@@ -8,7 +8,7 @@ const {
 
 Page({
   data: {
-    ad1: '../../img/banner1.jpg',
+    ad1: 'http://47.106.171.65/record/7da730ee84084544aea2e7a8942790dc.jpg',
     ad2: '../../img/banner2.jpg',
     ad3: '../../img/banner3.jpg',
     ad4: '../../img/banner4.jpg',

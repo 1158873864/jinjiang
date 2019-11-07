@@ -608,8 +608,54 @@ export const asyncRouterMap = [
     ]
   },
 
-
-
+  {
+    path: '/recommend',
+    component: Layout,
+    redirect: 'noredirect',
+    alwaysShow: true,
+    hidden:false,
+    name: 'order',
+    meta: {
+      title: '推广管理',
+      icon: 'chart'
+    },
+    children: [
+      {
+        path: 'recommend',
+        component: () => import('@/views/recommend/recommend'),
+        name: 'recommend',
+        meta: {
+          // perms: ['GET /admin/stat/user'],
+          title: '会员推广管理',
+          noCache: true
+        }
+      }
+    ]
+  },
+  {
+    path: '/order',
+    component: Layout,
+    redirect: 'noredirect',
+    alwaysShow: true,
+    hidden:false,
+    name: 'order',
+    meta: {
+      title: '订单管理',
+      icon: 'chart'
+    },
+    children: [
+      {
+        path: 'order',
+        component: () => import('@/views/order/order'),
+        name: 'order',
+        meta: {
+          // perms: ['GET /admin/stat/user'],
+          title: '订单列表',
+          noCache: true
+        }
+      }
+    ]
+  },
 
   {
     path: '/stat',
@@ -655,109 +701,8 @@ export const asyncRouterMap = [
     ]
   },
 
-	{
-	  path: '/shopinfo',
-	  component: Layout,
-	  redirect: 'noredirect',
-    alwaysShow: true,
-    hidden:true,
-	  name: 'shopinfo',
-	  meta: {
-	    title: '商家信息',
-	    icon: 'chart'
-	  },
-	  children: [
-	    {
-	      path: 'modiinfo',
-	      component: () => import('@/views/shopinfo/modiinfo'),
-	      name: 'modiinfo',
-	      meta: {
-	        // perms: ['GET /admin/stat/user'],
-	        title: '个人信息修改',
-	        noCache: true
-	      }
-	    }
-	  ]
-  },
-
-  {
-    path: '/money',
-    component: Layout,
-	  redirect: 'noredirect',
-    alwaysShow: true,
-    name: 'money',
-    hidden:false,
-    meta: {
-      title: '交纳保证金',
-      noCache: true,
-      icon: 'chart'
-    },
-    children: [
-      {
-        path: 'payMoney',
-        component: () => import('@/views/money/money'),
-        name: 'payMoney',
-        meta: {
-          title: '交纳保证金',
-          noCache: true,
 
 
-        }
-      },
-    ]
-  },
-
-   //新闻管理
-   {
-	  path: '/shopnews',
-	  component: Layout,
-	  redirect: 'noredirect',
-    alwaysShow: true,
-    hidden:false,
-	  name: 'shopnews',
-	  meta: {
-	    title: '新闻管理',
-	    icon: 'chart'
-	  },
-	  children: [
-	    {
-	      path: 'shopnews',
-	      component: () => import('@/views/shopnews/shopnews'),
-	      name: 'shopnews',
-	      meta: {
-	        // perms: ['GET /admin/stat/user'],
-	        title: '新闻管理',
-	        noCache: true
-	      }
-	    }
-	  ]
-  },
-
-   //系统公告
-   {
-	  path: '/announcement',
-	  component: Layout,
-	  redirect: 'noredirect',
-    alwaysShow: true,
-    hidden:false,
-	  name: 'announcement',
-	  meta: {
-	    title: '系统公告',
-	    icon: 'chart'
-	  },
-	  children: [
-	    {
-	      path: 'announcement',
-	      component: () => import('@/views/announcement/announcement'),
-	      name: 'announcement',
-	      meta: {
-	        // perms: ['GET /admin/stat/user'],
-	        title: '系统公告',
-	        noCache: true
-	      }
-	    }
-	  ]
-  },
 
 
 
