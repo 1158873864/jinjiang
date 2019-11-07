@@ -46,23 +46,23 @@
   </view>
 
   <view class="hot">
-     <view class="hot_item" bindtap="onTouchThisArticle" data-kind='goodsDetail' data-id='{{item.id}}'>
-         <image class='banner_img' mode='widthFix' src='../../img/hot1.jpg'></image>
-         <view class="black_txt">金酱2016陈酿酒</view>
-         <view class="black_txt">500ml*瓶</view>
-         <view class="red_txt">¥668.00</view>
+     <view class="hot_item" bindtap="onTouchThisArticle" data-kind="goodsDetail" data-id='{{hots[0].id}}'>
+         <image class='banner_img' mode='widthFix' src='{{hots[0].imageUrl}}'></image>
+         <view class="black_txt">{{hots[0].name}}</view>
+         <view class="black_txt">{{hots[0].standard}}</view>
+         <view class="red_txt">¥{{hots[0].price}}</view>
      </view>
-     <view class="hot_item">
-         <image class='banner_img' mode='widthFix' src='../../img/hot1.jpg'></image>
-         <view class="black_txt">金酱2016陈酿酒</view>
-         <view class="black_txt">500ml*瓶</view>
-         <view class="red_txt">¥668.00</view>
+     <view class="hot_item" bindtap="onTouchThisArticle" data-id='{{hots[1].id}}'>
+         <image class='banner_img' mode='widthFix' src='{{hots[1].imageUrl}}'></image>
+         <view class="black_txt">{{hots[1].name}}</view>
+         <view class="black_txt">{{hots[1].standard}}</view>
+         <view class="red_txt">¥{{hots[1].price}}</view>
      </view>
-     <view class="hot_item">
-         <image class='banner_img' mode='widthFix' src='../../img/hot1.jpg'></image>
-         <view class="black_txt">金酱2016陈酿酒</view>
-         <view class="black_txt">500ml*瓶</view>
-         <view class="red_txt">¥668.00</view>
+     <view class="hot_item" bindtap="onTouchThisArticle" data-id='{{hots[2].id}}'>
+         <image class='banner_img' mode='widthFix' src='{{hots[2].imageUrl}}'></image>
+         <view class="black_txt">{{hots[2].name}}</view>
+         <view class="black_txt">{{hots[2].standard}}</view>
+         <view class="red_txt">¥{{hots[2].price}}</view>
      </view>
   </view>
   
@@ -77,14 +77,14 @@
 
 <view class='recommend'  wx:for="{{recommends}}" wx:key="id" wx:for-index="index">
   <view class="recommend">
-     <view class="recommend_item" bindtap="onTouchThisArticle" data-kind='goodsDetail' data-id='{{item.id}}'>
-        <image class='recommend_image' mode='widthFix' src='../../img/r1.jpg'></image>
+     <view class="recommend_item" bindtap="onTouchThisArticle" data-kind="goodsDetail" data-id='{{item.id}}'>
+        <image class='recommend_image' mode='widthFix' src='{{item.imageUrl}}'></image>
         <view class="recommend_right">
-            <view class="black_txt1">金酱2016陈酿酒               </view>
-            <view class="black_txt1">500ml*瓶</view>
+            <view class="black_txt1">{{item.name}}               </view>
+            <view class="black_txt1">{{item.standard}}</view>
             <view class="recommend_bottom"> 
-                <view class="red_txt">¥668.00</view>
-                <view class="sale">777件已售</view>
+                <view class="red_txt">¥{{item.price}}</view>
+                <view class="sale">{{item.sales}}件已售</view>
             </view>
      </view>
     </view>
@@ -101,12 +101,12 @@
 <view class="gridview" style='background:white;'>
   <view class="gridview-item" wx:for="{{integrals}}" wx:key="id" wx:for-index="index">
     <view bindtap="onTouchThisArticle" data-kind='integralDetail' data-id='{{item.id}}'>
-       <image class='integral_image' mode='widthFix' src='../../img/integral.jpg'></image>
-       <view class="black_txt2">金酱2016陈酿酒               </view>
-            <view class="black_txt2">500ml*瓶</view>
+       <image class='integral_image' mode='widthFix' src='{{item.imageUrl}}'></image>
+       <view class="black_txt2">{{item.name}}               </view>
+            <view class="black_txt2">{{item.stardard}}</view>
         <view class="integral_convert">
            <image class='integral_convert_image' src='../../img/金币.png'></image>
-            <view class="orange_txt">兑换积分:668</view>
+            <view class="orange_txt">兑换积分:6{{item.integral}}</view>
             
         </view>
         <image class='integral_button' src='../../img/rightnow.png'></image>

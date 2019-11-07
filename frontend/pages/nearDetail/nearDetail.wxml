@@ -2,17 +2,17 @@
 <!--课程类展示-->
 <view style='width:100%;'>
   <view class='head'>
-    <image mode='widthFix' src='{{course.image}}'></image>
+    <image mode='widthFix' src='{{shop.showUrl}}'></image>
   </view>
   <view class='course-head row'>
     <view class='coursePrice column' style='width:100%'>
-      <text style='color:black; font-size:1rem; font-weight:bold;'>{{course.title}}</text>
+      <text style='color:black; font-size:1rem; font-weight:bold;'>{{shop.name}}</text>
       <view>
-        <text style='font-size:0.9rem'>地址：xxxxxxxxxxxxxxxxxx</text>
+        <text style='font-size:0.9rem'>地址：{{shop.province}}{{shop.city}}{{shop.district}}{{shop.detail}}</text>
       </view>
       <view style="display:flex;margin-top: 6px;">
         <image style="width:14px;height:15px;margin-top:3px; " src="../../img/图层4.png"></image>
-        <text style='font-size:0.8rem'>距离：xxxxxxxxxxx</text>
+        <text style='font-size:0.8rem'>距离：11km</text>
          <text style='margin-left:130px; color:orange;font-size:0.8rem'>到这里去</text>
          <image style="width:15px;height:15px;margin-top:4px;" src="../../img/图层7.png"></image>
       </view>
@@ -20,7 +20,7 @@
   </view>
   <view class='course-intro column'>
     <view class='detail column' style='font-size:0.8rem;'>
-      <text>电话：9382435435</text>
+      <text>电话：{{shop.mobilePhone}}</text>
     </view>
   </view>
 
@@ -28,7 +28,7 @@
     <view class='detail column' style='font-size:0.8rem;'>
       <text>营业时间</text>
       <view class="div-line"></view>
-      <text>9.00-18.00</text>
+      <text>{{shop.workTime}}</text>
     </view>
   </view>
 
@@ -36,13 +36,13 @@
 <view class="gridview" style='background:white;'>
   <view class="gridview-item" wx:for="{{goods}}" wx:key="id" wx:for-index="index">
     <view bindtap="onTouchThisArticle" data-kind='goodsDetail' data-id='{{item.id}}'>
-       <image class='integral_image' mode='widthFix' src='../../img/integral.jpg'></image>
-       <view class="black_txt2">金酱2016陈酿酒               </view>
-            <view class="black_txt2">500ml*瓶</view>
+       <image class='integral_image' mode='widthFix' src='{{item.imageUrl}}'></image>
+       <view class="black_txt2">{{item.name}}               </view>
+            <view class="black_txt2">{{item.standard}}</view>
         <view class="integral_convert">
            
-            <view class="orange_txt">¥668.00</view>
-            <view class="sale">777件已售</view>
+            <view class="orange_txt">¥{{item.price}}</view>
+            <view class="sale">{{item.sales}}件已售</view>
         </view>
         </view>
   </view>

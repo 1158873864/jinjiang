@@ -26,7 +26,7 @@ App({
       success: function (res) {
         var js_code = res.code
         wx.request({
-          url: that.globalData.backendUrl + "getOpenIdAndSessionKey",
+          url: that.globalData.backendUrl + "user/getOpenIdAndSessionKey",
           header: {
             'content-type': 'application/x-www-form-urlencoded'
           },
@@ -52,7 +52,7 @@ App({
                     wx.setStorageSync("wechatUsername", data.userInfo.nickName);
                     wx.setStorageSync("wechatFaceUrl", data.userInfo.avatarUrl)
                     wx.request({
-                      url: that.globalData.backendUrl + "loginMyUser",
+                      url: that.globalData.backendUrl + "user/loginMyUser",
                       header: {
                         'Authorization': 'Bearer ' + that.getToken(),
                         'content-type': 'application/x-www-form-urlencoded'
@@ -76,14 +76,14 @@ App({
                       },
                       fail: (res) => {
                         wx.hideLoading()
-                        // wx.showModal({
-                        //   title: '连接服务器失败',
-                        //   content: res.errMsg,
-                        //   showCancel: false,
-                        //   success: (res) => {
-                        //     that.onShow()
-                        //   }
-                        // })
+                        wx.showModal({
+                          title: '连接服务器失败',
+                          content: res.errMsg,
+                          showCancel: false,
+                          success: (res) => {
+                            that.onShow()
+                          }
+                        })
                       }
                     })
                   },
@@ -112,17 +112,17 @@ App({
           },
           fail: function (res) {
             wx.hideLoading()
-            // wx.showModal({
-            //   title: '连接服务器失败',
-            //   content: res.errMsg,
-            //   showCancel: false,
-            //   success: (res) => {
-            //     wx.showLoading({
-            //       title: '载入中',
-            //     })
-            //     that.onShow()
-            //   }
-            // })
+            wx.showModal({
+              title: '连接服务器失败',
+              content: res.errMsg,
+              showCancel: false,
+              success: (res) => {
+                wx.showLoading({
+                  title: '载入中',
+                })
+                that.onShow()
+              }
+            })
           }
         })
       },
@@ -142,7 +142,7 @@ App({
     token: "",
     defaultPic:'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
     //backendUrl: "https://junrongcenter.com:3389/",//used
-    backendUrl: "http://localhost:3389/",
+    backendUrl: "http://127.0.0.1:3389/",
     testUrl:"http://10.107.30.176:8080/JRQ.Backend/",
     picUrl: "https://www.junrongcenter.com/"//used
     //backendUrl: "http://localhost:3389/",

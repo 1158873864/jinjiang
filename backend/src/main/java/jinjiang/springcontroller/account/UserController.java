@@ -1,8 +1,7 @@
 package jinjiang.springcontroller.account;
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
+import jinjiang.response.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -118,5 +117,24 @@ public class UserController {
     public ResponseEntity<Result> setDefaultAddress(@RequestParam("userId")String userId,@RequestParam("addressId")String addressId) throws NotExistException {
         userBlService.setDefaultAddress(userId,addressId);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "小程序前端获取openid和session", notes = "小程序前端获取openid和session")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "jsCode", value = "微信小程序的jsCode", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/getOpenIdAndSessionKey", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Response> getOpenIdAndSessionKey(@RequestParam(name = "jsCode") String jsCode) {
+        return new ResponseEntity<>(userBlService.getOpenIdAndSessionKey(jsCode), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户登录小程序", notes = "用户登录小程序")
+    @RequestMapping(value = "/loginMyUser", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> loginMyUser(@RequestParam(name = "openid") String openid, @RequestParam(name = "username") String username, @RequestParam(name = "faceWxUrl") String faceWxUrl){
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",userBlService.loginMyUser(openid,username,faceWxUrl));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 }

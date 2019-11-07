@@ -1,22 +1,27 @@
 package jinjiang.bl.account;
 
 
-import jinjiang.dao.account.LevelDao;
 import jinjiang.dao.shop.ShopDao;
 import jinjiang.entity.shop.Shop;
+import jinjiang.response.account.OpenIdAndSessionKeyResponse;
+import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import jinjiang.blservice.account.UserBlService;
 import jinjiang.dao.account.UserDao;
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import org.springframework.web.client.RestTemplate;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.io.*;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 
 @Service
@@ -146,5 +151,56 @@ public class UserBlServiceImpl implements UserBlService {
 			throw new NotExistException("User ID", userId);
 		}
 	}
+
+	@Value(value = "${wechat.url}")
+	private String wechatUrl;
+
+	@Value(value = "${wechat.id}")
+	private String appId;
+
+	@Value(value = "${wechat.secret}")
+	private String appSecret;
+
+	@Override
+	public OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode) {
+		RestTemplate client = new RestTemplate();
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		ResponseEntity<String> response = client.exchange(wechatUrl + appId + "&secret=" + appSecret + "&js_code=" + jsCode + "&grant_type=authorization_code", HttpMethod.GET, entity, String.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			String openid = (String) JSONObject.fromObject(response.getBody()).get("openid");
+//            User user=null;
+//			try {
+//				user = userDataService.getUserByOpenid(openid);
+//			} catch (NotExistException e) {
+//				e.printStackTrace();
+//			}
+
+			//JwtUser jwtUser = (JwtUser) jwtUserDetailsService.loadUserByUsername(openid);
+			String token = "";
+			//token = jwtService.generateToken(jwtUser, EXPIRATION);
+
+			return new OpenIdAndSessionKeyResponse(openid, (String) JSONObject.fromObject(response.getBody()).get("session_key"), token);
+		} else {
+			return new OpenIdAndSessionKeyResponse("", (String) JSONObject.fromObject(response.getBody()).get("session_key"), "");
+		}
+	}
+
+    @Override
+    public User loginMyUser(String openid, String username, String faceWxUrl)  {
+	    Optional<User> optionalUser=userDao.findByOpenid(openid);
+	    if(optionalUser.isPresent()){
+            return optionalUser.get();
+        }
+        else{
+			Date currentTime = new Date();
+			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+			String dateString = formatter.format(currentTime);
+	        User user=new User(username,openid,"","","",faceWxUrl,"member","","","","",0,0,0,dateString,"","",0);
+	        userDao.save(user);
+	        return user;
+        }
+    }
 
 }

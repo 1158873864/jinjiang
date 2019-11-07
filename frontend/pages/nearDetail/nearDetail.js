@@ -9,52 +9,48 @@ Page({
    */
   data: {
 
-    goods:[0,0,0,0,0,0,0]
-
-    ,
-    isShowPrice:true,
-    course: {
-      id: 1, //编号
-      title: "《有效识别金融项目》课程。", //标题
-      image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png', //图片
-      writerName: '锄禾日当午', //作者名字
-      date: '2018-1-1', //日期
-      likeNum: 999, //点赞数
-      videos: ['http://www.w3school.com.cn/i/movie.ogg'], //视屏url
-      price: 998, //价格
-    }
+    goods:[],
+    shop:undefined
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var condition = true
-    api.getIOSQualification.call(this, (res) => {
-      console.log(res)
-      condition = res
-      if (condition) {
+    wx.request({
+      url: app.globalData.backendUrl + "shop/find/id",
+      data: {
+        id:options.id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
         this.setData({
-          isShowPrice: false
+          shop: res.data.data.items
         })
       }
-    }) 
-    var that = this
-    api.getLevelList.call(this, (levels) => {
-      levels.forEach((level) => {
-        /*console.log(level)*/
-        switch (level.name) {
-          case "298": that.data.discount298 = level.courseDiscountedRatio; break;
-          case "998": that.data.discount998 = level.courseDiscountedRatio; break;
-          default: break;
-        }
-      })
-      that.setData(that.data)
     })
-    api.getMyCourse(app.getOpenid(), options.id, (course) => {
-      this.setData({
-        course: course
-      })
+
+    wx.request({
+      url: app.globalData.backendUrl + "goods/find/ShopId",
+      data: {
+        ShopId:options.id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          goods: res.data.data.items.content
+        })
+      }
     })
   },
 

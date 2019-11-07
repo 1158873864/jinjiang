@@ -40,14 +40,15 @@ spring:
   aop:
     auto: true
     proxy-target-class: false
-  mail:
-       host: smtp.qq.com
-       username: 1919739928@qq.com
-       password: jmcmnfqgidbmdfeb
-       properties:
-          mail:
-            smtp:
-              auth: true
-              starttls:
-                 enables: true
-                 required: true
+wechat:
+  url: https://api.weixin.qq.com/sns/jscode2session?appid=
+  order_url: https://api.mch.weixin.qq.com/pay/unifiedorder
+  id: wx925bde00c413bb22
+  secret: d102d7a1487ae1124ae9cf398109ca07
+  mch_id: 1515757801
+  body: 金酱直营酒庄
+  device_info: WEB
+  notify_url: https://junrongcenter.com:3389/getWxPayResult
+  trade_type: JSAPI
+  api_key: junrongcenterxiaochengxu556677mm
+  sign_type: MD5

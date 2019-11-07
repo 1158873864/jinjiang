@@ -15,16 +15,16 @@
 
 <view class="gridview" style='background:white;'>
   <view class="gridview-item" wx:for="{{integrals}}" wx:key="id" wx:for-index="index">
-    
-       <image class='integral_image' mode='widthFix' src='../../img/integral.jpg'></image>
-       <view class="black_txt2">金酱2016陈酿酒               </view>
-            <view class="black_txt2">500ml*瓶</view>
+    <view bindtap="onTouchThisArticle" data-id='{{item.id}}'>
+       <image class='integral_image' src='{{item.imageUrl}}'></image>
+       <view class="black_txt2">{{item.name}}               </view>
+            <view class="black_txt2">{{item.standard}}   </view>
         <view class="integral_convert">
            
-            <view class="orange_txt">¥668.00</view>
-            <view class="sale">777件已售</view>
+            <view class="orange_txt">¥{{item.price}}</view>
+            <view class="sale">{{item.sales}}件已售</view>
         </view>
-        
+        </view>
   </view>
 
 </view>

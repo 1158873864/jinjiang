@@ -9,9 +9,10 @@ const {
 Page({
   data: {
     ad1: 'http://47.106.171.65/record/7da730ee84084544aea2e7a8942790dc.jpg',
-    ad2: '../../img/banner2.jpg',
-    ad3: '../../img/banner3.jpg',
-    ad4: '../../img/banner4.jpg',
+    ad2: 'http://47.106.171.65/record/28a7612ff3b74c7aaaa812f7c1001721.jpg',
+    ad3: 'http://47.106.171.65/record/9aa8782a09624f6199b272caf8ea9116.jpg',
+    ad4: 'http://47.106.171.65/record/48578487e4ce4c8ab205ff0d59461dba.jpg',
+    hots: [],
     recommends: [0,0,0,0],
     integrals: [0, 0, 0, 0],
     array: [{
@@ -43,74 +44,137 @@ Page({
     ad: '',
     link:'',
     ads: [],
-    
-    links: [],
-    image: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    cards: [{
-        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
-      },
-      {
-        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
-
-      },
-      {
-        thumbnail: 'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-        articleName: '什么是金融？',
-        summary: '一般指与货币流通及银行有关的东西'
-      }
-    ],
-
-    articles: [],
-    videos: [],
-    kind: null,
-    currentKind: null,
-    searchCondition: null,
-    lastId: "",
-    lastIdType: "",
-    flag: false,
-    bg1: bg1,
   },
 
   //事件处理函数
   onLoad: function() {
-    
-    this.setData({
-      kind: 'document',
-      currentKind: 'course',
-      searchCondition: null,
-      lastId: "",
-      lastIdType: "",
-      videoId: "",
-      videoIdType: "",
-      articles: [],
-      videos: []
+    wx.request({
+      url: app.globalData.backendUrl + "ad/find/showPlace",
+      data: {
+        showPlace: '首页1'
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          ad1: res.data.data.items.image
+        })
+      }
     })
-    this.showVideos();
-    this.showCurricular();
 
+    wx.request({
+      url: app.globalData.backendUrl + "ad/find/showPlace",
+      data: {
+        showPlace: '首页2'
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          ad2: res.data.data.items.image
+        })
+      }
+    })
 
-    api.getAd.call(this, 'index', (res) => {
-      this.setData({
-        ad: res.ad.image,
-        link:res.ad.link
-      })
-      // 使用ads和links代替原有的ad和link
-      var ads_temp = this.data.ads;
-      var links_temp = this.data.links;
-      ads_temp.push(res.ad.image);
-      ads_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E8%81%94%E7%B3%BB%E6%88%91%E4%BB%AC.jpg");
-      ads_temp.push("https://take-out.oss-cn-hangzhou.aliyuncs.com/%E5%9F%BA%E9%87%91%E6%9C%8D%E5%8A%A1.jpg");
-      links_temp.push(res.ad.link);
-      links_temp.push(res.ad.link);
-      links_temp.push(res.ad.link);
-      this.setData({
-        ads: ads_temp,
-        link: links_temp
-      })
+    wx.request({
+      url: app.globalData.backendUrl + "ad/find/showPlace",
+      data: {
+        showPlace: '首页3'
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          ad3: res.data.data.items.image
+        })
+      }
+    })
+
+    wx.request({
+      url: app.globalData.backendUrl + "ad/find/showPlace",
+      data: {
+        showPlace: '首页4'
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          ad4: res.data.data.items.image
+        })
+      }
+    })
+
+    wx.request({
+      url: app.globalData.backendUrl + "goods/find/all",
+      data: {
+        page:0,
+        size:3
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          hots: res.data.data.items.content
+        })
+      }
+    })
+
+    wx.request({
+      url: app.globalData.backendUrl + "goods2/find/all",
+      data: {
+        page: 0,
+        size: 4
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          recommends: res.data.data.items.content
+        })
+      }
+    })
+
+    wx.request({
+      url: app.globalData.backendUrl + "integragoods/find/all",
+      data: {
+        page: 0,
+        size: 4
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          integrals: res.data.data.items.content
+        })
+      }
     })
   },
 

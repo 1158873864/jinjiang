@@ -65,6 +65,18 @@ public class AdController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找广告", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/find/showPlace", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByshowPlace(@RequestParam("showPlace") String showPlace) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",AdService.findByshowPlace(showPlace));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有广告", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody

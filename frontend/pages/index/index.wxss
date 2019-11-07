@@ -243,7 +243,7 @@ letter-spacing:5rpx;
   background-color: white;
   margin: 3px;
   width: 35%;
-  height: 210px;
+  height: 200px;
   display: block;
 }
 

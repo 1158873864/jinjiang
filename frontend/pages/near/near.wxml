@@ -19,16 +19,16 @@
     <view class='conten' bindtap='onTouchThisArticle' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='img'>
-          <image class='img_bofang' src='../../img/shop.jpg'></image>
+          <image class='img_bofang' src='{{item.faceUrl}}'></image>
         </view>
         <view class='right'>
-          <view class='title'>门店名字</view>
-          <view class='title'>电话：xxxxxxxx</view>
-          <view class='title'>地址：xxxxxxxxxx</view>
+          <view class='title'>{{item.name}}</view>
+          <view class='title'>电话：{{item.mobilePhone}}</view>
+          <view class='title'>地址：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
           <view class='shoping'>
-            <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
+          
             <image class="position" src='../../img/定位.png'></image>
-            <text class='img_cart'>距离：xxkm</text>
+            <text class='img_cart'>距离：{{item.detail}}</text>
           </view>
         </view>
         

@@ -2,6 +2,7 @@ package jinjiang.blservice.account;
 
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import jinjiang.response.account.OpenIdAndSessionKeyResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -25,4 +26,8 @@ public interface UserBlService {
     Page<User> findIdentityAndShop(String identity, String shopId, Pageable pageable);
 
     void setDefaultAddress(String userId, String addressId) throws NotExistException;
+
+    OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode);
+
+    User loginMyUser(String openid, String username, String faceWxUrl);
 }

@@ -1,7 +1,7 @@
 package jinjiang.bl.admin;
 
 import jinjiang.blservice.admin.AdService;
-import jinjiang.dao.account.AdDao;
+import jinjiang.dao.admin.AdDao;
 import jinjiang.entity.admin.Ad;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +60,17 @@ public class AdBlServiceImpl implements AdService {
             throw new NotExistException("ad ID", id);
         }
     }
+
+    @Override
+    public Ad findByshowPlace(String showPlace) throws NotExistException {
+        Optional<Ad> admin=addao.findByShowPlace(showPlace);
+        if (admin.isPresent()){
+            return admin.get();
+        }else {
+            throw new NotExistException("ad ID", showPlace);
+        }
+    }
+
 
     @Override
     public Page<Ad> findAll(Pageable pageable) {

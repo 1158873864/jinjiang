@@ -15,5 +15,7 @@ public interface AdService   {
 
     Ad findById(String id) throws NotExistException;
 
+    Ad findByshowPlace(String showPalce) throws NotExistException;
+
     Page<Ad> findAll(Pageable pageable);
 }
