@@ -31,7 +31,7 @@ module.exports = {
     // can be overwritten by process.env.HOST
     // if you want dev by ip, please set host: '0.0.0.0'
     host: 'localhost',
-    port: 9000, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    port: 8889, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: false,
@@ -102,5 +102,6 @@ module.exports = {
   },
 
   // baseApi: 'https://sandc.xyz:8889/'
-  baseApi: 'http://localhost:3389/'
+  //baseApi: 'http://localhost:3389/'
+  baseApi: 'https://www.shaoshanlu.com:3389/'
 };

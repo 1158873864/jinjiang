@@ -30,7 +30,7 @@
             <svg-icon icon-class="message" class-name="card-panel-icon" />
           </div>
           <div class="card-panel-description">
-            <div class="card-panel-text">货品数量</div>
+            <div class="card-panel-text">酒庄数量</div>
             <count-to :start-val="0" :end-val="productTotal" :duration="3200" class="card-panel-num"/>
           </div>
         </div>
@@ -54,6 +54,8 @@
 import { info } from '@/api/dashboard'
 import CountTo from 'vue-count-to'
 import { mapGetters } from "vuex";
+import axios from 'axios'
+import * as config from '../../../config'
 
 export default {
   components: {
@@ -76,14 +78,54 @@ export default {
     }
   },
   created() {
-    var obj = {shopId:this.shopId==undefined?null:this.shopId}
-    console.log(this.shopId,'super')
-    info(obj).then(response => {
-      this.userTotal = response.data.data.userTotal
-      this.goodsTotal = response.data.data.goodsTotal
-      this.productTotal = response.data.data.productTotal
-      this.orderTotal = response.data.data.orderTotal
-    })
+    axios({
+      method: 'get',
+      url: config.baseApi + "user/find/all?page=0"+"&size=20",
+      headers:{
+        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+      }
+    }).then(response => {
+      if(response.data.code==0){
+        this.userTotal = response.data.data.items.totalPages//response.data.data.total
+      }
+    }).catch(error => {
+    });
+    axios({
+      method: 'get',
+      url: config.baseApi + "goods/find/all?page=0"+"&size=20",
+      headers:{
+        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+      }
+    }).then(response => {
+      if(response.data.code==0){
+        this.goodsTotal = response.data.data.items.totalPages//response.data.data.total
+      }
+    }).catch(error => {
+    });
+    axios({
+      method: 'get',
+      url: config.baseApi + "shop/find/all?page=0"+"&size=20",
+      headers:{
+        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+      }
+    }).then(response => {
+      if(response.data.code==0){
+        this.productTotal = response.data.data.items.totalPages//response.data.data.total
+      }
+    }).catch(error => {
+    });
+    axios({
+      method: 'get',
+      url: config.baseApi + "order/find/all?page=0"+"&size=20",
+      headers:{
+        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+      }
+    }).then(response => {
+      if(response.data.code==0){
+        this.orderTotal = response.data.data.items.totalPages//response.data.data.total
+      }
+    }).catch(error => {
+    });
   },
   methods: {
     handleSetLineChartData(type) {

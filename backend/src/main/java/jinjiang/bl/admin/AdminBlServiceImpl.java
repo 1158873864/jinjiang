@@ -1,7 +1,7 @@
 package jinjiang.bl.admin;
 
 import jinjiang.blservice.admin.AdminService;
-import jinjiang.dao.account.AdminDao;
+import jinjiang.dao.admin.AdminDao;
 import jinjiang.entity.account.User;
 import jinjiang.entity.admin.Admin;
 import jinjiang.entity.shop.Shop;
@@ -54,6 +54,24 @@ public class AdminBlServiceImpl  implements AdminService {
         }else {
             throw new NotExistException("address ID", admin.getId());
         }
+    }
+
+    @Override
+    public boolean login(String username, String password) {
+        Optional<Admin> optionalAdmin=admindao.findByUsername(username);
+        if(optionalAdmin.isPresent()){
+            Admin admin=optionalAdmin.get();
+            if(admin.getPassword().equals(password)){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
+        else{
+            return false;
+        }
+
     }
 
     @Override

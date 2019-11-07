@@ -65,6 +65,18 @@ public class UserController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找用户", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "openid", value = "openid", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/find/openid", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByOpenid(@RequestParam("openid") String openid) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",userBlService.findByOpenid(openid));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "根据身份查找用户", notes = "")
     @RequestMapping(value = "/find/identity", method = RequestMethod.GET)
     @ResponseBody

@@ -65,6 +65,15 @@ public class AdminController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "login", notes = "")
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> login(@RequestParam("username") String username,@RequestParam("password") String password) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",AdminServiceice.login(username,password));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有管理员", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody

@@ -25,6 +25,8 @@ public interface UserBlService {
 
     Page<User> findIdentityAndShop(String identity, String shopId, Pageable pageable);
 
+    User findByOpenid(String openid) throws NotExistException;
+
     void setDefaultAddress(String userId, String addressId) throws NotExistException;
 
     OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode);

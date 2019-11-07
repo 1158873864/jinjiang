@@ -43,8 +43,13 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/login',
+    path: '/',
     component: () => import('@/views/login/index'),
+    hidden: true
+  },
+  {
+    path: '/profile/password',
+    component: () => import('@/views/profile/password'),
     hidden: true
   },
   {
@@ -63,12 +68,12 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '',
+    path: '/dashboard',
     component: Layout,
     redirect: 'dashboard',
     children: [
       {
-        path: 'dashboard',
+        path: '/dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
         meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
@@ -214,6 +219,34 @@ export const asyncRouterMap = [
           noCache: true
         }
       },
+      {
+        path: 'credit',
+        component: () => import('@/views/shopmanage/credit'),
+        name: 'credit',
+        meta: {
+          title: '赊账管理',
+          noCache: true
+        }
+      },
+      {
+        path: 'stock',
+        component: () => import('@/views/shopmanage/stock'),
+        name: 'stock',
+        meta: {
+          title: '进货请求',
+          noCache: true
+        }
+      },
+      {
+        path: 'apply',
+        component: () => import('@/views/shopmanage/apply'),
+        name: 'apply',
+        meta: {
+          title: '报销明细',
+          noCache: true
+        }
+      }
+
 	  ],
   },
   {
@@ -674,7 +707,7 @@ export const asyncRouterMap = [
         name: 'statUser',
         meta: {
           perms: ['GET /admin/stat/user'],
-          title: '用户统计',
+          title: '会员消费',
           noCache: true
         }
       },
@@ -684,7 +717,7 @@ export const asyncRouterMap = [
         name: 'statOrder',
         meta: {
           perms: ['GET /admin/stat/order'],
-          title: '订单统计',
+          title: '股东收入',
           noCache: true
         }
       },
@@ -694,7 +727,7 @@ export const asyncRouterMap = [
         name: 'statGoods',
         meta: {
           perms: ['GET /admin/stat/goods'],
-          title: '商品统计',
+          title: '酒庄收发存',
           noCache: true
         }
       }

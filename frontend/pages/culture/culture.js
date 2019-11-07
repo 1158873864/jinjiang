@@ -11,38 +11,32 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList: [0,0,0,0,0]
+    courseList: [],
+    page:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    // if (options.courseGroupId) {
-    //   var courseGroupId = options.courseGroupId;
-    //   var that = this
-    //   wx.request({
-    //     url: app.globalData.backendUrl + "courseGroup/findById",
-    //     header: {
-    //       'Authorization': 'Bearer ' + app.getToken(),
-    //       'content-type': 'application/x-www-form-urlencoded'
-    //     },
-    //     method: 'GET',
-    //     data: {
-    //       id: courseGroupId
-    //     },
-    //     success: (res) => {
-    //       res.data.courseGroupItem.courseList.forEach(item => {
-    //         item.image = app.globalData.picUrl + item.image
-    //       })
-    //       that.setData({
-    //         courseList: res.data.courseGroupItem.courseList
-    //       })
-    //     }
-    //   })
-    // } else {
-    //   api.getCourseList.call(this)
-    // }
+    wx.request({
+      url: app.globalData.backendUrl + "culture/find/all",
+      data: {
+        page: this.page,
+        size: 20
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          courseList: res.data.data.items.content
+        })
+      }
+    })
   },
   //展示文章详情
   onTouchThisArticle: function(e) {
@@ -90,6 +84,28 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function() {
+    var page1 = this.page + 1
+    this.setData({
+      page: page1
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "culture/find/all",
+      data: {
+        page: this.page,
+        size: 20
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          courseList: res.data.data.items.content
+        })
+      }
+    })
 
   },
 

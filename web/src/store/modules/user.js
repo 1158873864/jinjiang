@@ -89,7 +89,7 @@ const user = {
           commit('SET_USERID', data.userId)
           commit('SET_SHOPID', data.shopId)
           commit('SET_DISTID', data.distId)
-          
+
           commit('SET_ROLES', data.roles)
           commit('SET_NAME', data.name)
           commit('SET_AVATAR', data.avatar)

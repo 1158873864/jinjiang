@@ -14,6 +14,8 @@ public interface AdminService {
 
     void updateAdmin(Admin admin) throws NotExistException;
 
+    boolean login(String username,String password);
+
     Admin findById(String id) throws NotExistException;
 
     Page<Admin> findAll(Pageable pageable);

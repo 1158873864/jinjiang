@@ -31,7 +31,7 @@
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='img'>
-          <image class='img_bofang' src='../../img/shop.jpg'></image>
+          <image class='img_bofang' src='{{item.id}}'></image>
         </view>
         <view class='right'>
           <view class='title1'>标题标题</view>

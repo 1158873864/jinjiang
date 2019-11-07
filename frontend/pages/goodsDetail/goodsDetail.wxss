@@ -2,14 +2,14 @@
   margin-bottom: 100rpx;
 }
 
-.goodsimgs {
-  width: 750rpx;
-  height: 750rpx;
+.goodsimgs{
+  width: 100%;
+  height: 670rpx;
+  margin-top: -200rpx;
 }
-
-.goodsimgs image {
-  width: 750rpx;
-  height: 750rpx;
+.goodsimgs image{
+  width: 100%;
+  height: 650rpx;
 }
 
 .commodity_screen {
@@ -122,7 +122,7 @@
 .goods-info .desc {
   height: 43rpx;
   margin-bottom: 41rpx;
-  font-size: 24rpx;
+  font-size: 30rpx;
   line-height: 36rpx;
   color: #999;
 }
@@ -130,12 +130,18 @@
 .goods-info .price {
   height: 70rpx;
   align-content: center;
+  display: flex;
 }
 
 .goods-info .counterPrice {
   float: left;
   padding-left: 0rpx;
-  text-decoration: line-through;
+  font-size: 30rpx;
+  color: #999;
+}
+
+.goods-info .sales {
+  padding-left: 100rpx;
   font-size: 30rpx;
   color: #999;
 }

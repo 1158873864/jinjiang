@@ -3,21 +3,21 @@
 <view class="container">
   <view class='header'>
       <view class='card__main'>
-        <image class='card__left' src='../../img/face2.jpg'></image>
+        <image class='card__left' src='{{user.faceUrl}}'></image>
         <view class='card__right'>
           <view class='card__detail card__detail--wrapper'>
-            <text class='card__name'>庄主</text>
+            <text class='card__name'>{{user.username}}</text>
             
           </view>
-          <text class='card__text'> id:43533252349823424000</text>
-          <text class='card__text'>注册时间:2019-10-19</text>
+          <text class='card__text'> id:{{user.id}}</text>
+          <text class='card__text'>注册时间:{{user.regtime}}</text>
           
         </view>
         
       </view>
       <view class="div-line1"></view>
       <view  style="color:white;font-size:17px;margin-left: 8px; margin-bottom: 8px;">
-         余额:0
+         余额:{{user.balance}}
       </view>
   </view>
 

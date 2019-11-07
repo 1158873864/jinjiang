@@ -140,6 +140,16 @@ public class UserBlServiceImpl implements UserBlService {
 
 
 	@Override
+	public User findByOpenid(String openid) throws NotExistException {
+		Optional<User> optionalUser = userDao.findByOpenid(openid);
+		if(optionalUser.isPresent()) {
+			return optionalUser.get();
+		}else {
+			throw new NotExistException("User ID", openid);
+		}
+	}
+
+	@Override
 	public void setDefaultAddress(String userId, String addressId) throws NotExistException {
 		Optional<User> optionalUser=userDao.findById(userId);
 		if(optionalUser.isPresent()){
