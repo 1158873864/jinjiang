@@ -73,6 +73,12 @@ public class CouponBlServiceImpl implements CouponService {
 
 
     @Override
+    public List<Coupon> findByUser(String user) {
+        return couponDao.findByUser(user);
+    }
+
+
+    @Override
     public Page<Coupon> find(String query, Pageable pageable) {
         List<Coupon> coupons=couponDao.findAll();
         List<Coupon> list=new ArrayList<>();

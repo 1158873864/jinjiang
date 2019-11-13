@@ -25,6 +25,12 @@ public class Order {//订单
     @Column(name = "person")
     private String person; //收货人
 
+    @Column(name = "type")
+    private String type; //配送方式: 送货上门、物流快递、上门取货
+
+    @Column(name = "remark")
+    private String remark; //备注
+
     @Column(name = "freight")
     private double freight; //运费
 
@@ -38,22 +44,27 @@ public class Order {//订单
     @ElementCollection(targetClass = String.class)
     private List<String> goodsList; //所购买商品id列表
 
-    @Column(name = "BuyTime")
-    private String BuyTime;//购买时间
+    @Column(name = "buyTime")
+    private String buyTime;//购买时间
 
     @Column(name = "status")
-    private String status; //状态，包含:待付款、待发货、待收货、待评价、已完成
+    private String status; //状态，包含:待付款、待发货、待收货、已完成、已取消、积分待收货、积分待发货、积分已完成
 
     public Order() {
     }
 
-    public Order(String userId, double price, double discountPrice, String address, List<String> goodsList, String buyTime, String status) {
+    public Order(String userId, String address, String mobilePone, String person, String type, String remark, double freight, double price, double discountPrice, List<String> goodsList, String buyTime, String status) {
         this.userId = userId;
+        this.address = address;
+        this.mobilePone = mobilePone;
+        this.person = person;
+        this.type = type;
+        this.remark = remark;
+        this.freight = freight;
         this.price = price;
         this.discountPrice = discountPrice;
-        this.address = address;
         this.goodsList = goodsList;
-        BuyTime = buyTime;
+        this.buyTime = buyTime;
         this.status = status;
     }
 
@@ -73,6 +84,54 @@ public class Order {//订单
         this.userId = userId;
     }
 
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getMobilePone() {
+        return mobilePone;
+    }
+
+    public void setMobilePone(String mobilePone) {
+        this.mobilePone = mobilePone;
+    }
+
+    public String getPerson() {
+        return person;
+    }
+
+    public void setPerson(String person) {
+        this.person = person;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public String getRemark() {
+        return remark;
+    }
+
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
+
+    public double getFreight() {
+        return freight;
+    }
+
+    public void setFreight(double freight) {
+        this.freight = freight;
+    }
+
     public double getPrice() {
         return price;
     }
@@ -89,14 +148,6 @@ public class Order {//订单
         this.discountPrice = discountPrice;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
     public List<String> getGoodsList() {
         return goodsList;
     }
@@ -106,11 +157,11 @@ public class Order {//订单
     }
 
     public String getBuyTime() {
-        return BuyTime;
+        return buyTime;
     }
 
     public void setBuyTime(String buyTime) {
-        BuyTime = buyTime;
+        this.buyTime = buyTime;
     }
 
     public String getStatus() {

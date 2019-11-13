@@ -9,6 +9,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -22,8 +23,8 @@ public class AddressBlServiceImpl implements AddressBlService {
     }
 
     @Override
-    public void addAddress(Address address) {
-        addressDao.save(address);
+    public Address addAddress(Address address) {
+        return addressDao.save(address);
     }
 
     @Override
@@ -58,6 +59,11 @@ public class AddressBlServiceImpl implements AddressBlService {
     @Override
     public Address findById(String id) throws NotExistException {
         return addressDao.findById(id).get();
+    }
+
+    @Override
+    public List<Address> findByUserId(String userId) {
+        return addressDao.findByUserId(userId);
     }
 
     @Override

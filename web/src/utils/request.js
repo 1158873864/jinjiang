@@ -5,7 +5,7 @@ import { getToken } from '@/utils/auth'
 
 // create an axios instance
 const service = axios.create({
-  baseURL: '',//process.env.BASE_API, // api 的 base_url
+  baseURL: process.env.BASE_API, // api 的 base_url
   timeout: 5000 // request timeout
 })
 
@@ -31,7 +31,7 @@ service.interceptors.response.use(
   response => {
     const res = response.data
 
-   /* if (res.errno === 501) {
+    if (res.errno === 501) {
       MessageBox.alert('系统未登录，请重新登录', '错误', {
         confirmButtonText: '确定',
         type: 'error'
@@ -76,8 +76,7 @@ service.interceptors.response.use(
       return Promise.reject(response)
     } else {
       return response
-    }*/
-    return response
+    }
   }, error => {
     console.log('err' + error)// for debug
     Message({

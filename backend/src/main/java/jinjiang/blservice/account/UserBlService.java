@@ -3,6 +3,7 @@ package jinjiang.blservice.account;
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.account.OpenIdAndSessionKeyResponse;
+import jinjiang.response.account.QrCodeResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -32,4 +33,6 @@ public interface UserBlService {
     OpenIdAndSessionKeyResponse getOpenIdAndSessionKey(String jsCode);
 
     User loginMyUser(String openid, String username, String faceWxUrl);
+
+    QrCodeResponse getWxQrCode(String scene, String page, int width, boolean autoColor, String lineColorR, String lineColorG, String lineColorB, boolean isHyaline);
 }

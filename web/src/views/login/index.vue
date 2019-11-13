@@ -134,8 +134,6 @@
 <script>
 import request from '@/utils/request'
 import VDistpicker from 'v-distpicker'
-import axios from 'axios'
-import * as config from '../../../config'
 import { MessageBox } from 'element-ui'
 import { createStorage, uploadPath,filePath } from '@/api/storage'
 import {
@@ -400,25 +398,17 @@ export default {
       this.$refs.loginForm.validate(valid => {
         if (valid && !this.loading) {
           this.loading = true
-          axios({
-            method: 'get',
-            url: config.baseApi + "admin/login/?username="+ this.loginForm.username+"&password="+ this.loginForm.password,
-          }).then(res => {
-
-            if(res.data.data.items){
-              this.loading = false
-              this.$router.push({ path: '/dashboard' })
-              console.log(res.data.data.items)
-            }
-            else{
-            }
-          }).catch(error => {
+          console.log('ssss', this.redirect)
+          this.$store.dispatch('LoginByUsername', this.loginForm).then(() => {
+            this.loading = false
+            this.$router.push({ path: this.redirect || '/' })
+          }).catch(response => {
             this.$notify.error({
               title: '失败',
-              message: '用户名不存在或密码错误'
+              message: response.data.errmsg
             })
             this.loading = false
-          });
+          })
         } else {
           return false
         }

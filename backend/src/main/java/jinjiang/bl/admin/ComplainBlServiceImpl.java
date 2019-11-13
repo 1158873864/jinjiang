@@ -7,6 +7,7 @@ import jinjiang.dao.admin.CultureDao;
 import jinjiang.entity.admin.Complain;
 import jinjiang.entity.admin.Culture;
 import jinjiang.exception.NotExistException;
+import jinjiang.util.FormatDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -14,6 +15,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +30,10 @@ public class ComplainBlServiceImpl implements ComplainService {
 
     @Override
     public void addComplain(Complain culture) {
-         complainDao.save(culture);
+        Date date=new Date();
+        String time= FormatDateTime.toLongDateString(date);
+        culture.setTime(time);
+        complainDao.save(culture);
     }
 
     @Override

@@ -67,6 +67,15 @@ public class CouponController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "", notes = "")
+    @RequestMapping(value = "/find/user", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByUser(@RequestParam("user") String user) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",couponService.findByUser(user));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有管理员", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody

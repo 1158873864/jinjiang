@@ -8,13 +8,15 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface AddressBlService {
-    void addAddress(Address address);
+    Address addAddress(Address address);
 
     void deleteAddress(String id) throws NotExistException;
 
     void updateAddress(Address address) throws NotExistException;
 
     Address findById(String id) throws NotExistException;
+
+    List<Address> findByUserId(String userId) throws NotExistException;
 
     Page<Address> findAll(Pageable pageable);
 

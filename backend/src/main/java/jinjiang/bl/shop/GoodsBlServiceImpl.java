@@ -1,9 +1,9 @@
 package jinjiang.bl.shop;
 
 import jinjiang.blservice.shop.GoodsBlService;
+import jinjiang.dao.shop.Goods2Dao;
 import jinjiang.dao.shop.GoodsDao;
 import jinjiang.dao.shop.ShopDao;
-import jinjiang.entity.account.User;
 import jinjiang.entity.shop.Goods;
 import jinjiang.entity.shop.Shop;
 import jinjiang.exception.NotExistException;
@@ -20,11 +20,14 @@ import java.util.Optional;
 @Service
 public class GoodsBlServiceImpl implements GoodsBlService{
     private final GoodsDao goodsDao;
+    private final Goods2Dao goods2Dao;
     private final ShopDao shopdao;
 
+
     @Autowired
-    public GoodsBlServiceImpl(GoodsDao goods,ShopDao shopdao){
+    public GoodsBlServiceImpl(GoodsDao goods, Goods2Dao goods2Dao, ShopDao shopdao){
         this.goodsDao=goods;
+        this.goods2Dao = goods2Dao;
         this.shopdao=shopdao;
     }
 

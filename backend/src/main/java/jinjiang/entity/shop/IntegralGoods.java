@@ -22,6 +22,9 @@ public class IntegralGoods {//积分商品
     @Column(name = "integral")
     private int integral; //所需积分
 
+    @Column(name = "standard")
+    private String standard; //商品规格
+
     @Column(name = "number")
     private int number;//剩余数量
 
@@ -38,10 +41,11 @@ public class IntegralGoods {//积分商品
     public IntegralGoods() {
     }
 
-    public IntegralGoods(String name, String brief, int integral, int number, String imageUrl, List<String> swiperImgs, String detail) {
+    public IntegralGoods(String name, String brief, int integral, String standard, int number, String imageUrl, List<String> swiperImgs, String detail) {
         this.name = name;
         this.brief = brief;
         this.integral = integral;
+        this.standard = standard;
         this.number = number;
         this.imageUrl = imageUrl;
         this.swiperImgs = swiperImgs;
@@ -78,6 +82,14 @@ public class IntegralGoods {//积分商品
 
     public void setIntegral(int integral) {
         this.integral = integral;
+    }
+
+    public String getStandard() {
+        return standard;
+    }
+
+    public void setStandard(String standard) {
+        this.standard = standard;
     }
 
     public int getNumber() {

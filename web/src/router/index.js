@@ -43,13 +43,8 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/',
+    path: '/login',
     component: () => import('@/views/login/index'),
-    hidden: true
-  },
-  {
-    path: '/profile/password',
-    component: () => import('@/views/profile/password'),
     hidden: true
   },
   {
@@ -68,12 +63,12 @@ export const constantRouterMap = [
     hidden: true
   },
   {
-    path: '/dashboard',
+    path: '',
     component: Layout,
     redirect: 'dashboard',
     children: [
       {
-        path: '/dashboard',
+        path: 'dashboard',
         component: () => import('@/views/dashboard/index'),
         name: 'Dashboard',
         meta: { title: 'dashboard', icon: 'dashboard', noCache: true }
@@ -246,7 +241,6 @@ export const asyncRouterMap = [
           noCache: true
         }
       }
-
 	  ],
   },
   {

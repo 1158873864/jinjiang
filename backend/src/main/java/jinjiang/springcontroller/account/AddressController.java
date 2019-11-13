@@ -34,8 +34,9 @@ public class AddressController {
         @RequestMapping(value = "/add", method = RequestMethod.POST)
         @ResponseBody
         public ResponseEntity<Result> addUser(@Valid @RequestBody Address address) throws NotExistException {
-            addressBlService.addAddress(address);
-            return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+            Map<String, Object> result = new HashMap<>();
+            result.put("items",addressBlService.addAddress(address));
+            return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
         }
         //ok
         @ApiOperation(value = "删除地址", notes = "删除地址")
@@ -67,6 +68,16 @@ public class AddressController {
             result.put("items",addressBlService.findById(id));
             return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
         }
+
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+
+    @RequestMapping(value = "/find/userId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getUserByUserId(@RequestParam("userId") String userId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",addressBlService.findByUserId(userId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
 
         //接通
         @ApiOperation(value = "所有地址", notes = "")

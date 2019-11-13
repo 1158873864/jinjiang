@@ -35,6 +35,8 @@
 
       <el-table-column align="center" label="所需积分" prop="integral"/>
 
+      <el-table-column align="center" label="商品规格" prop="standard"/>
+
       <el-table-column align="center" label="剩余数量" prop="number"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
@@ -62,6 +64,10 @@
           <el-input v-model="dataForm.integral"/>
         </el-form-item>
 
+
+        <el-form-item label="商品规格" prop="standard">
+          <el-input v-model="dataForm.standard"/>
+        </el-form-item>
 
         <el-form-item label="剩余数量" prop="number">
           <el-input v-model="dataForm.number"/>
@@ -187,6 +193,7 @@ export default {
           name: '',
           brief: '',
           integral: 0,
+          standard:'',
           number: 0,
           imageUrl: '',
           swiperImgs: [],
@@ -314,6 +321,7 @@ export default {
           name: '',
           brief: '',
           integral: 0,
+          standard: '',
           number: 0,
           imageUrl: '',
           swiperImgs: [],

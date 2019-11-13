@@ -2,100 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2e0b919-b76a-40a8-8727-df58e4fd33d2" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/AddressBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/DiscountBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/LevelBlserviceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/admin/AdBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/admin/AdminBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/order/OrderBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/GoodsBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/IntegraGoodsBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/ShopBlServiceImpl.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/AddressBlService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/DiscountBlservice.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/LevelBlService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/admin/AdService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/admin/AdminService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/order/OrderBlService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/shop/GoodsBlService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/shop/IntegraGoodsBlservice.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/shop/ShopBlService.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/AdDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/AddressDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/AdminDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/DiscountDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/GoodsDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/IntegraGoodsDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/LevelDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/OrderDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/ShopDao.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/Order/OrderController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/AddressController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/DisCountController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/LevelController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/admin/AdController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/admin/AdminController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/shop/GoodsController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/shop/IntegraGoodsController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/shop/ShopController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/aop/LogAspect.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/aop/LogAspect.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/account/UserBlServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/bl/upload/UploadServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/bl/upload/UploadServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/account/UserBlService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/upload/UploadService.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/blservice/upload/UploadService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/config/CORSConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/config/CORSConfiguration.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/config/MultipartAutoConfiguration.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/config/MultipartAutoConfiguration.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/config/filter/JwtAuthenticationTokenFilter.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/config/filter/JwtAuthenticationTokenFilter.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/dao/account/UserDao.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Address.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Address.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Discount.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Discount.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Level.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/Level.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/User.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/account/User.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Ad.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/admin/Admin.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/order/Order.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Goods.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/IntegralGoods.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/exception/NotExistException.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/exception/NotExistException.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/exception/SystemException.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/exception/SystemException.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/exception/UsernameDoesNotFoundException.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/exception/UsernameDoesNotFoundException.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/exception/WrongUsernameOrPasswordException.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/exception/WrongUsernameOrPasswordException.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/publicdatas/account/Role.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/publicdatas/account/Role.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/BoolResponse.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/BoolResponse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/InfoResponse.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/InfoResponse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/Response.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/Response.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/Result.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/Result.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/ResultCode.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/ResultCode.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/ResultGenerator.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/ResultGenerator.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/SuccessResponse.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/SuccessResponse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/UserLoginResponse.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/UserLoginResponse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/response/WrongResponse.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/response/WrongResponse.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/WebSecurityConfig.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/WebSecurityConfig.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtRole.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtRole.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtService.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUser.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUser.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUserDetailsService.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUserDetailsService.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUserDetailsServiceImpl.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/security/jwt/JwtUserDetailsServiceImpl.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/account/UserController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/upload/UploadController.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/springcontroller/upload/UploadController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/AESDecodeUtils.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/AESDecodeUtils.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/DistanceUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/DistanceUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/FormatDateTime.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/FormatDateTime.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/HttpUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/HttpUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/MD5.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/MD5.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/OrderUUIDUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/OrderUUIDUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/PathUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/PathUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/PayCommonUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/PayCommonUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/RandomUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/RandomUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/Ratio.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/Ratio.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/ScheduleUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/ScheduleUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/UserInfoUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/UserInfoUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/jinjiang/util/XMLUtil.java" afterPath="$PROJECT_DIR$/src/main/java/jinjiang/util/XMLUtil.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/application.yml" afterPath="$PROJECT_DIR$/src/main/resources/config/application.yml" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/config/jrq.jks" afterPath="$PROJECT_DIR$/src/main/resources/config/jrq.jks" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="$PROJECT_DIR$/.gradle/" />
     <ignored path="$PROJECT_DIR$/build/" />
@@ -114,8 +21,8 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ShopBlServiceImpl.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/ShopBlServiceImpl.java">
+      <file leaf-file-name="city.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/frontend/common/city.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -338,7 +245,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="4699662142000" />
+        <entry key="$PROJECT_DIR$" value="0" />
         <entry key="$PROJECT_DIR$/build.gradle" value="918223986" />
         <entry key="$PROJECT_DIR$/gradle/wrapper/gradle-wrapper.properties" value="975608090" />
         <entry key="$PROJECT_DIR$/settings.gradle" value="799644689" />
@@ -519,6 +426,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -541,10 +450,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -561,6 +468,7 @@
     <property name="RequestMappingsPanelOrder1" value="1" />
     <property name="RequestMappingsPanelWidth2" value="75" />
     <property name="RequestMappingsPanelOrder2" value="2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -685,11 +593,12 @@
       <workItem from="1567665889582" duration="10000" />
       <workItem from="1567783154796" duration="29000" />
       <workItem from="1571153901893" duration="239000" />
+      <workItem from="1573657031545" duration="376000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="1918000" />
+    <option name="totallyTimeSpent" value="2294000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1280" height="707" extended-state="6" />
@@ -709,11 +618,11 @@
       <window_info id="Image Layers" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Java Enterprise" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Spring" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2609047" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26494345" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Bean Validation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Web" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -742,97 +651,20 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="26" lean-forward="false" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="30" lean-forward="true" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="23" column="16" lean-forward="false" selection-start-line="23" selection-start-column="16" selection-end-line="23" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="23" column="30" lean-forward="false" selection-start-line="23" selection-start-column="30" selection-end-line="23" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="20" column="4" lean-forward="true" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/ShopBlServiceImpl.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/MainApplication.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/entity/shop/Shop.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/resources/config/application.yml" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/jinjiang/bl/shop/ShopBlServiceImpl.java" />
+    <entry file="file://$PROJECT_DIR$/frontend/common/city.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />

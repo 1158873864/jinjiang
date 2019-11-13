@@ -67,6 +67,15 @@ public class CultureController {
     }
 
     @ApiOperation(value = "所有管理员", notes = "")
+    @RequestMapping(value = "/find/type", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findByType(@RequestParam("type") String type,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",cultureService.findByType(type,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "所有管理员", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> getAllUser(Pageable pageable) {

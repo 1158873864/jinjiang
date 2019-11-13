@@ -68,10 +68,14 @@ public class CultureBlServiceImpl implements CultureService {
     }
 
     @Override
+    public Page<Culture> findByType(String type,Pageable pageable){
+        return cultureDao.findByType(type,pageable);
+    }
+
+    @Override
     public Page<Culture> findAll(Pageable pageable) {
         return cultureDao.findAll(pageable);
     }
-
 
     @Override
     public Page<Culture> find(String query, Pageable pageable) {

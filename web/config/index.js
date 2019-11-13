@@ -9,29 +9,14 @@ module.exports = {
     // Paths
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    proxyTable: {
-      '/api': {
-        target: 'https://sandc.xyz:8889/admin',
-         changeOrigin: true,
-         pathRewrite: {
-           '^/api': ''
-         }
-       },
-       '/jx': {
-        target: 'https://www.shaoshanlu.com:3389',
-         changeOrigin: true,
-         pathRewrite: {
-           '^/jx': ''
-         }
-       },
-    },
+    proxyTable: {},
 
     // Various Dev Server settings
 
     // can be overwritten by process.env.HOST
     // if you want dev by ip, please set host: '0.0.0.0'
-    host: 'localhost',
-    port: 8889, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
+    host: '0.0.0.0',
+    port: 9527, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: true,
     errorOverlay: true,
     notifyOnErrors: false,
@@ -100,8 +85,6 @@ module.exports = {
     // `npm run build:prod --generate_report`
     generateAnalyzerReport: process.env.npm_config_generate_report || false
   },
-
-  // baseApi: 'https://sandc.xyz:8889/'
-  //baseApi: 'http://localhost:3389/'
-  baseApi: 'https://www.shaoshanlu.com:3389/'
-};
+  //baseApi: 'https://www.shaoshanlu.com:3389/'
+  baseApi: 'http://localhost:3389/'
+}

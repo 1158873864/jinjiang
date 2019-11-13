@@ -10,7 +10,7 @@ import java.util.Date;
 public class FormatDateTime {
 
     public static String toLongDateString(Date dt) {
-        SimpleDateFormat myFmt = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 E ");
+        SimpleDateFormat myFmt = new SimpleDateFormat("yyyy年MM月dd日 HH时mm分ss秒 ");
         return myFmt.format(dt);
     }
 

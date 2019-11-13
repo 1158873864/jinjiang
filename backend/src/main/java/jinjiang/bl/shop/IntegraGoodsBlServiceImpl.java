@@ -53,6 +53,7 @@ public class IntegraGoodsBlServiceImpl implements IntegraGoodsBlservice {
             integraGoods.setNumber(goods.getNumber());
             integraGoods.setSwiperImgs(goods.getSwiperImgs());
             integraGoods.setBrief(goods.getBrief());
+            integraGoods.setStandard(goods.getStandard());
             integraGoodsDao.save(integraGoods);
         }else {
             throw new NotExistException("address ID", goods.getId());

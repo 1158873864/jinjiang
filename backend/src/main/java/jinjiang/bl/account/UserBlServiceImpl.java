@@ -4,6 +4,7 @@ package jinjiang.bl.account;
 import jinjiang.dao.shop.ShopDao;
 import jinjiang.entity.shop.Shop;
 import jinjiang.response.account.OpenIdAndSessionKeyResponse;
+import jinjiang.response.account.QrCodeResponse;
 import net.sf.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -16,6 +17,8 @@ import jinjiang.blservice.account.UserBlService;
 import jinjiang.dao.account.UserDao;
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
@@ -52,6 +55,7 @@ public class UserBlServiceImpl implements UserBlService {
 
 	@Override
 	public void updateUser(User user) throws NotExistException {
+		System.out.println(user.getId());
 		Optional<User> optionalUser = userDao.findById(user.getId());
 		if(optionalUser.isPresent()) {
 			User newUser = optionalUser.get();
@@ -207,10 +211,91 @@ public class UserBlServiceImpl implements UserBlService {
 			Date currentTime = new Date();
 			SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 			String dateString = formatter.format(currentTime);
-	        User user=new User(username,openid,"","","",faceWxUrl,"member","","","","",0,0,0,dateString,"","",0);
+	        User user=new User(username,openid,"","","",faceWxUrl,"member","","","","非会员",0,0,0,dateString,"","",0);
 	        userDao.save(user);
 	        return user;
         }
     }
+
+	@Override
+	public QrCodeResponse getWxQrCode(String scene, String page, int width, boolean autoColor, String lineColorR, String lineColorG, String lineColorB, boolean isHyaline) {
+		RestTemplate client = new RestTemplate();
+
+		//获取accessToken
+		String accessToken = null;
+		HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON_UTF8);
+		HttpEntity<String> entity = new HttpEntity<>("", headers);
+		ResponseEntity<String> response = client.exchange(
+				"https://api.weixin.qq.com/cgi-bin/token?" + "&grant_type=client_credential&appid=" + appId + "&secret=" + appSecret, HttpMethod.GET, entity, String.class);
+		if (response.getStatusCode() == HttpStatus.OK) {
+			accessToken = (String) JSONObject.fromObject(response.getBody()).get("access_token");
+		} else {
+			System.err.println(response);
+			return new QrCodeResponse(false, "access_token获取失败(" + response + ")", "");
+		}
+
+		//根据accessToken获取二维码图片
+		String wxQrCodeUrl = "https://api.weixin.qq.com/wxa/getwxacodeunlimit?access_token=" + accessToken;
+		Map<String, Object> wxQrCodeParams = new HashMap<>();
+		wxQrCodeParams.put("scene", scene);
+		wxQrCodeParams.put("page", page);
+		wxQrCodeParams.put("width", width);
+		wxQrCodeParams.put("auto_color", autoColor);
+		Map<String, Object> lineColor = new HashMap<>();
+		lineColor.put("r", lineColorR);
+		lineColor.put("g", lineColorG);
+		lineColor.put("b", lineColorB);
+		wxQrCodeParams.put("line_color", lineColor);
+		wxQrCodeParams.put("is_hyaline", isHyaline);
+		MultiValueMap<String, String> wxQrCodeHeaders = new LinkedMultiValueMap<>();
+		HttpEntity wxQrCodeRequest = new HttpEntity(wxQrCodeParams, wxQrCodeHeaders);
+		ResponseEntity<byte[]> wxQrCodeResponse = client.exchange(wxQrCodeUrl, HttpMethod.POST, wxQrCodeRequest, byte[].class);
+		if (wxQrCodeResponse.getStatusCode() == HttpStatus.OK) {
+			byte[] image = wxQrCodeResponse.getBody();
+			final String dirPath = "record/user/";
+			File dirFile = new File(dirPath);
+			if (!dirFile.exists() && !dirFile.mkdirs()) {
+				return new QrCodeResponse(false, "二维码存储目录创建失败", "");
+			}
+			String imagePath = null;
+			try {
+				imagePath = dirPath + UUID.randomUUID();
+				File imageFile = new File(imagePath);
+				while (!imageFile.createNewFile()) { //若文件已存在，则换个名字
+					imagePath = dirPath + UUID.randomUUID();
+					imageFile = new File(imagePath);
+				}
+				InputStream inputStream = new ByteArrayInputStream(image);
+				OutputStream outputStream = new FileOutputStream(imageFile);
+				int len = 0;
+				byte[] buf = new byte[1024];
+				while ((len = inputStream.read(buf, 0, 1024)) != -1) {
+					outputStream.write(buf, 0, len);
+				}
+				outputStream.flush();
+
+				//1分钟后删除此图片
+				final File finalImageFile = new File(imagePath);
+				new Timer().schedule(new TimerTask() {
+					@Override
+					public void run() {
+						if (!finalImageFile.delete()) {
+							System.err.println(finalImageFile.getName() + "文件删除失败");
+						}
+					}
+				}, 60 * 1000);
+
+				return new QrCodeResponse(true, "ok", imagePath);
+			} catch (IOException e) {
+				System.err.println("二维码图片保存时出现错误！");
+				e.printStackTrace();
+				return new QrCodeResponse(false, "二维码保存失败", "");
+			}
+		} else {
+			System.err.println(wxQrCodeResponse);
+			return new QrCodeResponse(false, "二维码获取失败", "");
+		}
+	}
 
 }

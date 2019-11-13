@@ -15,6 +15,8 @@ public interface CultureService {
 
     Culture findById(String id) throws NotExistException;
 
+    Page<Culture> findByType(String type, Pageable pageable);
+
     Page<Culture> findAll(Pageable pageable);
 
     Page<Culture> find(String query, Pageable pageable);
