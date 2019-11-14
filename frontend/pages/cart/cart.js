@@ -7,7 +7,7 @@ var app = getApp();
 Page({
   data: {
     cartGoods: [],
-    checkedGoodsCount: {
+    cartTotal: {
       "checkedGoodsCount": 0,
       "checkedGoodsAmount": 0.00
     },
@@ -61,31 +61,26 @@ Page({
       method: 'GET',
       success: (res) => {
         /*console.log(res)*/
-        var cartGoods = res.data.data.items.content
+        var cartGoods = res.data.data.items
         var checkedGoodsCount=0
         var checkedGoodsAmount=0
         for (var i = 0; i < cartGoods.length;i++){
-          
+          if (cartGoods[i].checked){
+          checkedGoodsCount = checkedGoodsCount + cartGoods[i].number
+          checkedGoodsAmount = checkedGoodsAmount + cartGoods[i].price * cartGoods[i].number
+          }
         }
-
         that.setData({
           cartGoods: cartGoods,
-          checkedAllStatus: that.isCheckedAll()
+          checkedAllStatus: that.isCheckedAll(),
+          cartTotal: {
+            "checkedGoodsCount": checkedGoodsCount,
+            "checkedGoodsAmount": checkedGoodsAmount
+          }
         })
       }
     })
 
-
-    util.request(api.CartList).then(function(res) {
-      if (res.errno === 0) {
-        that.setData({
-          cartGoods: res.data.cartList,
-          cartTotal: res.data.cartTotal
-        });
-
-        
-      }
-    });
   },
   isCheckedAll: function() {
     //判断购物车商品已全选
@@ -105,37 +100,38 @@ Page({
   },
   checkedItem: function(event) {
     let itemIndex = event.target.dataset.itemIndex;
+    let cartItem = this.data.cartGoods[itemIndex];
     let that = this;
-
-    let productIds = [];
-    productIds.push(that.data.cartGoods[itemIndex].productId);
+    cartItem.checked = !cartItem.checked
+    
     if (!this.data.isEditCart) {
-      util.request(api.CartChecked, {
-        productIds: productIds,
-        isChecked: that.data.cartGoods[itemIndex].checked ? 0 : 1
-      }, 'POST').then(function(res) {
-        if (res.errno === 0) {
-          that.setData({
-            cartGoods: res.data.cartList,
-            cartTotal: res.data.cartTotal
-          });
+      wx.request({
+        url: app.globalData.backendUrl + "cart/update",
+        data: cartItem,
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/json'
+        },
+        method: 'PUT',
+        success: (res) => {
+          /*console.log(res)*/
+          that.getCartList()
         }
+      })
 
-        that.setData({
-          checkedAllStatus: that.isCheckedAll()
-        });
-      });
     } else {
       //编辑状态
-      let tmpCartData = this.data.cartGoods.map(function(element, index, array) {
-        if (index == itemIndex) {
-          element.checked = !element.checked;
-        }
-
-        return element;
-      });
-
-      that.setData({
+      console.log(that.data.cartGoods)
+      console.log(itemIndex)
+      var tmpCartData = that.data.cartGoods
+      for (var i = 0; i < tmpCartData.length;i++){
+        console.log(tmpCartData[i].checked)
+        if (i == itemIndex) {
+          tmpCartData[i].checked = !tmpCartData[i].checked;
+        } 
+      }
+      
+      this.setData({
         cartGoods: tmpCartData,
         checkedAllStatus: that.isCheckedAll(),
         'cartTotal.checkedGoodsCount': that.getCheckedGoodsCount()
@@ -149,7 +145,7 @@ Page({
         checkedGoodsCount += v.number;
       }
     });
-    console.log(checkedGoodsCount);
+    
     return checkedGoodsCount;
   },
   checkedAll: function() {
@@ -164,7 +160,6 @@ Page({
         isChecked: that.isCheckedAll() ? 0 : 1
       }, 'POST').then(function(res) {
         if (res.errno === 0) {
-          console.log(res.data);
           that.setData({
             cartGoods: res.data.cartList,
             cartTotal: res.data.cartTotal
@@ -182,7 +177,6 @@ Page({
         v.checked = !checkedAllStatus;
         return v;
       });
-
       that.setData({
         cartGoods: tmpCartData,
         checkedAllStatus: that.isCheckedAll(),
@@ -204,8 +198,8 @@ Page({
         v.checked = false;
         return v;
       });
-      this.setData({
-        editCartList: this.data.cartGoods,
+      console.log(tmpCartList)
+      that.setData({
         cartGoods: tmpCartList,
         isEditCart: !this.data.isEditCart,
         checkedAllStatus: that.isCheckedAll(),
@@ -214,21 +208,7 @@ Page({
     }
 
   },
-  updateCart: function(productId, goodsId, number, id) {
-    let that = this;
-
-    util.request(api.CartUpdate, {
-      productId: productId,
-      goodsId: goodsId,
-      number: number,
-      id: id
-    }, 'POST').then(function(res) {
-      that.setData({
-        checkedAllStatus: that.isCheckedAll()
-      });
-    });
-
-  },
+  
   cutNumber: function(event) {
 
     let itemIndex = event.target.dataset.itemIndex;
@@ -238,7 +218,19 @@ Page({
     this.setData({
       cartGoods: this.data.cartGoods
     });
-    this.updateCart(cartItem.productId, cartItem.goodsId, number, cartItem.id);
+    wx.request({
+      url: app.globalData.backendUrl + "cart/update",
+      data: cartItem,
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      method: 'PUT',
+      success: (res) => {
+        /*console.log(res)*/
+        that.getCartList()
+      }
+    })
   },
   addNumber: function(event) {
     let itemIndex = event.target.dataset.itemIndex;
@@ -248,7 +240,20 @@ Page({
     this.setData({
       cartGoods: this.data.cartGoods
     });
-    this.updateCart(cartItem.productId, cartItem.goodsId, number, cartItem.id);
+    wx.request({
+      url: app.globalData.backendUrl + "cart/update",
+      data: cartItem,
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      method: 'PUT',
+      success: (res) => {
+        /*console.log(res)*/
+        that.getCartList()
+      }
+    })
+
 
   },
   checkoutOrder: function() {
@@ -294,30 +299,29 @@ Page({
 
     productIds = productIds.map(function(element, index, array) {
       if (element.checked == true) {
-        return element.productId;
+        return element.id;
       }
     });
 
+    for (var i = 0; i < productIds.length;i++){
+      wx.request({
+        url: app.globalData.backendUrl + "cart/delete",
+        data: {
+          id: productIds[i]
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          that.getCartList()
 
-    util.request(api.CartDelete, {
-      productIds: productIds
-    }, 'POST').then(function(res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        let cartList = res.data.cartList.map(v => {
-          v.checked = false;
-          return v;
-        });
+        }
+      })
 
-        that.setData({
-          cartGoods: cartList,
-          cartTotal: res.data.cartTotal
-        });
-      }
-
-      that.setData({
-        checkedAllStatus: that.isCheckedAll()
-      });
-    });
+    }
+    
   }
 })
