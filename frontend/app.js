@@ -160,8 +160,8 @@ App({
     wechatUsername: "",
     token: "",
     defaultPic:'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    backendUrl: "https://www.shaoshanlu.com:3389/",//used
-    //backendUrl: "http://127.0.0.1:3389/",
+    //backendUrl: "https://www.shaoshanlu.com:3389/",//used
+    backendUrl: "http://127.0.0.1:3389/",
     //testUrl:"http://10.107.30.176:8080/JRQ.Backend/",
     picUrl: "https://www.junrongcenter.com/"//used
     //backendUrl: "http://localhost:3389/",

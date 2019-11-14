@@ -1,44 +1,42 @@
 <!--pages/modifyMyCard/modifyMyCard.wxml-->
 <view class='container container--color-gray'>
-  <view class='face h-center column' bindtap='updateFace'>
-    <image src='{{myInfo.face}}'></image>
-    <text class='face-text'>点击更换头像</text>
+  <view class='face h-center column'>
+    <image src='{{user.faceUrl}}'></image>
+    <text class='face-text'></text>
   </view>
   <view style='width: 100%;'>
     <view class='infos column'>
       <view class='info'>
         <text class='info__key'>昵称</text>
-        <input class='info__value' placeholder='{{myInfo.username}}' bindinput='updateName'></input>
+        <input class='info__value' placeholder='{{user.username}}' bindinput='updateName'></input>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>用户姓名</text>
-        <input class='info__value' placeholder='{{myInfo.phone}}' bindinput='updatePhone'></input>
+        <input class='info__value' placeholder='{{user.name}}' bindinput='updatePhone'></input>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>手机号码</text>
-        <input class='info__value' placeholder='{{myInfo.email}}' bindinput='updateEmail'></input>
+        <input class='info__value' placeholder='{{user.mobilePhone}}' bindinput='updateEmail'></input>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>生日</text>
-        <input class='info__value' placeholder='{{myInfo.city}}' bindinput='updateCity'></input>
+  <picker mode="date" value="{{user.birthday}}" start="1910-09-01" end="2019-09-01" bindchange="bindDateChange">
+        <input class='info__value' placeholder='{{user.birthday}}' bindinput='updateCity'></input>
+          </picker>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>邮箱</text>
-        <input class='info__value' placeholder='{{myInfo.company}}' bindinput='updateCompany'></input>
+        <input class='info__value' placeholder='{{user.email}}' bindinput='updateCompany'></input>
       </view>
       <!-- <view class='div-line'></view> -->
 
       
 
-      <!-- <view class='div-line' bindtap='letShowUserTagsModal'></view> -->
-      <view class='info'>
-        <text class='info__key'>个人简介:</text>
-        <textarea class='info__value info__textarea' auto-height="true" placeholder='{{myInfo.intro}}' bindinput='updateIntro'></textarea>
-      </view>
+      
      
     </view>
   </view>

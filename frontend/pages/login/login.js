@@ -44,12 +44,12 @@ Page({
       success: (res) => {
         //登录成功，显示小程序主页
         wx.request({
-          url: app.globalData.backendUrl + "user/find/openid",
+          url: getApp().globalData.backendUrl + "user/find/openid",
           data: {
-            openid: app.getOpenid()
+            openid: getApp().getOpenid()
           },
           header: {
-            'Authorization': 'Bearer ' + that.getToken(),
+            'Authorization': 'Bearer ' + getApp().getToken(),
             'content-type': 'application/x-www-form-urlencoded'
           },
           method: 'GET',

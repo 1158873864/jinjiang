@@ -144,7 +144,7 @@
 }
 
 .goods-info .sales {
-  padding-left: 100rpx;
+  padding-left: 70rpx;
   font-size: 30rpx;
   color: #999;
 }
