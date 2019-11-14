@@ -398,8 +398,8 @@ letter-spacing:5rpx;
     margin:10px;
 }
 .integral_image{
-  width: 185px;
-  height: 185px;
+  width: 320rpx;
+  height: 320rpx;
 }
 .black_txt2 {
   margin-left: 10px;

@@ -11,94 +11,108 @@ Page({
    * 页面的初始数据
    */
   data: {
-    integrals: [0, 0, 0, 0,0,0,0,0],
-    courseList: []
+    integrals: [],
+    page: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    if (options.courseGroupId) {
-      var courseGroupId = options.courseGroupId;
-      var that = this
-      wx.request({
-        url: app.globalData.backendUrl + "courseGroup/findById",
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        data: {
-          id: courseGroupId
-        },
-        success: (res) => {
-          res.data.courseGroupItem.courseList.forEach(item => {
-            item.image = app.globalData.picUrl + item.image
-          })
-          that.setData({
-            courseList: res.data.courseGroupItem.courseList
-          })
-        }
-      })
-    } else {
-      api.getCourseList.call(this)
-    }
+  onLoad: function (options) {
+    wx.request({
+      url: app.globalData.backendUrl + "integragoods/find/all",
+      data: {
+        page: this.page,
+        size: 20
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          integrals: res.data.data.items.content
+        })
+      }
+    })
   },
   //展示文章详情
-  onTouchThisArticle: function(e) {
+  onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({
-      url: '../../articleDetail/courseDetail/courseDetail?id=' + id
+      url: '../integralDetail/integralDetail?id=' + id
     })
   },
   /** 
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function() {
+  onReady: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
+  onReachBottom: function () {
+    var page1 = this.page + 1
+    this.setData({
+      page: page1
+    })
+    wx.request({
+      url: app.globalData.backendUrl + "integragoods/find/all",
+      data: {
+        page: this.page,
+        size: 20
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          integrals: res.data.data.items.content
+        })
+      }
+    })
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })

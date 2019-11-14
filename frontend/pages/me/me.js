@@ -12,31 +12,31 @@ Page({
 
     array: [{
       id: '0',
-      src: '../../img/我的订单.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的订单.png',
       text: '我的订单',
       show: true
     },
     {
       id: '1',
-      src: '../../img/待付款.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/待付款.png',
       text: '待付款',
       show: true
     },
     {
       id: '2',
-      src: '../../img/待发货.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/待发货.png',
       text: '待发货',
       show: true
     },
     {
       id: '3',
-      src: '../../img/待收货.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/待收货.png',
       text: '待收货',
       show: true
     },  
     {
       id: '4',
-      src: '../../img/收货地址.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/收货地址.png',
       text: '收货地址',
       show: true
     }
@@ -44,31 +44,31 @@ Page({
     
     array1: [{
       id: '10',
-      src: '../../img/会员.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/会员.png',
       text: '会员推广',
       show: true
     },
     {
       id: '11',
-      src: '../../img/客服经理.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/客服经理.png',
       text: '客服经理',
       show: false
     },
     {
       id: '12',
-      src: '../../img/会员等级.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/会员等级.png',
       text: '会员等级',
       show: false
     },
     {
       id: '13',
-      src: '../../img/旗下会员.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/旗下会员.png',
       text: '旗下会员',
       show: true
     },
     {
       id: '14',
-      src: '../../img/生日.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/生日.png',
       text: '会员生日',
       show: true
     }
@@ -76,13 +76,13 @@ Page({
 
     array2: [{
       id: '20',
-      src: '../../img/我的账户.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的账户.png',
       text: '我的账户',
       show: true
     },
     {
       id: '21',
-      src: '../../img/优惠券.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/优惠券.png',
       text: '优惠券',
       show: true
     }
@@ -90,37 +90,37 @@ Page({
 
     array3: [{
       id: '30',
-      src: '../../img/消费记录.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/消费记录.png',
       text: '消费记录',
       show: true
     },
     {
       id: '32',
-      src: '../../img/销售提成.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/销售提成.png',
       text: '销售提成',
       show: true
     },
     {
       id: '33',
-      src: '../../img/账单.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/账单.png',
       text: '会员消费',
       show: true
     },
     {
       id: '34',
-      src: '../../img/账单.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/账单.png',
       text: '股东销售',
       show: true
     },
     {
         id: '35',
-      src: '../../img/报销.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销明细',
       show: true
     },
     {
         id: '36',
-        src: '../../img/报销.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销',
       show: false
       }
@@ -128,19 +128,19 @@ Page({
 
     array4: [{
       id: '40',
-      src: '../../img/个人信息.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/个人信息.png',
       text: '编辑资料',
       show: true
     },
     {
       id: '41',
-      src: '../../img/投诉.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/投诉.png',
       text: '投诉建议',
       show: true
     },
     {
       id: '42',
-      src: '../../img/管理.png',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/管理.png',
       text: '管理酒庄',
       show: true
     }

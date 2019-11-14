@@ -16,18 +16,17 @@
 
 <view class="gridview" style='background:white;'>
   <view class="gridview-item" wx:for="{{integrals}}" wx:key="id" wx:for-index="index">
-    
-       <image class='integral_image' mode='widthFix' src='../../img/integral.jpg'></image>
-       <view class="black_txt2">金酱2016陈酿酒               </view>
-            <view class="black_txt2">500ml*瓶</view>
+    <view bindtap="onTouchThisArticle" data-id='{{item.id}}'>
+       <image class='integral_image' mode='widthFix' src='{{item.imageUrl}}'></image>
+       <view class="black_txt2">{{item.name}}               </view>
+            <view class="black_txt2">{{item.standard}}</view>
         <view class="integral_convert">
-           <image class='integral_convert_image' src='../../img/金币.png'></image>
-            <view class="orange_txt">兑换积分:668</view>
-            
+           <image class='integral_convert_image' src='https://take-out.oss-cn-hangzhou.aliyuncs.com/金币.png'></image>
+            <view class="orange_txt">兑换积分:{{item.integral}}</view>
         </view>
-        <image class='integral_button' src='../../img/rightnow.png'></image>
+        <image class='integral_button' src='https://take-out.oss-cn-hangzhou.aliyuncs.com/rightnow.png'></image>
   </view>
-
+</view>
 </view>
 
 </view>

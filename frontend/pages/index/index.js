@@ -17,22 +17,22 @@ Page({
     integrals: [0, 0, 0, 0],
     array: [{
         id: '0',
-        src: '../../img/热销.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/热销.png',
         text: '热销产品'
       },
       {
         id: '1',
-        src: '../../img/积分.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/积分.png',
         text: '积分商城'
       },
       {
         id: '2',
-        src: '../../img/精品.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/精品.png',
         text: '精品推荐'
       },
       {
         id: '3',
-        src: '../../img/文化推广.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/文化推广.png',
         text: '文化推广'
       }
       

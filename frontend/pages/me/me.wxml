@@ -42,7 +42,7 @@
 </view>
 
 <view class="title">
-      <image class="title-img" src="../../img/title.png"></image>
+      <image class="title-img" src="https://take-out.oss-cn-hangzhou.aliyuncs.com/title.png"></image>
       <view class="title-txt">会员</view>
 </view>
 
@@ -69,7 +69,7 @@
 
 
 <view class="title">
-      <image class="title-img" src="../../img/title.png"></image>
+      <image class="title-img" src="https://take-out.oss-cn-hangzhou.aliyuncs.com/title.png"></image>
       <view class="title-txt">账户</view>
 </view>
 
@@ -95,7 +95,7 @@
 <view class="div-line2"></view>
 
 <view class="title">
-      <image class="title-img" src="../../img/title.png"></image>
+      <image class="title-img" src="https://take-out.oss-cn-hangzhou.aliyuncs.com/title.png"></image>
       <view class="title-txt">明细</view>
 </view>
 
@@ -121,7 +121,7 @@
 <view class="div-line2"></view>
 
 <view class="title">
-      <image class="title-img" src="../../img/title.png"></image>
+      <image class="title-img" src="https://take-out.oss-cn-hangzhou.aliyuncs.com/title.png"></image>
       <view class="title-txt">其他</view>
 </view>
 
