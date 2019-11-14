@@ -2,35 +2,35 @@
 <view style="margin:10px; font-size:18px;height:40%;">
 <view style="margin:5px;">
    <text>当前会员等级：</text>
-   <text style="color:red">初级会员</text>
+   <text style="color:red">非会员</text>
 </view>
 <view class="div-line"></view>
 
 
 <view style="margin:5px;">
-   <text>当前交易金额：¥10000</text>
+   <text>当前交易金额：¥0</text>
 </view>
 
-<progress style="margin:5px;" percent="40" stroke-width="21" border-radius="10px" activeColor="rgb(255, 102, 0)" active/>
+<progress style="margin:5px;" percent="0" stroke-width="21" border-radius="10px" activeColor="rgb(255, 102, 0)" active/>
 
 <view style="margin:5px;">
-   <text>还差¥40000满足条件</text>
+   <text>还差¥10000满足条件</text>
 </view>
 
 <view class="div-line"></view>
 
 <view style="margin:5px;">
-   <text>满足上述条件可省级为：</text>
-   <text style="color:red">高级会员</text>
+   <text>满足上述条件可升级为：</text>
+   <text style="color:red">会员</text>
 </view>
 </view>
 
 <view style="padding:5px;background-color:rgb(196, 196, 196);font-size:17px;height:200rem">
     <view style="margin:10px;">
-   <text>初级会员</text>
+   <text>非会员</text>
 </view>
  <view style="margin:10px;">
-   <text>升级为高级会员，享受会员专属豪礼</text>
+   <text>升级为会员，享受会员专属豪礼</text>
 </view>
 </view>
 

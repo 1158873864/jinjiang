@@ -18,6 +18,19 @@
       
   </view>
 
-  <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/分享.png" class="share"></image>
+  <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/分享.png" class="share" bindtap='showModal'></image>
+
+  <view class="commodity_screen" bindtap="hideModal" wx:if="{{showModalStatus}}"></view>
+  <view animation="{{animationData}}" class="commodity_attr_box modal" wx:if="{{showModalStatus}}">
+    <button class='modal__button modal__left' open-type='share'>
+      <image class='modal__image' src='../../img/wechat.png'></image>
+      <text class='modal__text'>分享给好友</text>
+    </button>
+    <button class='modal__button modal__right' bindtap='drawPost'>
+      <image class='modal__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post.png'></image>
+      <text class='modal__text'>生成海报</text>
+    </button>
+  </view>
+
 </view>
   

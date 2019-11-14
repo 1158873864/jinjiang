@@ -5,18 +5,12 @@ import jinjiang.dao.account.BalanceDao;
 import jinjiang.dao.account.UserDao;
 import jinjiang.dao.admin.DeductDao;
 import jinjiang.dao.order.OrderDao;
-import jinjiang.dao.shop.Goods2Dao;
-import jinjiang.dao.shop.GoodsDao;
-import jinjiang.dao.shop.IntegraGoodsDao;
-import jinjiang.dao.shop.ShopDao;
+import jinjiang.dao.shop.*;
 import jinjiang.entity.account.Balance;
 import jinjiang.entity.account.User;
 import jinjiang.entity.admin.Deduct;
 import jinjiang.entity.order.Order;
-import jinjiang.entity.shop.Goods;
-import jinjiang.entity.shop.Goods2;
-import jinjiang.entity.shop.IntegralGoods;
-import jinjiang.entity.shop.Shop;
+import jinjiang.entity.shop.*;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.OrderResponse;
 import jinjiang.response.GoodsItem;
@@ -41,8 +35,9 @@ public class OrderBlServiceImpl implements OrderBlService {
     private final DeductDao deductDao;
     private final ShopDao shopDao;
     private final BalanceDao balanceDao;
+    private final ShopBalanceDao shopBalanceDao;
     @Autowired
-    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao){
+    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao, ShopBalanceDao shopBalanceDao){
         this.orderdoa=orderdoa;
         this.userDao = userDao;
         this.goodsDao = goodsDao;
@@ -51,6 +46,7 @@ public class OrderBlServiceImpl implements OrderBlService {
         this.deductDao = deductDao;
         this.shopDao = shopDao;
         this.balanceDao = balanceDao;
+        this.shopBalanceDao = shopBalanceDao;
     }
 
     @Override
@@ -181,7 +177,6 @@ public class OrderBlServiceImpl implements OrderBlService {
             orderdoa.save(o);
             User user=userDao.getOne(o.getUserId());
             user.setBalance(user.getBalance()-actualPrice);
-
             Deduct deduct=new Deduct();
             Optional<Deduct> optionalDeduct=deductDao.findByShopId(shopId);
             if(optionalDeduct.isPresent()){
@@ -189,6 +184,7 @@ public class OrderBlServiceImpl implements OrderBlService {
             }
             if(user.getIdentity().equals("member")){
                 user.setIntegral(user.getIntegral()+(int)actualPrice);
+                userDao.save(user);
                 double stock=0;
                 double profit=0;
                 List<String> goodsList=o.getGoodsList();
@@ -226,6 +222,8 @@ public class OrderBlServiceImpl implements OrderBlService {
                             Shop shop=optionalShop.get();
                             shop.setBalance(shop.getBalance()+profit*(1-deduct.getStaffRatio()));
                             shopDao.save(shop);
+                            ShopBalance shopBalance=new ShopBalance(shop.getId(),shop.getName(),"收入","",profit*(1-deduct.getStaffRatio()),"会员"+user.getUsername()+"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                            shopBalanceDao.save(shopBalance);
                         }
                     }
                     else{
@@ -234,6 +232,8 @@ public class OrderBlServiceImpl implements OrderBlService {
                             Shop shop=optionalShop.get();
                             shop.setBalance(shop.getBalance()+profit);
                             shopDao.save(shop);
+                            ShopBalance shopBalance=new ShopBalance(shop.getId(),shop.getName(),"收入","",profit,"会员"+user.getUsername()+"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                            shopBalanceDao.save(shopBalance);
                         }
                     }
 
@@ -252,6 +252,8 @@ public class OrderBlServiceImpl implements OrderBlService {
                             Shop shop=optionalShop.get();
                             shop.setBalance(shop.getBalance()+profit*(1-deduct.getTakeBalance()-deduct.getPersonal()));
                             shopDao.save(shop);
+                            ShopBalance shopBalance=new ShopBalance(shop.getId(),shop.getName(),"收入","",profit*(1-deduct.getTakeBalance()-deduct.getPersonal()),"会员"+user.getUsername()+"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                            shopBalanceDao.save(shopBalance);
                         }
                     }
                     else{
@@ -260,11 +262,48 @@ public class OrderBlServiceImpl implements OrderBlService {
                             Shop shop=optionalShop.get();
                             shop.setBalance(shop.getBalance()+profit);
                             shopDao.save(shop);
+                            ShopBalance shopBalance=new ShopBalance(shop.getId(),shop.getName(),"收入","",profit,"会员"+user.getUsername()+"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                            shopBalanceDao.save(shopBalance);
                         }
                     }
 
                 }
 
+            }
+            else{
+                userDao.save(user);
+                double stock=0;
+                double profit=0;
+                List<String> goodsList=o.getGoodsList();
+                for(int i=0;i<goodsList.size();i++){
+                    Optional<Goods> optionalGoods=goodsDao.findById(goodsList.get(i));
+                    if(optionalGoods.isPresent()){
+                        Goods goods=optionalGoods.get();
+                        goodsName.add(goods.getName());
+                        shopId=goods.getShopId();
+                        stock+=goods.getStockPrice();
+                    }
+                    else{
+                        Optional<Goods2> optionalGoods2=goods2Dao.findById(goodsList.get(i));
+                        if(optionalGoods2.isPresent()){
+                            Goods2 goods2=optionalGoods2.get();
+                            goodsName.add(goods2.getName());
+                            shopId=goods2.getShopId();
+                            stock+=goods2.getStockPrice();
+                        }
+                    }
+                }
+                profit=actualPrice-stock;
+                Balance balance=new Balance(user.getId(),user.getUsername(),"支出",actualPrice,"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                balanceDao.save(balance);
+                Optional<Shop> optionalShop=shopDao.findById(shopId);
+                if(optionalShop.isPresent()){
+                    Shop shop=optionalShop.get();
+                    shop.setBalance(shop.getBalance()+profit);
+                    shopDao.save(shop);
+                    ShopBalance shopBalance=new ShopBalance(shop.getId(),shop.getName(),"收入","",profit,"人员"+user.getUsername()+"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
+                    shopBalanceDao.save(shopBalance);
+                }
             }
         }else {
             throw new NotExistException("order ID", id);

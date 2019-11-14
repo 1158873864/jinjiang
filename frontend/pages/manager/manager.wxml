@@ -3,14 +3,14 @@
 <view class="container">
   <view class='header'>
       <view class='card__main'>
-        <image class='card__left' src='{{myInfo.face}}'></image>
+        <image class='card__left' src='{{user.faceUrl}}'></image>
         <view class='card__right'>
           <view class='card__detail card__detail--wrapper'>
-            <text class='card__name'>{{myInfo.username}}</text>
+            <text class='card__name'>{{user.username}}</text>
             
           </view>
-          <text class='card__text'>电话：xxxxxxx</text>    
-          <text class='card__text'>地址：xxxxxxx</text>  
+          <text class='card__text'>电话：{{user.mobilePhone}}</text>    
+          <text class='card__text'>邮箱：{{user.email}}</text>  
           
         </view>
         
