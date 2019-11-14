@@ -27,8 +27,8 @@
           <view class='title'>地址：{{item.province}}{{item.city}}{{item.district}}{{item.detail}}</view>
           <view class='shoping'>
           
-            <image class="position" src='../../img/定位.png'></image>
-            <text class='img_cart'>距离：{{item.detail}}</text>
+            <image class="position" src='https://take-out.oss-cn-hangzhou.aliyuncs.com/定位.png'></image>
+            <text class='img_cart'>距离：11km</text>
           </view>
         </view>
         

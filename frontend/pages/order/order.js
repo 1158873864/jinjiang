@@ -1,6 +1,10 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
-var app=getApp()
+const app = getApp()
+var api = require('../../util/api.js')
+const {
+  bg1
+} = require('../../util/data.js')
 Page({
   data: {
     orderList: [],
@@ -163,7 +167,7 @@ Page({
   },
   switchTab :function(e){
     console.log(e.target)
-    var showType = e.target.dataset.index
+    var showType = e.currentTarget.dataset.index
     
     if (showType == 0) {
       wx.request({

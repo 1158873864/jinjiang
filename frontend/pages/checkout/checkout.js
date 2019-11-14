@@ -243,7 +243,7 @@ Page({
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/json'
         },
-        method: 'POST',
+        method: 'PUT',
         success: (res) => {
           /*console.log(res)*/
           wx.showToast({

@@ -144,7 +144,7 @@ Page({
       show: true
     },
       {
-        id: '42',
+        id: '43',
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/订单管理.png',
         text: '订单管理',
         show: true
@@ -165,17 +165,17 @@ Page({
     }
     if ("1" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
-        url: '../order/order'
+        url: '../order/order?showType=1'
       })
     }
     if ("2" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
-        url: '../order/order'
+        url: '../order/order?showType=2'
       })
     }
     if ("3" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
-        url: '../order/order'
+        url: '../order/order?showType=3'
       })
     }
     if ("4" == e.currentTarget.dataset.goodsid) {
@@ -266,6 +266,11 @@ Page({
     if ("42" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
         url: '../administer/administer'
+      })
+    }
+    if ("43" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../orderManage/orderManage'
       })
     }
 

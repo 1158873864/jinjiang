@@ -23,7 +23,7 @@
   <view class="orders">
     <navigator url="../orderDetail/orderDetail?id={{item.id}}" class="order" open-type="redirect" wx:for="{{orderList}}" wx:key="id">
       <view class="h">
-        <view class="l">订单编号：{{item.id}}</view>
+        <view class="l">订单编号:{{item.id}}</view>
         <view class="r">{{item.status}}</view>
       </view>
       <view class="goods" wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">
