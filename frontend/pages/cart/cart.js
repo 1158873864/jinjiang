@@ -7,9 +7,7 @@ var app = getApp();
 Page({
   data: {
     cartGoods: [],
-    cartTotal: {
-      "goodsCount": 0,
-      "goodsAmount": 0.00,
+    checkedGoodsCount: {
       "checkedGoodsCount": 0,
       "checkedGoodsAmount": 0.00
     },
@@ -32,13 +30,11 @@ Page({
   },
   onShow: function() {
     // 页面显示
-    if (app.globalData.hasLogin) {
-      this.getCartList();
-    }
-
-    this.setData({
-      hasLogin: app.globalData.hasLogin
-    });
+   
+    this.getCartList();
+    // this.setData({
+    //   hasLogin: app.globalData.hasLogin
+    // });
 
   },
   onHide: function() {
@@ -52,6 +48,34 @@ Page({
   },
   getCartList: function() {
     let that = this;
+    
+    wx.request({
+      url: app.globalData.backendUrl + "cart/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var cartGoods = res.data.data.items.content
+        var checkedGoodsCount=0
+        var checkedGoodsAmount=0
+        for (var i = 0; i < cartGoods.length;i++){
+          
+        }
+
+        that.setData({
+          cartGoods: cartGoods,
+          checkedAllStatus: that.isCheckedAll()
+        })
+      }
+    })
+
+
     util.request(api.CartList).then(function(res) {
       if (res.errno === 0) {
         that.setData({
@@ -59,9 +83,7 @@ Page({
           cartTotal: res.data.cartTotal
         });
 
-        that.setData({
-          checkedAllStatus: that.isCheckedAll()
-        });
+        
       }
     });
   },

@@ -175,8 +175,34 @@ Page({
       content: '确认收货？',
       success: function(res) {
         if (res.confirm) {
+          if(orderInfo.status=='待收货'){
           wx.request({
             url: app.globalData.backendUrl + "order/take",
+            data: {
+              id: orderInfo.id
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              if (res.data.code === 0) {
+                wx.showToast({
+                  title: '确认收货成功'
+                });
+                util.redirect('/pages/order/order');
+              } else {
+                util.showErrorToast(res.message);
+              }
+            }
+          })
+        }
+        }
+        else{
+          wx.request({
+            url: app.globalData.backendUrl + "order/integralTake",
             data: {
               id: orderInfo.id
             },
