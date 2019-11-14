@@ -7,6 +7,7 @@ Page({
   data: {
     checkedGoodsList: [],
     checkedAddress: {},
+    order:{},
     availableCouponLength: 0, // 可用的优惠券数量
     goodsTotalPrice: 0.00, //商品总价
     freightPrice: 0.00, //快递费
@@ -15,7 +16,7 @@ Page({
     orderTotalPrice: 0.00, //订单总价
     actualPrice: 0.00, //实际需要支付的总价
     cartId: 0,
-    addressId: 0,
+    addressId: '',
     couponId: 0,
     userCouponId: 0,
     message: '',
@@ -24,46 +25,105 @@ Page({
   },
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
-  },
+    wx.request({
+      url: app.globalData.backendUrl + "order/find/id/wx",
+      data: {
+        id: options.id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var checkedGoodsList=res.data.data.items.goodsList
+        var actualPrice = res.data.data.items.price
+        var orderTotalPrice = res.data.data.items.price
+        var order = res.data.data.items
+        this.setData({
+          checkedGoodsList: checkedGoodsList,
+          actualPrice: actualPrice,
+          order: order
+        })
 
-  //获取checkou信息
-  getCheckoutInfo: function () {
-    let that = this;
-    util.request(api.CartCheckout, {
-      cartId: that.data.cartId,
-      addressId: that.data.addressId,
-      couponId: that.data.couponId,
-      userCouponId: that.data.userCouponId,
-      grouponRulesId: that.data.grouponRulesId
-    }).then(function (res) {
-      if (res.errno === 0) {
-        that.setData({
-          checkedGoodsList: res.data.checkedGoodsList,
-          checkedAddress: res.data.checkedAddress,
-          availableCouponLength: res.data.availableCouponLength,
-          actualPrice: res.data.actualPrice,
-          couponPrice: res.data.couponPrice,
-          grouponPrice: res.data.grouponPrice,
-          freightPrice: res.data.freightPrice,
-          goodsTotalPrice: res.data.goodsTotalPrice,
-          orderTotalPrice: res.data.orderTotalPrice,
-          addressId: res.data.addressId,
-          couponId: res.data.couponId,
-          userCouponId: res.data.userCouponId,
-          grouponRulesId: res.data.grouponRulesId,
-        });
       }
-      wx.hideLoading();
-    });
+    })
+
+    var addressId = options.addressId
+    if (addressId==''){
+    wx.request({
+      url: app.globalData.backendUrl + "address/find/userId",
+      data: {
+        userId: app.getId()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var addresses = res.data.data.items
+        if (addresses.length>0){
+          for (var i = 0; i < addresses.length;i++){
+            if (addresses[i].isDefault){
+              var checkedAddress = addresses[i]
+              var addressId=addresses[i].id
+
+              this.setData({
+                checkedAddress: checkedAddress,
+                addressId: addressId
+              })
+            }
+            if (addressId==''){
+              var checkedAddress = addresses[0]
+              var addressId = addresses[0].id
+
+              this.setData({
+                checkedAddress: checkedAddress,
+                addressId: addressId
+              })
+            }
+          }
+          
+        }
+      }
+    })
+    }
+    else{
+      wx.request({
+        url: app.globalData.backendUrl + "address/find/id",
+        data: {
+          id: addressId
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var checkedAddress= res.data.data.items
+
+          this.setData({
+            checkedAddress: checkedAddress,
+            addressId: addressId
+          })
+        }
+      })
+
+    }
+
   },
   selectAddress() {
     wx.navigateTo({
-      url: '/pages/ucenter/address/address',
+      url: '/pages/address/address',
     })
   },
   selectCoupon() {
     wx.navigateTo({
-      url: '/pages/ucenter/couponSelect/couponSelect',
+      url: '/pages/couponSelect/couponSelect',
     })
   },
   bindMessageInput: function (e) {
@@ -77,50 +137,7 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    wx.showLoading({
-      title: '加载中...',
-    });
-    try {
-      var cartId = wx.getStorageSync('cartId');
-      if (cartId === "") {
-        cartId = 0;
-      }
-      var addressId = wx.getStorageSync('addressId');
-      if (addressId === "") {
-        addressId = 0;
-      }
-      var couponId = wx.getStorageSync('couponId');
-      if (couponId === "") {
-        couponId = 0;
-      }
-      var userCouponId = wx.getStorageSync('userCouponId');
-      if (userCouponId === "") {
-        userCouponId = 0;
-      }
-      var grouponRulesId = wx.getStorageSync('grouponRulesId');
-      if (grouponRulesId === "") {
-        grouponRulesId = 0;
-      }
-      var grouponLinkId = wx.getStorageSync('grouponLinkId');
-      if (grouponLinkId === "") {
-        grouponLinkId = 0;
-      }
-
-      this.setData({
-        cartId: cartId,
-        addressId: addressId,
-        couponId: couponId,
-        userCouponId: userCouponId,
-        grouponRulesId: grouponRulesId,
-        grouponLinkId: grouponLinkId
-      });
-
-    } catch (e) {
-      // Do something when catch error
-      console.log(e);
-    }
-
-    this.getCheckoutInfo();
+    
   },
   onHide: function () {
     // 页面隐藏
@@ -131,10 +148,36 @@ Page({
 
   },
   submitOrder: function () {
-    if (this.data.addressId <= 0) {
+    if (this.data.addressId =='0') {
       util.showErrorToast('请选择收货地址');
       return false;
     }
+    var order=this.data.order
+    order.price=this.data.actualPrice
+    order.person = this.data.checkedAddress.person
+    order.mobilePone = this.data.checkedAddress.mobilePone
+    order.address = this.data.checkedAddress.province + this.data.checkedAddress.city + this.data.checkedAddress.distinct + this.data.checkedAddress.detail
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+      }
+    })
+
+
     util.request(api.OrderSubmit, {
       cartId: this.data.cartId,
       addressId: this.data.addressId,

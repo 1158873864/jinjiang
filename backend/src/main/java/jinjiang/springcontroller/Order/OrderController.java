@@ -70,6 +70,18 @@ public class OrderController {
     }
 
     @ApiOperation(value = "根据id查找订单", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/find/id/wx", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findById(@RequestParam("id") String id) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",orderBlService.findByIdWX(id));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据id查找订单", notes = "")
     @RequestMapping(value = "/pay", method = RequestMethod.POST)
     @ResponseBody
     public ResponseEntity<Result> pay(@Valid @RequestBody Order order) throws NotExistException {

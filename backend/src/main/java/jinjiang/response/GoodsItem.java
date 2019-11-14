@@ -9,14 +9,17 @@ public class GoodsItem {
 
     private String standard;//规格
 
+    private double price;//规格
+
     public GoodsItem() {
     }
 
-    public GoodsItem(String id, String name, String imageUrl, String standard) {
+    public GoodsItem(String id, String name, String imageUrl, String standard, double price) {
         this.id = id;
         this.name = name;
         this.imageUrl = imageUrl;
         this.standard = standard;
+        this.price = price;
     }
 
     public String getId() {
@@ -49,5 +52,13 @@ public class GoodsItem {
 
     public void setStandard(String standard) {
         this.standard = standard;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }

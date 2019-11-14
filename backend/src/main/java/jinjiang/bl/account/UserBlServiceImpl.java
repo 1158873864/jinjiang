@@ -1,7 +1,10 @@
 package jinjiang.bl.account;
 
 
+import jinjiang.dao.account.AddressDao;
 import jinjiang.dao.shop.ShopDao;
+import jinjiang.entity.account.Address;
+import jinjiang.entity.admin.Ad;
 import jinjiang.entity.shop.Shop;
 import jinjiang.response.account.OpenIdAndSessionKeyResponse;
 import jinjiang.response.account.QrCodeResponse;
@@ -22,7 +25,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -31,11 +33,13 @@ import java.util.*;
 public class UserBlServiceImpl implements UserBlService {
 	private final UserDao userDao;
 	private final ShopDao shopDao;
+	private final AddressDao addressDao;
 
 	@Autowired
-	public UserBlServiceImpl(UserDao userDao, ShopDao shopDao) {
+	public UserBlServiceImpl(UserDao userDao, ShopDao shopDao, AddressDao addressDao) {
 		this.userDao = userDao;
 		this.shopDao = shopDao;
+		this.addressDao = addressDao;
 	}
 
 	@Override
@@ -163,6 +167,19 @@ public class UserBlServiceImpl implements UserBlService {
 		}
 		else {
 			throw new NotExistException("User ID", userId);
+		}
+		Optional<Address> optionalAddress=addressDao.findById(addressId);
+		if(optionalAddress.isPresent()){
+			Address address=optionalAddress.get();
+			address.setDefault(true);
+			addressDao.save(address);
+		}
+		List<Address> addresses=addressDao.findByUserId(userId);
+		for(Address address:addresses){
+			if(!address.getId().equals(addressId)){
+				address.setDefault(false);
+				addressDao.save(address);
+			}
 		}
 	}
 

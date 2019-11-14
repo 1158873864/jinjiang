@@ -290,21 +290,21 @@ public class OrderBlServiceImpl implements OrderBlService {
                 Optional<Goods> optionalGoods=goodsDao.findById(id);
                 if(optionalGoods.isPresent()){
                     Goods goods=optionalGoods.get();
-                    goodsItem=new GoodsItem(goods.getId(),goods.getName(),goods.getImageUrl(),goods.getStandard());
+                    goodsItem=new GoodsItem(goods.getId(),goods.getName(),goods.getImageUrl(),goods.getStandard(),goods.getPrice());
                     goodsItems.add(goodsItem);
                 }
                 else{
                     Optional<Goods2> optionalGoods2=goods2Dao.findById(id);
                     if(optionalGoods2.isPresent()){
                         Goods2 goods2=optionalGoods2.get();
-                        goodsItem=new GoodsItem(goods2.getId(),goods2.getName(),goods2.getImageUrl(),goods2.getStandard());
+                        goodsItem=new GoodsItem(goods2.getId(),goods2.getName(),goods2.getImageUrl(),goods2.getStandard(),goods2.getPrice());
                         goodsItems.add(goodsItem);
                     }
                     else{
                         Optional<IntegralGoods> optionalIntegralGoods=integraGoodsDao.findById(id);
                         if(optionalIntegralGoods.isPresent()){
                             IntegralGoods integralGoods=optionalIntegralGoods.get();
-                            goodsItem=new GoodsItem(integralGoods.getId(),integralGoods.getName(),integralGoods.getImageUrl(),integralGoods.getStandard());
+                            goodsItem=new GoodsItem(integralGoods.getId(),integralGoods.getName(),integralGoods.getImageUrl(),integralGoods.getStandard(),integralGoods.getIntegral());
                             goodsItems.add(goodsItem);
                         }
                     }
@@ -329,21 +329,21 @@ public class OrderBlServiceImpl implements OrderBlService {
                 Optional<Goods> optionalGoods=goodsDao.findById(id);
                 if(optionalGoods.isPresent()){
                     Goods goods=optionalGoods.get();
-                    goodsItem=new GoodsItem(goods.getId(),goods.getName(),goods.getImageUrl(),goods.getStandard());
+                    goodsItem=new GoodsItem(goods.getId(),goods.getName(),goods.getImageUrl(),goods.getStandard(),goods.getPrice());
                     goodsItems.add(goodsItem);
                 }
                 else{
                     Optional<Goods2> optionalGoods2=goods2Dao.findById(id);
                     if(optionalGoods2.isPresent()){
                         Goods2 goods2=optionalGoods2.get();
-                        goodsItem=new GoodsItem(goods2.getId(),goods2.getName(),goods2.getImageUrl(),goods2.getStandard());
+                        goodsItem=new GoodsItem(goods2.getId(),goods2.getName(),goods2.getImageUrl(),goods2.getStandard(),goods2.getPrice());
                         goodsItems.add(goodsItem);
                     }
                     else{
                         Optional<IntegralGoods> optionalIntegralGoods=integraGoodsDao.findById(id);
                         if(optionalIntegralGoods.isPresent()){
                             IntegralGoods integralGoods=optionalIntegralGoods.get();
-                            goodsItem=new GoodsItem(integralGoods.getId(),integralGoods.getName(),integralGoods.getImageUrl(),integralGoods.getStandard());
+                            goodsItem=new GoodsItem(integralGoods.getId(),integralGoods.getName(),integralGoods.getImageUrl(),integralGoods.getStandard(),integralGoods.getIntegral());
                             goodsItems.add(goodsItem);
                         }
                     }
@@ -356,5 +356,41 @@ public class OrderBlServiceImpl implements OrderBlService {
         return orderResponses;
     }
 
+
+    @Override
+    public OrderResponse findByIdWX(String orderId) {
+        Optional<Order> optionalOrder=orderdoa.findById(orderId);
+        OrderResponse orderResponse=new OrderResponse();
+        if(optionalOrder.isPresent()) {
+            Order order=optionalOrder.get();
+            List<GoodsItem> goodsItems = new ArrayList<>();
+            for (int j = 0; j < order.getGoodsList().size(); j++) {
+                String id = order.getGoodsList().get(j);
+                GoodsItem goodsItem = new GoodsItem();
+                Optional<Goods> optionalGoods = goodsDao.findById(id);
+                if (optionalGoods.isPresent()) {
+                    Goods goods = optionalGoods.get();
+                    goodsItem = new GoodsItem(goods.getId(), goods.getName(), goods.getImageUrl(), goods.getStandard(),goods.getPrice());
+                    goodsItems.add(goodsItem);
+                } else {
+                    Optional<Goods2> optionalGoods2 = goods2Dao.findById(id);
+                    if (optionalGoods2.isPresent()) {
+                        Goods2 goods2 = optionalGoods2.get();
+                        goodsItem = new GoodsItem(goods2.getId(), goods2.getName(), goods2.getImageUrl(), goods2.getStandard(),goods2.getPrice());
+                        goodsItems.add(goodsItem);
+                    } else {
+                        Optional<IntegralGoods> optionalIntegralGoods = integraGoodsDao.findById(id);
+                        if (optionalIntegralGoods.isPresent()) {
+                            IntegralGoods integralGoods = optionalIntegralGoods.get();
+                            goodsItem = new GoodsItem(integralGoods.getId(), integralGoods.getName(), integralGoods.getImageUrl(), integralGoods.getStandard(),integralGoods.getIntegral());
+                            goodsItems.add(goodsItem);
+                        }
+                    }
+                }
+            }
+            orderResponse = new OrderResponse(order.getId(), order.getUserId(), order.getAddress(), order.getMobilePone(), order.getPerson(), order.getType(), order.getRemark(), order.getFreight(), order.getPrice(), order.getDiscountPrice(), goodsItems, order.getBuyTime(), order.getStatus());
+        }
+        return orderResponse;
+    }
 
 }

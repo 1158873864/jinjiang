@@ -49,6 +49,7 @@ public class AddressBlServiceImpl implements AddressBlService {
             newUser.setPerson(address.getPerson());
             newUser.setProvince(address.getProvince());
             newUser.setUserId(address.getUserId());
+            newUser.setDefault(address.isDefault());
             addressDao.save(newUser);
         }else {
             throw new NotExistException("address ID", address.getId());

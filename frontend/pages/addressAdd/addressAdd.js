@@ -9,7 +9,7 @@ Page({
     address: {
       id: 0,
       areaCode: 0,
-      address: '',
+      addressDetail: '',
       name: '',
       tel: '',
       isDefault: 0,
@@ -65,18 +65,32 @@ Page({
     });
   },
   getAddressDetail() {
-    let that = this;
-    util.request(api.AddressDetail, {
-      id: that.data.addressId
-    }).then(function(res) {
-      if (res.errno === 0) {
-        if (res.data) {
-          that.setData({
-            address: res.data
-          });
-        }
+    wx.request({
+      url: app.globalData.backendUrl + "address/find/id",
+      data: {
+        id: this.data.addressId
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var address=this.data.address
+        address.tel = res.data.data.items.mobilePhone
+        address.province = res.data.data.items.province
+        address.city = res.data.data.items.city
+        address.county = res.data.data.items.district
+        address.addressDetail = res.data.data.items.detail
+        address.name = res.data.data.items.person
+        address.isDefault = res.data.data.items.isDefault
+        this.setData({
+          address: address
+        })
       }
-    });
+    })
+
   },
   setRegionDoneStatus() {
     let that = this;
@@ -157,8 +171,8 @@ Page({
       this.setData({
         addressId: options.id
       });
-      this.getAddressDetail();
     }
+    this.getAddressDetail();
   },
   onReady: function() {
 
@@ -327,20 +341,27 @@ Page({
       return false;
     }
 
-    let that = this;
-    util.request(api.AddressSave, {
-      id: address.id,
-      name: address.name,
-      tel: address.tel,
-      province: address.province,
-      city: address.city,
-      county: address.county,
-      areaCode: address.areaCode,
-      addressDetail: address.addressDetail,
-      isDefault: address.isDefault
-    }, 'POST').then(function(res) {
-      if (res.errno === 0) {
-        //返回之前，先取出上一页对象，并设置addressId
+    
+    wx.request({
+      url: app.globalData.backendUrl + "address/add",
+      data: {
+        id:'',
+        province: address.province,
+        city: address.city,
+        district: address.county,
+        detail :address.addressDetail,
+        mobilePhone: address.tel,
+        person: address.name,
+        userId: app.getId(),
+        isDefault: address.isDefault
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: (res) => {
+        /*console.log(res)*/
         var pages = getCurrentPages();
         var prevPage = pages[pages.length - 2];
         console.log(prevPage);
@@ -358,7 +379,8 @@ Page({
         }
         wx.navigateBack();
       }
-    });
+    })
+
 
   },
   onShow: function() {

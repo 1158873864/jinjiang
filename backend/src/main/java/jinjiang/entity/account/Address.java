@@ -33,10 +33,13 @@ public class Address {//地址
     @Column(name = "userId")
     private String userId; //对应会员id
 
+    @Column(name = "isDefault")
+    private boolean isDefault; //默认
+
     public Address() {
     }
 
-    public Address(String province, String city, String district, String detail, String mobilePhone, String person, String userId) {
+    public Address(String province, String city, String district, String detail, String mobilePhone, String person, String userId, boolean isDefault) {
         this.province = province;
         this.city = city;
         this.district = district;
@@ -44,6 +47,7 @@ public class Address {//地址
         this.mobilePhone = mobilePhone;
         this.person = person;
         this.userId = userId;
+        this.isDefault = isDefault;
     }
 
     public String getId() {
@@ -108,5 +112,13 @@ public class Address {//地址
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public boolean isDefault() {
+        return isDefault;
+    }
+
+    public void setDefault(boolean aDefault) {
+        isDefault = aDefault;
     }
 }

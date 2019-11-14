@@ -18,15 +18,24 @@ Page({
     this.getAddressList();
   },
   getAddressList() {
-    let that = this;
-    util.request(api.AddressList).then(function(res) {
-      if (res.errno === 0) {
-        that.setData({
-          addressList: res.data.list,
-          total: res.data.total
-        });
+    wx.request({
+      url: app.globalData.backendUrl + "address/find/userId",
+      data: {
+        userId: app.getId()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          addressList: res.data.data.items
+        })
       }
-    });
+    })
+
   },
   addressAddOrUpdate(event) {
     console.log(event)
@@ -66,18 +75,26 @@ Page({
       success: function(res) {
         if (res.confirm) {
           let addressId = event.target.dataset.addressId;
-          util.request(api.AddressDelete, {
-            id: addressId
-          }, 'POST').then(function(res) {
-            if (res.errno === 0) {
+          wx.request({
+            url: app.globalData.backendUrl + "address/delete",
+            data: {
+              id: addressId
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
               that.getAddressList();
               wx.removeStorage({
                 key: 'addressId',
-                success: function(res) {},
+                success: function (res) { },
               })
             }
-          });
-          console.log('用户点击确定')
+          })
+          
         }
       }
     })
