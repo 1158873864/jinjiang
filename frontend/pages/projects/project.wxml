@@ -3,45 +3,18 @@
 <import src='/template/articleItem/articleItem.wxml'></import>
 
 <view class='container container--color-white'  bindtouchstart="onScrollStart" bindtouchend="onScrollStop">
-  <view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
-    <!--搜索框-->
-    <!-- <view>
-      <template class='search' is='searchBar' data='{{ placeholder: "搜索你感兴趣的项目", searchCondition: searchCondition,onSearch:onSearch}}'></template>
-    </view> -->
+  <view class='box'  wx:for="{{complain}}" wx:key="id">
+    <view class='conten' data-id='{{item.id}}'>
+      <view class='vessel'>
+        <view class='right'>
+          <view class='title'>用户名：{{item.username}}</view>
+          <view class='title'>{{item.content}}</view>
+          <view class='title'>{{item.time}}</view>
+        </view>
+        
+      </view>
+    </view>
   </view>
-
-  <!-- 切换 --
-
-  <!-- <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;" bindchange="bindChange"> -->
-  <swiper current="{{currentTab}}" class="swiper-box" duration="300" style="height:{{winHeight - 31}}px;" >
-    <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
-        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
-          <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
-            <template is='articleItem' data='{{item}}'></template>
-          </view>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
-        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
-          <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
-            <template is='articleItem' data='{{item}}'></template>
-          </view>
-        </view>
-      </scroll-view>
-    </swiper-item>
-    <swiper-item class="swiper-items" wx-if="{{isShow}}">
-      <scroll-view class='scroll-views' scroll-x="false" scroll-y="true" bindscrolltolower='onReachBottom'>
-        <view wx:if='{{articles.length > 0}}' class='articleListWrapper_view'>
-          <view wx:for='{{articles}}' wx:key='id' bindtap='itemclick' data-id='{{item.writerOpenid}}'>
-            <template is='articleItem' data='{{item}}'></template>
-          </view>
-        </view>
-      </scroll-view>
-    </swiper-item>
-  </swiper>
 
   <!--浮窗  --> 
   <view class="float-box" style="opacity:{{boxOpacity}};"> 

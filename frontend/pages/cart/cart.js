@@ -127,7 +127,7 @@ Page({
       for (var i = 0; i < tmpCartData.length;i++){
         console.log(tmpCartData[i].checked)
         if (i == itemIndex) {
-          tmpCartData[i].checked = !tmpCartData[i].checked;
+          tmpCartData[i].checked = true;
         } 
       }
       
@@ -152,24 +152,29 @@ Page({
     let that = this;
 
     if (!this.data.isEditCart) {
-      var productIds = this.data.cartGoods.map(function(v) {
-        return v.productId;
-      });
-      util.request(api.CartChecked, {
-        productIds: productIds,
-        isChecked: that.isCheckedAll() ? 0 : 1
-      }, 'POST').then(function(res) {
-        if (res.errno === 0) {
-          that.setData({
-            cartGoods: res.data.cartList,
-            cartTotal: res.data.cartTotal
-          });
+      var cartGoods=this.data.cartGoods
+      for (var i = 0; i < cartGoods.length;i++){
+        if(that.data.checkedAllStatus){
+          cartGoods[i].checked=false
         }
-
-        that.setData({
-          checkedAllStatus: that.isCheckedAll()
-        });
-      });
+        else{
+          cartGoods[i].checked = true
+        }
+        wx.request({
+          url: app.globalData.backendUrl + "cart/update",
+          data: cartGoods[i],
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/json'
+          },
+          method: 'PUT',
+          success: (res) => {
+            /*console.log(res)*/
+            that.getCartList()
+          }
+        })
+      }
+      
     } else {
       //编辑状态
       let checkedAllStatus = that.isCheckedAll();
@@ -272,13 +277,64 @@ Page({
       return false;
     }
 
-    // storage中设置了cartId，则是购物车购买
-    try {
-      wx.setStorageSync('cartId', 0);
-      wx.navigateTo({
-        url: '/pages/checkout/checkout'
+    var cartGoods=this.data.cartGoods
+    var freight=0
+    var price=0
+    var goodsList=[]
+    for(var i=0;i<cartGoods.length;i++){
+      for (var j = 0; j < cartGoods[i].number;j++){
+        var goodsId = cartGoods[i].goodsId
+        goodsList.push(goodsId)
+        price = price + cartGoods[i].price
+      }
+      wx.request({
+        url: app.globalData.backendUrl + "cart/delete",
+        data: {
+          id: cartGoods[i].id
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          that.getCartList()
+        }
       })
-    } catch (e) {}
+    }
+
+
+    wx.request({
+      url: app.globalData.backendUrl + "order/add",
+      method: "POST",
+      data: {
+        id: '',
+        userId: app.getId(),
+        address: '',
+        mobilePone: '',
+        person: '',
+        freight: freight,
+        price: price,
+        discountPrice: 0,
+        goodsList: goodsList,
+        buyTime: '',
+        status: '待付款',
+        type: '送货上门',
+        remark: ''
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      success: (res) => {
+        /*console.log(res)*/
+
+        wx.navigateTo({
+          url: '../checkout/checkout?id=' + res.data.data.items.id
+        })
+      }
+    })
 
   },
   deleteCart: function() {

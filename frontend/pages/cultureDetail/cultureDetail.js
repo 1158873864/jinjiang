@@ -5,22 +5,41 @@ var api = require('../../util/api.js')
 const {
   bg1
 } = require('../../util/data.js')
+var WxParse = require('../../lib/wxParse/wxParse.js');
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    title: '标题标题',
-    img: '../../img/tuiguang.jpg',
-    content: '  内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情内容详情'
+    culture:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.request({
+      url: app.globalData.backendUrl + "culture/find/id",
+      data: {
+        id: options.id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          culture: res.data.data.items
+        })
+        WxParse.wxParse('goodsDetail', 'html', res.data.data.items.detail, this);
+      }
+    })
+
     
+
   },
   
   /** 

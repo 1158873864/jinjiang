@@ -1,5 +1,9 @@
 <view class="block"> 
-    <view class="title1">{{title}}</view>
-    <image class="img" src="{{img}}"></image>
-    <text space="emsp" class="title">{{content}}</text>
+    <view class="title1">{{culture.title}}</view>
+    <view class="title1">{{culture.brief}}</view>
+    <image class="img" src="{{culture.image}}"></image>
+    <view class="detail">
+    <import src="/lib/wxParse/wxParse.wxml" />
+    <template is="wxParse" data="{{wxParseData:goodsDetail.nodes}}" />
+  </view>
 </view>

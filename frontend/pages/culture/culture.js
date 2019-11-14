@@ -12,7 +12,8 @@ Page({
    */
   data: {
     courseList: [],
-    page:0
+    page:0,
+    type:0
   },
 
   /**
@@ -20,10 +21,11 @@ Page({
    */
   onLoad: function(options) {
     wx.request({
-      url: app.globalData.backendUrl + "culture/find/all",
+      url: app.globalData.backendUrl + "culture/find/type",
       data: {
-        page: this.page,
-        size: 20
+        page: this.data.page,
+        size: 100,
+        type: '酒文化'
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),
@@ -50,6 +52,76 @@ Page({
    */
   onReady: function() {
 
+  },
+
+  switchTab: function (e) {
+    var type = e.currentTarget.dataset.index
+    if(type==0){
+      wx.request({
+        url: app.globalData.backendUrl + "culture/find/type",
+        data: {
+          page: this.data.page,
+          size: 100,
+          type: '酒文化'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          this.setData({
+            courseList: res.data.data.items.content,
+            type:type
+          })
+        }
+      })
+    }
+    else if(type==1){
+      wx.request({
+        url: app.globalData.backendUrl + "culture/find/type",
+        data: {
+          page: this.data.page,
+          size: 100,
+          type: '企业新闻'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          this.setData({
+            courseList: res.data.data.items.content,
+            type: type
+          })
+        }
+      })
+    }
+    else if (type == 2) {
+      wx.request({
+        url: app.globalData.backendUrl + "culture/find/type",
+        data: {
+          page: this.data.page,
+          size: 100,
+          type: '实时动态'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          this.setData({
+            courseList: res.data.data.items.content,
+            type: type
+          })
+        }
+      })
+    }
   },
 
   /**
@@ -83,32 +155,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    var page1 = this.page + 1
-    this.setData({
-      page: page1
-    })
-    wx.request({
-      url: app.globalData.backendUrl + "culture/find/all",
-      data: {
-        page: this.page,
-        size: 20
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        /*console.log(res)*/
-        this.setData({
-          courseList: res.data.data.items.content
-        })
-      }
-    })
-
-  },
-
+  
   /**
    * 用户点击右上角分享
    */

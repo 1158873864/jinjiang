@@ -405,7 +405,7 @@ Page({
             method: "POST",
             data: {
               id: '',
-              userId: user.id,
+              userId: app.getId(),
               address: '',
               mobilePone: '',
               person: '',

@@ -7,22 +7,16 @@
 
 <view class="container container--color-white">
 
-<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
-    <!--搜索框-->
-    <view>
-      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的商铺吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
-    </view>
-  </view>
 
-<view class="swiper-tab">
-    <view class="swiper-tab-list {{currentKind=='isPreferred'}} {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
-      酒文化
+<view class="orders-switch">
+    <view class="item {{ type == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
+      <view class="txt">酒文化</view>
     </view>
-    <view class="swiper-tab-list {{currentKind=='hot'}} {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
-       企业新闻
+    <view class="item {{ type == 1 ? 'active' : ''}}" bindtap="switchTab" data-index='1'>
+      <view class="txt">企业新闻</view>
     </view>
-    <view class="swiper-tab-list {{currentKind=='time'}} {{currentTab==2 ? 'on' : ''}}" data-current="2" bindtap="swichNav">
-       实时动态
+    <view class="item {{ type == 2 ? 'active' : ''}}" bindtap="switchTab" data-index='2'>
+      <view class="txt">实时动态</view>
     </view>
   </view>
 
@@ -31,12 +25,12 @@
     <view class='conten' bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='img'>
-          <image class='img_bofang' src='{{item.id}}'></image>
+          <image class='img_bofang' src='{{item.image}}'></image>
         </view>
         <view class='right'>
-          <view class='title1'>标题标题</view>
-          <view class='title'>发布时间：xxxxxxxxxx</view>
-          <view class='title'>内容摘要内容摘要内容摘要内容摘要内容摘要内容摘要</view>
+          <view class='title1'>{{item.title}}</view>
+          <view class='title'>发布时间：{{item.time}}</view>
+          <view class='title'>{{item.brief}}</view>
           
         </view>
         

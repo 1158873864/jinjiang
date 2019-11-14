@@ -1,6 +1,6 @@
 <!--pages/me/publishMyArticle/publishMyArticle.wxml-->
 <view>
   <view style="font-size:18px;margin-left:35%">请输入投诉建议</view>
-  <textarea style="height:120px;width:100%;border: 2rpx solid grey;"></textarea>
-  <button style="background-color:orange">提交</button>
+  <textarea style="height:120px;width:100%;border: 2rpx solid grey;" bindinput="bindInputValue"></textarea>
+  <button style="background-color:orange" bindtap="submit">提交</button>
 </view>
