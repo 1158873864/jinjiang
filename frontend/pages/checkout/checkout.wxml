@@ -1,16 +1,13 @@
-<view class="container">
+<view class="container1">
   <view class="address-box">
-    <view class="address-item" bindtap="selectAddress" wx:if="{{checkedAddress.id !=''}}">
+    <view class="address-item" bindtap="selectAddress" wx:if="{{addressId !=''}}">
       <view class="l">
         <text class="name">{{checkedAddress.person}}</text>
-        <text class="default" wx:if="{{checkedAddress.isDefault}}">默认</text>
+        <text class="default" wx:if="{{checkedAddress.default}}">默认</text>
       </view>
       <view class="m">
         <text class="mobile">{{checkedAddress.mobilePhone}}</text>
-        <text class="address">{{checkedAddress.province}}
-        {{checkedAddress.city}}
-        {{checkedAddress.district}}
-        {{checkedAddress.detail}}</text>
+        <text class="address">{{checkedAddress.province}}{{checkedAddress.city}}{{checkedAddress.district}}{{checkedAddress.detail}}</text>
       </view>
       <view class="r">
         <image src="/static/images/address_right.png"></image>
@@ -77,10 +74,30 @@
     </view>
   </view>
 
+<view class='article' bindtap='onStart'>
+<picker bindchange="bindPickerChange" value="{{typeIndex}}" range="{{types}}">
+  <view class='article_row'>
+    <text class="start_left">送货方式:</text>
+    <text class="start_middle">{{type}}</text>
+    <image  class='start_right' src='../../img/img11.png'>
+    </image> 
+  </view> 
+  </picker>
+</view>
+<view class='article' bindtap='onStart'>
+<picker bindchange="bindPickerChange1" value="{{payIndex}}" range="{{pays}}">
+  <view class='article_row'>
+    <text class="start_left">支付方式:</text>
+    <text class="start_middle">{{pay}}</text>
+    <image  class='start_right' src='../../img/img11.png'>
+    </image> 
+  </view> 
+  </picker>
+</view>
   <view class="goods-items">
     <view class="item" wx:for="{{checkedGoodsList}}" wx:key="id">
       <view class="img">
-        <image src="{{item.picUrl}}"></image>
+        <image src="{{item.imageUrl}}"></image>
       </view>
       <view class="info">
         <view class="t">

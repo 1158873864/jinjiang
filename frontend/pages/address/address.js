@@ -35,7 +35,6 @@ Page({
         })
       }
     })
-
   },
   addressAddOrUpdate(event) {
     console.log(event)

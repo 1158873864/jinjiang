@@ -8,6 +8,13 @@ Page({
     checkedGoodsList: [],
     checkedAddress: {},
     order:{},
+    type: '送货上门',
+    typeIndex: 0,
+    user:{},
+    types: ['送货上门', '物流快递','上门取货'],
+    pay:'余额',
+    pays: ['余额','微信支付'],
+    payIndex: 0,
     availableCouponLength: 0, // 可用的优惠券数量
     goodsTotalPrice: 0.00, //商品总价
     freightPrice: 0.00, //快递费
@@ -26,6 +33,26 @@ Page({
   onLoad: function (options) {
     // 页面初始化 options为页面跳转所带来的参数
     wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+      }
+    })
+
+    wx.request({
       url: app.globalData.backendUrl + "order/find/id/wx",
       data: {
         id: options.id
@@ -38,7 +65,7 @@ Page({
       success: (res) => {
         /*console.log(res)*/
         var checkedGoodsList=res.data.data.items.goodsList
-        var actualPrice = res.data.data.items.price
+        var actualPrice = res.data.data.items.price + res.data.data.items.freight
         var orderTotalPrice = res.data.data.items.price
         var order = res.data.data.items
         this.setData({
@@ -49,72 +76,25 @@ Page({
 
       }
     })
+    
+    
 
-    var addressId = options.addressId
-    if (addressId==''){
-    wx.request({
-      url: app.globalData.backendUrl + "address/find/userId",
-      data: {
-        userId: app.getId()
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        /*console.log(res)*/
-        var addresses = res.data.data.items
-        if (addresses.length>0){
-          for (var i = 0; i < addresses.length;i++){
-            if (addresses[i].isDefault){
-              var checkedAddress = addresses[i]
-              var addressId=addresses[i].id
-
-              this.setData({
-                checkedAddress: checkedAddress,
-                addressId: addressId
-              })
-            }
-            if (addressId==''){
-              var checkedAddress = addresses[0]
-              var addressId = addresses[0].id
-
-              this.setData({
-                checkedAddress: checkedAddress,
-                addressId: addressId
-              })
-            }
-          }
-          
-        }
-      }
+  },
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var s = this.data.types
+    this.setData({
+      typeIndex: e.detail.value,
+      type: s[e.detail.value]
     })
-    }
-    else{
-      wx.request({
-        url: app.globalData.backendUrl + "address/find/id",
-        data: {
-          id: addressId
-        },
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        success: (res) => {
-          /*console.log(res)*/
-          var checkedAddress= res.data.data.items
-
-          this.setData({
-            checkedAddress: checkedAddress,
-            addressId: addressId
-          })
-        }
-      })
-
-    }
-
+  },
+  bindPickerChange1: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var s = this.data.pays
+    this.setData({
+      payIndex: e.detail.value,
+      pay: s[e.detail.value]
+    })
   },
   selectAddress() {
     wx.navigateTo({
@@ -137,7 +117,71 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    
+    var addressId = wx.getStorageSync('addressId')
+    if (addressId == '' || addressId == undefined) {
+      wx.request({
+        url: app.globalData.backendUrl + "address/find/userId",
+        data: {
+          userId: app.getId()
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          console.log(res.data.data.items)
+          var addresses = res.data.data.items
+          if (addresses.length > 0) {
+            for (var i = 0; i < addresses.length; i++) {
+              if (addresses[i].default) {
+                console.log(addresses[i].id)
+                var checkedAddress = addresses[i]
+                var addressId = addresses[i].id
+                this.setData({
+                  checkedAddress: checkedAddress,
+                  addressId: addressId
+                })
+              }
+              if (addressId == '') {
+                var checkedAddress = addresses[0]
+                var addressId = addresses[0].id
+
+                this.setData({
+                  checkedAddress: checkedAddress,
+                  addressId: addressId
+                })
+              }
+            }
+
+          }
+        }
+      })
+    }
+    else {
+      wx.request({
+        url: app.globalData.backendUrl + "address/find/id",
+        data: {
+          id: addressId
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var checkedAddress = res.data.data.items
+
+          this.setData({
+            checkedAddress: checkedAddress,
+            addressId: addressId
+          })
+        }
+      })
+
+    }
   },
   onHide: function () {
     // 页面隐藏
@@ -157,86 +201,54 @@ Page({
     order.person = this.data.checkedAddress.person
     order.mobilePone = this.data.checkedAddress.mobilePone
     order.address = this.data.checkedAddress.province + this.data.checkedAddress.city + this.data.checkedAddress.distinct + this.data.checkedAddress.detail
-    wx.request({
-      url: app.globalData.backendUrl + "user/find/openid",
-      data: {
-        openid: app.getOpenid()
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        /*console.log(res)*/
-        var user = res.data.data.items
-
-        this.setData({
-          user: res.data.data.items
+    order.type=this.data.type
+    
+    if(order.status=='待付款'){
+      if(this.data.user.balance>=order.price){
+        order.status='待发货'
+        wx.request({
+          url: app.globalData.backendUrl + "order/pay",
+          data: order,
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/json'
+          },
+          method: 'POST',
+          success: (res) => {
+            /*console.log(res)*/
+            wx.showToast({
+              title: '余额支付成功'
+            })
+            wx.navigateTo({
+              url: '../order/order?showType=0',
+            })
+          }
         })
       }
-    })
-
-
-    util.request(api.OrderSubmit, {
-      cartId: this.data.cartId,
-      addressId: this.data.addressId,
-      couponId: this.data.couponId,
-      userCouponId: this.data.userCouponId,
-      message: this.data.message,
-      grouponRulesId: this.data.grouponRulesId,
-      grouponLinkId: this.data.grouponLinkId
-    }, 'POST').then(res => {
-      if (res.errno === 0) {
-
-        // 下单成功，重置couponId
-        try {
-          wx.setStorageSync('couponId', 0);
-        } catch (error) {
-
-        }
-
-        const orderId = res.data.orderId;
-        util.request(api.OrderPrepay, {
-          orderId: orderId
-        }, 'POST').then(function (res) {
-          if (res.errno === 0) {
-            const payParam = res.data;
-            console.log("支付过程开始");
-            wx.requestPayment({
-              'timeStamp': payParam.timeStamp,
-              'nonceStr': payParam.nonceStr,
-              'package': payParam.packageValue,
-              'signType': payParam.signType,
-              'paySign': payParam.paySign,
-              'success': function (res) {
-                console.log("支付过程成功");
-                wx.redirectTo({
-                  url: '/pages/payResult/payResult?status=1&orderId=' + orderId
-                });
-              },
-              'fail': function (res) {
-                console.log("支付过程失败");
-                wx.redirectTo({
-                  url: '/pages/payResult/payResult?status=0&orderId=' + orderId
-                });
-              },
-              'complete': function (res) {
-                console.log("支付过程结束")
-              }
-            });
-          } else {
-            wx.redirectTo({
-              url: '/pages/payResult/payResult?status=0&orderId=' + orderId
-            });
-          }
-        });
-
-      } else {
-        wx.redirectTo({
-          url: '/pages/payResult/payResult?status=0&orderId=' + orderId
-        });
+      else{
+        util.showErrorToast('余额不足')
       }
-    });
+    }
+    else{
+      wx.request({
+        url: app.globalData.backendUrl + "order/update",
+        data: order,
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+        success: (res) => {
+          /*console.log(res)*/
+          wx.showToast({
+            title: '兑换成功'
+          })
+          wx.navigateTo({
+            url: '../order/order?showType=0',
+          })
+        }
+      })
+    }
+    
   }
 });
