@@ -10,8 +10,6 @@
             
           </view>
           <text class='card__text'>好酒就要与朋友分享，一起加入金酱酒庄,品真正的大曲坤砂酱酒。成为会员享受更多优惠！</text>
-
-          <image src="../../img/生成名片.png" class="card_image"></image>
           
           
         </view>
@@ -20,6 +18,6 @@
       
   </view>
 
-  <image src="../../img/分享.png" class="share"></image>
+  <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/分享.png" class="share"></image>
 </view>
   

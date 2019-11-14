@@ -9,6 +9,9 @@ App({
   getOpenid: function () {
     return wx.getStorageSync('openid')
   },
+  getId: function () {
+    return wx.getStorageSync('id')
+  },
   getWechatUsername: function () {
     return wx.getStorageSync('wechatUsername')
   },
@@ -66,6 +69,22 @@ App({
                       success: (res) => {
                         if (res.statusCode == 200) {
                           //登录成功，显示小程序主页
+                          wx.request({
+                            url: that.globalData.backendUrl + "user/find/openid",
+                            data: {
+                              openid: that.getOpenid()
+                            },
+                            header: {
+                              'Authorization': 'Bearer ' + that.getToken(),
+                              'content-type': 'application/x-www-form-urlencoded'
+                            },
+                            method: 'GET',
+                            success: (res) => {
+                              /*console.log(res)*/
+                              var user = res.data.data.items
+                              wx.setStorageSync('id', user.id)
+                            }
+                          })
                         } else {
                           wx.showModal({
                             title: '登录失败',
@@ -141,8 +160,8 @@ App({
     wechatUsername: "",
     token: "",
     defaultPic:'http://junrongcenter.oss-cn-beijing.aliyuncs.com/default/default-pic.png',
-    //backendUrl: "https://www.shaoshanlu.com:3389/",//used
-    backendUrl: "http://127.0.0.1:3389/",
+    backendUrl: "https://www.shaoshanlu.com:3389/",//used
+    //backendUrl: "http://127.0.0.1:3389/",
     //testUrl:"http://10.107.30.176:8080/JRQ.Backend/",
     picUrl: "https://www.junrongcenter.com/"//used
     //backendUrl: "http://localhost:3389/",

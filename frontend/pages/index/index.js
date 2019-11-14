@@ -316,6 +316,9 @@ Page({
       case 'goodsDetail':
         url += 'goodsDetail/goodsDetail?id=' + id
         break;
+      case 'recommendDetail':
+        url += 'recommendDetail/recommendDetail?id=' + id
+        break;
       case 'integralDetail':
         url += 'integralDetail/integralDetail?id=' + id
         break;

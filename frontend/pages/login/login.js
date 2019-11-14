@@ -10,7 +10,8 @@ Page({
   data: {
     
     systemInfo: {},
-    status:true
+    status:true,
+    user:{}
 
   },
 
@@ -21,7 +22,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    this.judgeApp()
 
   },
 
@@ -43,6 +43,22 @@ Page({
       method: 'GET',
       success: (res) => {
         //登录成功，显示小程序主页
+        wx.request({
+          url: app.globalData.backendUrl + "user/find/openid",
+          data: {
+            openid: app.getOpenid()
+          },
+          header: {
+            'Authorization': 'Bearer ' + that.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var user = res.data.data.items
+            wx.setStorageSync('id', user.id)
+          }
+        })
       }
     })
     wx.switchTab({

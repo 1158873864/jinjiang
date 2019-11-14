@@ -9,7 +9,6 @@ Page({
    */
   data: {
     user:undefined,
-
     array: [{
       id: '0',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的订单.png',
@@ -52,13 +51,13 @@ Page({
       id: '11',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/客服经理.png',
       text: '客服经理',
-      show: false
+      show: true
     },
     {
       id: '12',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/会员等级.png',
       text: '会员等级',
-      show: false
+      show: true
     },
     {
       id: '13',
@@ -122,7 +121,7 @@ Page({
         id: '36',
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销',
-      show: false
+      show: true
       }
     ],
 
@@ -143,7 +142,13 @@ Page({
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/管理.png',
       text: '管理酒庄',
       show: true
-    }
+    },
+      {
+        id: '42',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/订单管理.png',
+        text: '订单管理',
+        show: true
+      }
     ]
   },
 

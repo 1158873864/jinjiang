@@ -43,7 +43,7 @@ Page({
     var id = e.currentTarget.dataset.id //获取当前文章id
     var kind = e.currentTarget.dataset.kind
     wx.navigateTo({
-      url: '../../goodsDetail/goodsDetail?id=' + id
+      url: '../goodsDetail/goodsDetail?id=' + id
     })
   },
   /** 

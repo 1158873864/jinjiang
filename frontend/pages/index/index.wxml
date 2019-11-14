@@ -52,13 +52,13 @@
          <view class="black_txt">{{hots[0].standard}}</view>
          <view class="red_txt">¥{{hots[0].price}}</view>
      </view>
-     <view class="hot_item" bindtap="onTouchThisArticle" data-id='{{hots[1].id}}'>
+     <view class="hot_item" bindtap="onTouchThisArticle" data-kind="goodsDetail" data-id='{{hots[1].id}}'>
          <image class='banner_img' mode='widthFix' src='{{hots[1].imageUrl}}'></image>
          <view class="black_txt">{{hots[1].name}}</view>
          <view class="black_txt">{{hots[1].standard}}</view>
          <view class="red_txt">¥{{hots[1].price}}</view>
      </view>
-     <view class="hot_item" bindtap="onTouchThisArticle" data-id='{{hots[2].id}}'>
+     <view class="hot_item" bindtap="onTouchThisArticle" data-kind="goodsDetail" data-id='{{hots[2].id}}'>
          <image class='banner_img' mode='widthFix' src='{{hots[2].imageUrl}}'></image>
          <view class="black_txt">{{hots[2].name}}</view>
          <view class="black_txt">{{hots[2].standard}}</view>
@@ -77,7 +77,7 @@
 
 <view class='recommend'  wx:for="{{recommends}}" wx:key="id" wx:for-index="index">
   <view class="recommend">
-     <view class="recommend_item" bindtap="onTouchThisArticle" data-kind="goodsDetail" data-id='{{item.id}}'>
+     <view class="recommend_item" bindtap="onTouchThisArticle" data-kind="recommendDetail" data-id='{{item.id}}'>
         <image class='recommend_image' mode='widthFix' src='{{item.imageUrl}}'></image>
         <view class="recommend_right">
             <view class="black_txt1">{{item.name}}               </view>

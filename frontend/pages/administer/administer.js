@@ -11,42 +11,29 @@ Page({
    
     array: [{
         id: '0',
-        src: '../../img/采购申请.png',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/采购申请.png',
       text: '进货申请'
       },
       {
         id: '1',
-        src: '../../img/订单管理.png',
-        text: '订单管理'
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/采购入库.png',
+        text: '采购入库'
       },
       {
         id: '2',
-        src: '../../img/采购入库.png',
-        text: '采购入库'
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/库存商品.png',
+        text: '库存商品'
       }  
     ],
-    array1: [{
-      id: '0',
-      src: '../../img/退货申请.png',
-      text: '退货申请'
-    },
+    array1: [
     {
-      id: '1',
-      src: '../../img/收支明细.png',
+      id: '10',
+      src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/收支明细.png',
       text: '收支明细'
-    },
-    {
-      id: '2',
-      src: '../../img/库存商品.png',
-      text: '库存商品'
     }
-    ],
-    array2: [{
-      id: '0',
-      src: '../../img/数据统计.png',
-      text: '数据统计'
-    }
-    ],
+    
+    ]
+    
   },
 
   //事件处理函数
@@ -70,6 +57,21 @@ Page({
     if ("0" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
         url: '../apply/apply'
+      })
+    }
+    else if ("1" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../applyIn/applyIn'
+      })
+    }
+    else if ("2" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../stockManage/stockManage'
+      })
+    }
+    else if ("10" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../income/income'
       })
     }
     
