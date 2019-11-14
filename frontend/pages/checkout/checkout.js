@@ -199,10 +199,16 @@ Page({
     var order=this.data.order
     order.price=this.data.actualPrice
     order.person = this.data.checkedAddress.person
-    order.mobilePone = this.data.checkedAddress.mobilePone
-    order.address = this.data.checkedAddress.province + this.data.checkedAddress.city + this.data.checkedAddress.distinct + this.data.checkedAddress.detail
+    order.mobilePone = this.data.checkedAddress.mobilePhone
+    order.address = this.data.checkedAddress.province + this.data.checkedAddress.city + this.data.checkedAddress.district + this.data.checkedAddress.detail
     order.type=this.data.type
-    
+    order.remark=this.data.message
+    var goods=[]
+    var goodsList=order.goodsList
+      for(var i = 0; i < goodsList.length;i++){
+        goods.push(goodsList[i].id)
+      }
+    order.goodsList = goods
     if(order.status=='待付款'){
       if(this.data.user.balance>=order.price){
         order.status='待发货'

@@ -1,74 +1,328 @@
 var util = require('../../utils/util.js');
 var api = require('../../config/api.js');
-
+var app=getApp()
 Page({
   data: {
     orderList: [],
-    showType: 0,
-    page: 1,
-    limit: 10,
-    totalPages: 1
+    showType: 0
   },
   onLoad: function(options) {
     // 页面初始化 options为页面跳转所带来的参数
-    let that = this
-    try {
-      var tab = wx.getStorageSync('tab');
+    if(options.showType==0){
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/all/wx",
+        data: {
+          userId: app.getId(),
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
 
-      this.setData({
-        showType: tab
-      });
-    } catch (e) {}
+          this.setData({
+            orderList: orderList,
+            showType: options.showType
+          })
+        }
+      })
+    }
+    else if (options.showType == 1) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待付款'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
 
-  },
-  getOrderList() {
-    let that = this;
-    util.request(api.OrderList, {
-      showType: that.data.showType,
-      page: that.data.page,
-      limit: that.data.limit
-    }).then(function(res) {
-      if (res.errno === 0) {
-        console.log(res.data);
-        that.setData({
-          orderList: that.data.orderList.concat(res.data.list),
-          totalPages: res.data.pages
-        });
-      }
-    });
-  },
-  onReachBottom() {
-    if (this.data.totalPages > this.data.page) {
-      this.setData({
-        page: this.data.page + 1
-      });
-      this.getOrderList();
-    } else {
-      wx.showToast({
-        title: '没有更多订单了',
-        icon: 'none',
-        duration: 2000
-      });
-      return false;
+          this.setData({
+            orderList: orderList,
+            showType: options.showType
+          })
+        }
+      })
+    }
+    else if (options.showType == 2) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待发货'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          wx.request({
+            url: app.globalData.backendUrl + "order/find/status/wx",
+            data: {
+              userId: app.getId(),
+              status: '积分待发货'
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              var order = res.data.data.items
+              for(var i=0;i<order.length;i++){
+                orderList.push(order[i])
+              }
+              this.setData({
+                orderList: orderList,
+                showType: options.showType
+              })
+            }
+          })
+
+        }
+      })
+    }
+    else if (options.showType == 3) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待收货'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          wx.request({
+            url: app.globalData.backendUrl + "order/find/status/wx",
+            data: {
+              userId: app.getId(),
+              status: '积分待收货'
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              var order = res.data.data.items
+              for (var i = 0; i < order.length; i++) {
+                orderList.push(order[i])
+              }
+              this.setData({
+                orderList: orderList,
+                showType: options.showType
+              })
+            }
+          })
+
+        }
+      })
+    }
+    else{
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/all/wx",
+        data: {
+          userId: app.getId(),
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          this.setData({
+            orderList: orderList
+          })
+        }
+      })
     }
   },
-  switchTab: function(event) {
-    let showType = event.currentTarget.dataset.index;
-    this.setData({
-      orderList: [],
-      showType: showType,
-      page: 1,
-      limit: 10,
-      totalPages: 1
-    });
-    this.getOrderList();
+  switchTab :function(e){
+    console.log(e.target)
+    var showType = e.target.dataset.index
+    
+    if (showType == 0) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/all/wx",
+        data: {
+          userId: app.getId(),
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          this.setData({
+            orderList: orderList,
+            showType: showType
+          })
+        }
+      })
+    }
+    else if (showType == 1) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待付款'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          this.setData({
+            orderList: orderList,
+            showType: showType
+          })
+        }
+      })
+    }
+    else if (showType == 2) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待发货'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          wx.request({
+            url: app.globalData.backendUrl + "order/find/status/wx",
+            data: {
+              userId: app.getId(),
+              status: '积分待发货'
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              var order = res.data.data.items
+              for (var i = 0; i < order.length; i++) {
+                orderList.push(order[i])
+              }
+              this.setData({
+                orderList: orderList,
+                showType: showType
+              })
+            }
+          })
+
+        }
+      })
+    }
+    else if (showType == 3) {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/status/wx",
+        data: {
+          userId: app.getId(),
+          status: '待收货'
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          wx.request({
+            url: app.globalData.backendUrl + "order/find/status/wx",
+            data: {
+              userId: app.getId(),
+              status: '积分待收货'
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              var order = res.data.data.items
+              for (var i = 0; i < order.length; i++) {
+                orderList.push(order[i])
+              }
+              this.setData({
+                orderList: orderList,
+                showType: showType
+              })
+            }
+          })
+
+        }
+      })
+    }
+    else {
+      wx.request({
+        url: app.globalData.backendUrl + "order/find/all/wx",
+        data: {
+          userId: app.getId(),
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+
+          this.setData({
+            orderList: orderList
+          })
+        }
+      })
+    }
   },
   onReady: function() {
     // 页面渲染完成
   },
   onShow: function() {
     // 页面显示
-    this.getOrderList();
   },
   onHide: function() {
     // 页面隐藏

@@ -4,6 +4,12 @@ page {
   background: #f4f4f4;
 }
 
+.container1 {
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
+}
+
 .orders-switch {
   width: 100%;
   background: #fff;
