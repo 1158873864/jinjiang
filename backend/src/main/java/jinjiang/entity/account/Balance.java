@@ -20,7 +20,7 @@ public class Balance {//地址
     private String username; //用户名
 
     @Column(name = "type")
-    private String type; //收入、支出、赊账
+    private String type; //收入、支出、赊账、充值
 
     @Column(name = "price")
     private double price; //价格
@@ -34,7 +34,6 @@ public class Balance {//地址
     @Column
     @ElementCollection(targetClass = String.class)
     private List<String> goodsList; //所购买商品名称列表
-
 
     public Balance() {
     }

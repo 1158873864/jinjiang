@@ -4,38 +4,28 @@
 <import src='/template/adBar/adBar.wxml'></import>
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
-
 <view class="container container--color-white">
 
-<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
-    <!--搜索框-->
-    <view>
-      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的商铺吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
+<view class="orders-switch">
+    <view class="item {{ type == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
+      <view class="txt">消费记录</view>
     </view>
-  </view>
-
-<view class="swiper-tab">
-    <view class="swiper-tab-list {{currentKind=='isPreferred'}} {{currentTab==0 ? 'on' : ''}}" data-current="0" bindtap="swichNav">
-      消费记录
-    </view>
-    <view class="swiper-tab-list {{currentKind=='hot'}} {{currentTab==1 ? 'on' : ''}}" data-current="1" bindtap="swichNav">
-       赊账记录
+    <view class="item {{ type == 1 ? 'active' : ''}}" bindtap="switchTab" data-index='1'>
+      <view class="txt">赊账记录</view>
     </view>
   </view>
 
 
   <view class='box'  wx:for="{{courseList}}" wx:key="id">
-    <view bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
+    <view data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='left'>
-          <view class='title1'>消费产品名称</view>
-          <view class='title'>2019-2-10 10:10:10</view>
-          
+        
+          <view class='title1'><view wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">{{gitem}}</view></view>
+          <view class='title'>{{item.time}}</view>
         </view>
-
         <view class='right'>
-          <view class='title1' style="color:red;">¥666</view>
-             
+          <view class='title1' style="color:red;">¥{{item.price}}</view>
         </view>
         
       </view>

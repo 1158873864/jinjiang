@@ -118,6 +118,15 @@ public class OrderController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "所有订单", notes = "")
+    @RequestMapping(value = "/find/status/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findByStatusAndShopId(@RequestParam("status") String status,@RequestParam("shopId") String shopId) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",orderBlService.findByStatusAndShopId(status, shopId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "", notes = "")
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     @ResponseBody

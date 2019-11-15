@@ -1,151 +1,180 @@
-/**index.wxss**/
-@import '/style/common.wxss';
-@import '/template/findBar/searchBar.wxss';
-@import '/template/adBar/adBar.wxss';
-@import '/template/likeIcon/likeIcon.wxss';
-
-/* 本页面的样式 */
-
-.container {
-  background-color: white;
-}
-
-.headWrapper {
-  width: 100%;
-  background-color: rgb(242, 197, 72);
-}
-
-.search {
-  /* background-color: rgb(200, 165, 65); */
-  width: 95%;
-  margin: 0 auto;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-
-.box {
-  width: 95%;
-  margin: 0 auto;
-  background-color: white;
-  padding-top: 10px;
-  padding-bottom: 15px;
-  /* border-radius: 10px; */
-  margin-top: 15px;
-  box-shadow: 0px 15px 30px rgba(0,0,0,0.1);
-}
-
-.vessel {
-  width: 93%;
-  display: flex;
-  margin: 0 auto;
-}
-
-.img {
-  width: 120px;
-  height: 100px;
-  border-radius: 5px;
-}
-
-.img_bofang {
+page {
   height: 100%;
   width: 100%;
-  border-radius: 5px;
+  background: #f4f4f4;
 }
 
-.right {
-  margin-left: 110px;
-  margin-top: 10px;
-  width: 30%;
-}
-.left {
-  display: block;
-  margin-left: 10px;
-  width: 70%;
-}
-.title {
-  font-size: 17px;
-  color: rgb(54, 54, 54);
+.container1 {
+  box-sizing: border-box;
+  background-color: #f4f4f4;
+  font-family: PingFangSC-Light, helvetica, 'Heiti SC';
 }
 
-.title1 {
-  font-size: 18px;
-  color: rgb(0, 0, 0);
-}
-.shoping{
-  /* border: 1px solid red; */
-  display: flex;
+.orders-switch {
+  width: 100%;
+  background: #fff;
+  height: 84rpx;
+  /* border-bottom: 1px solid rgba(0,0,0,.15); */
 }
 
-.money {
-  font-size: 12px;
-  color: black;
-  font-weight:800;
+.orders-switch .item {
+  display: inline-block;
+  height: 82rpx;
+  width: 28%;
+  padding: 0 15rpx;
   text-align: center;
 }
 
-.img_cart {
-   font-size: 17px;
-    color:  rgb(54, 54, 54);
-    margin-top: 5px;
-}
-.position{
-   width: 35px;
-   height: 35px;
-   margin-left: -10px;
-   margin-right: -8px;
+.orders-switch .item .txt {
+  display: inline-block;
+  height: 82rpx;
+  padding: 0 20rpx;
+  line-height: 82rpx;
+  color: #9a9ba1;
+  font-size: 30rpx;
+  width: 170rpx;
 }
 
-.swiper-tab{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  width: 100%; 
-  border-bottom: 2rpx solid #f7f0f0; 
-  text-align: center; 
-  line-height: 40rpx;
-  box-shadow: 0 1px 2px #c0c0c0;
+.orders-switch .item.active .txt {
+  color: #ab956d;
+  border-bottom: 4rpx solid #ab956d;
 }
-.swiper-tab-list{
-  font-size: 30rpx; 
-  display: flex; 
-  width: 20%; 
-  color: #2e2c2c; 
-  padding: 10px 0 5px 5px;
-  background-color: white;
+
+.no-order {
+  width: 100%;
+  height: auto;
+  margin: 0 auto;
 }
-.on{
-  color: #f1c65e; 
-  border-bottom: 5rpx solid #f1c65e;
-  margin-bottom: 10rpx;
+
+.no-order .c {
+  width: 100%;
+  height: auto;
+  margin-top: 200rpx;
 }
-.swiper-box{ 
-  display: flex;
-  height: 100%;
+
+.no-order .c image {
+  margin: 0 auto;
+  display: block;
+  text-align: center;
+  width: 258rpx;
+  height: 258rpx;
+}
+
+.no-order .c text {
+  margin: 0 auto;
+  display: block;
+  width: 258rpx;
+  height: 29rpx;
+  line-height: 29rpx;
+  text-align: center;
+  font-size: 29rpx;
+  color: #999;
+}
+
+.orders {
+  height: auto;
   width: 100%;
   overflow: hidden;
- }
-/* .swiper-box view{ 
-  text-align: center; 
-} */
-
-.articleListWrapper_view {
-  margin-top: -3%;
-  width: 100%;
-  padding: 5px 10px;
 }
-.swiper-box{ 
-    display: flex; 
-    width: 100%; 
-    height: 100%; 
-    /* margin-top: 40rpx;  */
-    overflow: hidden;
-} 
-.swiper-items{
- 
-  height: 100%;
-} 
-.scroll-views{
-  height: 100%;
 
+.order {
+  margin-top: 20rpx;
+  background: #fff;
+}
+
+.order .h {
+  height: 83.3rpx;
+  line-height: 83.3rpx;
+  margin-left: 31.25rpx;
+  padding-right: 31.25rpx;
+  border-bottom: 1px solid #f4f4f4;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.order .h .l {
+  float: left;
+}
+
+.order .h .r {
+  float: right;
+  color: #b4282d;
+  font-size: 24rpx;
+}
+
+.order .goods {
+  display: flex;
+  align-items: center;
+  height: 199rpx;
+  margin-left: 31.25rpx;
+}
+
+.order .goods .img {
+  height: 145.83rpx;
+  width: 145.83rpx;
+  background: #f4f4f4;
+}
+
+.order .goods .img image {
+  height: 145.83rpx;
+  width: 145.83rpx;
+}
+
+.order .goods .info {
+  height: 145.83rpx;
+  flex: 1;
+  padding-left: 20rpx;
+}
+
+.order .goods .name {
+  margin-top: 30rpx;
+  display: block;
+  height: 44rpx;
+  line-height: 44rpx;
+  color: #333;
+  font-size: 30rpx;
+}
+
+.order .goods .number {
+  display: block;
+  height: 37rpx;
+  line-height: 37rpx;
+  color: #666;
+  font-size: 25rpx;
+}
+
+.order .goods .status {
+  width: 105rpx;
+  color: #b4282d;
+  font-size: 25rpx;
+}
+
+.order .b {
+  height: 103rpx;
+  line-height: 103rpx;
+  margin-left: 31.25rpx;
+  padding-right: 31.25rpx;
+  border-top: 1px solid #f4f4f4;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.order .b .l {
+  float: left;
+}
+
+.order .b .r {
+  float: right;
+}
+
+.order .b .btn {
+  margin-top: 19rpx;
+  height: 64.5rpx;
+  line-height: 64.5rpx;
+  text-align: center;
+  padding: 0 20rpx;
+  border-radius: 5rpx;
+  font-size: 28rpx;
+  color: #fff;
+  background: #b4282d;
 }

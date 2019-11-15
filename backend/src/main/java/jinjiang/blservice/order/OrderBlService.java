@@ -40,5 +40,7 @@ public interface OrderBlService {
 
     List<OrderResponse> findByStatusWX(String userId, String status);
 
+    List<OrderResponse> findByStatusAndShopId(String status, String shopId);
+
     OrderResponse findByIdWX(String orderId);
 }

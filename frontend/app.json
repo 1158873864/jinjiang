@@ -31,6 +31,7 @@
     "pages/checkout/checkout",
     "pages/order/order",
     "pages/orderDetail/orderDetail",
+    "pages/orderManageDetail/orderManageDetail",
     "pages/address/address",
     "pages/addressAdd/addressAdd",
     "pages/coupon/coupon",

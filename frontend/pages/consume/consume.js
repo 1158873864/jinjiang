@@ -11,92 +11,124 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList: []
+    courseList: [],
+    page: 0,
+    type: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function(options) {
-    if (options.courseGroupId) {
-      var courseGroupId = options.courseGroupId;
-      var that = this
+  onLoad: function (options) {
+    wx.request({
+      url: app.globalData.backendUrl + "balance/find/userId/type",
+      data: {
+        type: '支出',
+        userId: app.getId()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        this.setData({
+          courseList: res.data.data.items
+        })
+      }
+    })
+  },
+  
+  /** 
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  switchTab: function (e) {
+    var type = e.currentTarget.dataset.index
+    if (type == 0) {
       wx.request({
-        url: app.globalData.backendUrl + "courseGroup/findById",
+        url: app.globalData.backendUrl + "balance/find/userId/type",
+        data: {
+          type: '支出',
+          userId: app.getId()
+        },
         header: {
           'Authorization': 'Bearer ' + app.getToken(),
           'content-type': 'application/x-www-form-urlencoded'
         },
         method: 'GET',
-        data: {
-          id: courseGroupId
-        },
         success: (res) => {
-          res.data.courseGroupItem.courseList.forEach(item => {
-            item.image = app.globalData.picUrl + item.image
-          })
-          that.setData({
-            courseList: res.data.courseGroupItem.courseList
+          /*console.log(res)*/
+          this.setData({
+            courseList: res.data.data.items,
+            type: type
           })
         }
       })
-    } else {
-      api.getCourseList.call(this)
     }
-  },
-  //展示文章详情
-  onTouchThisArticle: function(e) {
-    var id = e.currentTarget.dataset.id //获取当前文章id
-    wx.navigateTo({
-      url: '../cultureDetail/cultureDetail?id=' + id
-    })
-  },
-  /** 
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
-
+    else if (type == 1) {
+      wx.request({
+        url: app.globalData.backendUrl + "balance/find/userId/type",
+        data: {
+          type: '赊账',
+          userId: app.getId()
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          this.setData({
+            courseList: res.data.data.items,
+            type: type
+          })
+        }
+      })
+    }
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function() {
+  onShow: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function() {
+  onHide: function () {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function() {
+  onUnload: function () {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function() {
+  onPullDownRefresh: function () {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-
-  },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function() {
+  onShareAppMessage: function () {
 
   }
 })
