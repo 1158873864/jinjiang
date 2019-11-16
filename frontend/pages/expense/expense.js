@@ -11,45 +11,113 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList: []
+    user:{},
+    shop:{},
+    shopBalance:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options.courseGroupId) {
-      var courseGroupId = options.courseGroupId;
-      var that = this
-      wx.request({
-        url: app.globalData.backendUrl + "courseGroup/findById",
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        data: {
-          id: courseGroupId
-        },
-        success: (res) => {
-          res.data.courseGroupItem.courseList.forEach(item => {
-            item.image = app.globalData.picUrl + item.image
-          })
-          that.setData({
-            courseList: res.data.courseGroupItem.courseList
-          })
-        }
-      })
-    } else {
-      api.getCourseList.call(this)
-    }
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+        wx.request({
+          url: app.globalData.backendUrl + "shop/find/id",
+          data: {
+            id: user.shopId
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var shop = res.data.data.items
+            this.setData({
+              shop: shop
+            })
+            wx.request({
+              url: app.globalData.backendUrl + "shopBalance/find/type/shopId",
+              data: {
+                type:'报销',
+                shopId: shop.id
+              },
+              header: {
+                'Authorization': 'Bearer ' + app.getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'GET',
+              success: (res) => {
+                /*console.log(res)*/
+                var shopBalance = res.data.data.items
+
+                this.setData({
+                  shopBalance: res.data.data.items
+                })
+              }
+            })
+
+          }
+        })
+
+      }
+    })
   },
   //展示文章详情
   onTouchThisArticle: function(e) {
-    var id = e.currentTarget.dataset.id //获取当前文章id
-    wx.navigateTo({
-      url: '../cultureDetail/cultureDetail?id=' + id
+    var id = e.currentTarget.dataset.id
+    wx.request({
+      url: app.globalData.backendUrl + "shopBalance/pass",
+      data: {
+        id: id
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        wx.request({
+          url: app.globalData.backendUrl + "shopBalance/find/type/shopId",
+          data: {
+            type: '报销',
+            shopId: this.data.shop.id
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var shopBalance = res.data.data.items
+
+            this.setData({
+              shopBalance: res.data.data.items
+            })
+          }
+        })
+      }
     })
+
   },
   /** 
    * 生命周期函数--监听页面初次渲染完成

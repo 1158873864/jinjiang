@@ -48,26 +48,19 @@ Page({
       flag: !that.data.flag
     })
   },
-  // “去付款”按钮点击效果
-  payOrder: function() {
-    let that = this;
-    let orderInfo = that.data.orderInfo;
-    wx.navigateTo({
-      url: '../checkout/checkout?id=' + orderInfo.id
-    })
-  },
-  // “取消订单”点击效果
-  cancelOrder: function() {
+  
+ 
+  sendOrder: function() {
     let that = this;
     let orderInfo = that.data.orderInfo;
 
     wx.showModal({
       title: '',
-      content: '确定要取消此订单？',
+      content: '确定发货？',
       success: function(res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.backendUrl + "order/cancel",
+            url: app.globalData.backendUrl + "order/send",
             data: {
               id: orderInfo.id
             },
@@ -80,9 +73,9 @@ Page({
               /*console.log(res)*/
               if (res.data.code === 0) {
                 wx.showToast({
-                  title: '取消订单成功'
+                  title: '发货成功'
                 });
-                util.redirect('/pages/order/order');
+                util.redirect('/pages/orderManage/orderManage');
               } else {
                 util.showErrorToast(res.message);
               }
@@ -94,17 +87,17 @@ Page({
     });
   },
   // “取消订单并退款”点击效果
-  refundOrder: function() {
+  backOrder: function() {
     let that = this;
     let orderInfo = that.data.orderInfo;
 
     wx.showModal({
       title: '',
-      content: '确定申请退款？',
+      content: '确定退款？',
       success: function(res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.backendUrl + "order/cancel",
+            url: app.globalData.backendUrl + "order/back",
             data: {
               id: orderInfo.id
             },
@@ -117,107 +110,9 @@ Page({
               /*console.log(res)*/
               if (res.data.code === 0) {
                 wx.showToast({
-                  title: '申请退款成功'
+                  title: '退款成功'
                 });
-                util.redirect('/pages/order/order');
-              } else {
-                util.showErrorToast(res.message);
-              }
-            }
-          })
-        }
-      }
-    });
-  },
-  // “删除”点击效果
-  deleteOrder: function() {
-    let that = this;
-    let orderInfo = that.data.orderInfo;
-
-    wx.showModal({
-      title: '',
-      content: '确定要删除此订单？',
-      success: function(res) {
-        if (res.confirm) {
-          wx.request({
-            url: app.globalData.backendUrl + "order/delete",
-            data: {
-              id: orderInfo.id
-            },
-            header: {
-              'Authorization': 'Bearer ' + app.getToken(),
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            method: 'GET',
-            success: (res) => {
-              /*console.log(res)*/
-              if (res.data.code === 0) {
-                wx.showToast({
-                  title: '删除订单成功'
-                });
-                util.redirect('/pages/order/order');
-              } else {
-                util.showErrorToast(res.message);
-              }
-            }
-          })
-        }
-      }
-    });
-  },
-  // “确认收货”点击效果
-  confirmOrder: function() {
-    let that = this;
-    let orderInfo = that.data.orderInfo;
-
-    wx.showModal({
-      title: '',
-      content: '确认收货？',
-      success: function(res) {
-        if (res.confirm) {
-          if(orderInfo.status=='待收货'){
-          wx.request({
-            url: app.globalData.backendUrl + "order/take",
-            data: {
-              id: orderInfo.id
-            },
-            header: {
-              'Authorization': 'Bearer ' + app.getToken(),
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            method: 'GET',
-            success: (res) => {
-              /*console.log(res)*/
-              if (res.data.code === 0) {
-                wx.showToast({
-                  title: '确认收货成功'
-                });
-                util.redirect('/pages/order/order');
-              } else {
-                util.showErrorToast(res.message);
-              }
-            }
-          })
-        }
-        }
-        else{
-          wx.request({
-            url: app.globalData.backendUrl + "order/integralTake",
-            data: {
-              id: orderInfo.id
-            },
-            header: {
-              'Authorization': 'Bearer ' + app.getToken(),
-              'content-type': 'application/x-www-form-urlencoded'
-            },
-            method: 'GET',
-            success: (res) => {
-              /*console.log(res)*/
-              if (res.data.code === 0) {
-                wx.showToast({
-                  title: '确认收货成功'
-                });
-                util.redirect('/pages/order/order');
+                util.redirect('/pages/orderManage/orderManage');
               } else {
                 util.showErrorToast(res.message);
               }

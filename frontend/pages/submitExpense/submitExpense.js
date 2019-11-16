@@ -7,86 +7,116 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
+    type: '购买应用物资',
+    typeIndex: 0,
+    user: {},
+    types: ['购买应用物资', '房租', '水电', '员工工资','其它'],
+    price:0,
+    detail: '',
+    shop:{}
   },
 
+  onLoad: function(options){
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+        wx.request({
+          url: app.globalData.backendUrl + "shop/find/id",
+          data: {
+            id: user.shopId
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var shop = res.data.data.items
+
+            this.setData({
+              shop: shop
+            })
+          }
+        })
+
+      }
+    })
+
+  },
   updateName: function(e) {
-    this.data.newMyInfo.username = e.detail.value;
-    console.log(this.data.newMyInfo)
-  },
+    var price = e.detail.value;
+    this.setData({
+      price:price
+    })
 
-  updatePhone: function(e) {
-    this.data.newMyInfo.phone = e.detail.value;
-  },
-
-  updateEmail: function(e) {
-    this.data.newMyInfo.email = e.detail.value;
-  },
-
-  updateCity: function(e) {
-    this.data.newMyInfo.city = e.detail.value;
-  },
-
-  updateCompany: function(e) {
-    this.data.newMyInfo.company = e.detail.value;
-  },
-
-  updateDepartment: function(e) {
-    this.data.newMyInfo.department = e.detail.value;
-  },
-
-  updatePosition: function(e) {
-    this.data.newMyInfo.position = e.detail.value;
   },
 
   updateIntro: function(e) {
-    this.data.newMyInfo.intro = e.detail.value;
-  },
-
-  updateCard: function () {
-    var that = this;
-    wx.chooseImage({
-      count: 1,
-      sizeType: ['original', 'compressed'],
-      sourceType: ['album', 'camera'],
-      success: function (res) {
-        var tempFilePath = res.tempFilePaths[0]
-        console.log(tempFilePath)
-        that.data.myInfo.card = tempFilePath
-        that.data.newMyInfo.card = tempFilePath
-        that.data.cardDisplay='block'
-        that.data.uploadOrModifyCard='修改名片'
-        that.setData(that.data)
-        
-        api.modifyMyCard.call(this)
-      },
+     var detail = e.detail.value;
+    this.setData({
+      detail: detail
     })
   },
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-   
+  bindPickerChange: function (e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    var s = this.data.types
+    this.setData({
+      typeIndex: e.detail.value,
+      type: s[e.detail.value]
+    })
   },
 
-  onSave: function() {
-    /* 检查输入合法性 */
-    if (!(this.data.newMyInfo.phone === "" || /^1[34578]\d{9}$/.test(this.data.newMyInfo.phone))) {
-      wx.showToast({
-        title: '手机号码有误，请重填',
-        icon: 'none'
-      })
-      return
-    }
-    if (!(this.data.newMyInfo.email === "" || /^\w+((.\w+)|(-\w+))@[A-Za-z0-9]+((.|-)[A-Za-z0-9]+).[A-Za-z0-9]+$/.test(this.data.newMyInfo.email))) {
-      wx.showToast({
-        title: '邮箱地址有误，请重填',
-        icon: 'none'
-      })
-      return
-    }
-    console.log(this.data.newMyInfo)
-    api.modifyMyInfo.call(this)
+  onSave: function(){
+    console.log(this.data.shop)
+    console.log(this.data.user.username)
+    wx.request({
+      url: app.globalData.backendUrl + "shopBalance/add",
+      data: {
+         id:'',
+        shopId: this.data.shop.id,
+        name: this.data.shop.name,
+        type:'报销',
+        expenseType:this.data.type,
+        price: this.data.price,
+        detail:this.data.detail,
+        time: '',
+        goodsList: [this.data.user.id,this.data.user.username,'未审批']
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/json'
+      },
+      method: 'POST',
+      success: (res) => {
+        /*console.log(res)*/
+        wx.showToast({
+          title: '提交成功',
+          duration: 2000
+        })
+        wx.navigateBack({
+          
+        })
+      }
+    })
+
+
   }
-})
+
+}
+)

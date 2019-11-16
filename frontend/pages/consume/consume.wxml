@@ -22,7 +22,9 @@
         <view class='left'>
         
           <view class='title1'><view wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">{{gitem}}</view></view>
+          <view class='title'>{{item.detail}}</view>
           <view class='title'>{{item.time}}</view>
+          
         </view>
         <view class='right'>
           <view class='title1' style="color:red;">¥{{item.price}}</view>

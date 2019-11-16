@@ -8,13 +8,13 @@
 
 
 <view style="margin:5px;">
-   <text>当前交易金额：¥0</text>
+   <text>当前交易金额：¥{{price}}</text>
 </view>
 
-<progress style="margin:5px;" percent="0" stroke-width="21" border-radius="10px" activeColor="rgb(255, 102, 0)" active/>
+<progress style="margin:5px;" percent="{{price/100}}" stroke-width="21" border-radius="10px" activeColor="rgb(255, 102, 0)" active/>
 
 <view style="margin:5px;">
-   <text>还差¥10000满足条件</text>
+   <text>还差¥{{10000-price}}满足条件</text>
 </view>
 
 <view class="div-line"></view>

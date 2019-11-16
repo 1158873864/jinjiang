@@ -7,10 +7,18 @@
         <input class='info__value' placeholder='请输入数字' bindinput='updateName'></input>
       </view>
       <!-- <view class='div-line'></view> -->
-      <view class='info'>
-        <text class='info__key'>报销类别</text>
-        <input class='info__value' placeholder='采购经费' bindinput='updatePhone'></input>
-      </view>
+    
+        <view class='article'>
+<picker bindchange="bindPickerChange" value="{{typeIndex}}" range="{{types}}">
+  <view class='article_row'>
+    <text class="start_left">报销类别:</text>
+    <text class="start_middle">{{type}}</text>
+    <image  class='start_right' src='../../img/img11.png'>
+    </image> 
+  </view> 
+  </picker>
+</view>
+      
       <!-- <view class='div-line'></view> -->
       
       <view class='info'>

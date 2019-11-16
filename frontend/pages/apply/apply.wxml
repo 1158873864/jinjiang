@@ -5,11 +5,9 @@
       <view class='info'>
         <text class='info__key'>进货商品</text>
         <view>
-<picker bindchange="bindPickerChange" value="{{index}}" range="{{starts}}">
+<picker bindchange="bindPickerChange" value="{{index}}" range="{{goodsName}}">
   <view class='article_row'>
-    
-    <text class="start_middle">{{start}}</text>
-    
+    <text class="start_middle">{{goods.name}}</text>
   </view> 
   </picker>
 </view>
@@ -18,12 +16,12 @@
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>数量</text>
-        <input class='info__value' placeholder='请输入数量' bindinput='updatePhone'></input>
+        <input class='info__value' placeholder='0' bindinput='updateNumber'></input>
       </view>
       <!-- <view class='div-line'></view> -->
       <view class='info'>
         <text class='info__key'>合计金额</text>
-        <view class='info__value' style="color:red">¥666</view>
+        <view class='info__value' style="color:red">¥{{price}}</view>
       </view>
       <!-- <view class='div-line'></view> -->
       </view>

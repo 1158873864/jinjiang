@@ -71,8 +71,19 @@ public class ShopBalanceController {
         }
 
     @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "id", value = "id", required = true, dataType = "String")
+    })
+    @RequestMapping(value = "/pass", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> pass(@RequestParam("id") String id) throws NotExistException {
+        shopBalanceBlService.pass(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
 
-    @RequestMapping(value = "/find/userId/type", method = RequestMethod.GET)
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+
+    @RequestMapping(value = "/find/type/shopId", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> getUserByUserId(@RequestParam("type") String type,@RequestParam("shopId") String shopId) throws NotExistException {
         Map<String, Object> result = new HashMap<>();

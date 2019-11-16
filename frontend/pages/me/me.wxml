@@ -4,14 +4,19 @@
   <view class='header'>
       <view class='card__main'>
         <image class='card__left' src='{{user.faceUrl}}'></image>
-        <view class='card__right'>
+        <view class='card__right' wx:if="{{hasLogin}}">
           <view class='card__detail card__detail--wrapper'>
             <text class='card__name'>{{user.username}}</text>
             
           </view>
           <text class='card__text'> id:{{user.id}}</text>
-          <text class='card__text'>注册时间:{{user.regtime}}</text>
-          
+          <text class='card__text'>注册时间:{{user.regtime}}</text> 
+        </view>
+        <view class='card__right' wx:else>
+           <view class='card__detail card__detail--wrapper' bindtap="goLogin">
+            <text class='card__name'>点击登录</text>
+            
+          </view>
         </view>
         
       </view>

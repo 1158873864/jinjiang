@@ -1,31 +1,41 @@
-<!--pages/particulars/curriculum/curriculum.wxml-->
-<!--index.wxml-->
-<import src='/template/findBar/searchBar.wxml'></import>
-<import src='/template/adBar/adBar.wxml'></import>
-<import src='/template/likeIcon/likeIcon.wxml'></import>
-
-
-<view class="container container--color-white">
-
-
-
-
-
-  <view class='box'  wx:for="{{courseList}}" wx:key="id">
-    <view data-kind='{{item.kind}}' data-id='{{item.id}}'>
-      <view class='vessel'>
-        <view class='left'>
-          <view class='title1'>明天</view>
-          <view class='title'>2019-10-10 9:10:10</view>
-        </view>
-
-        <view class='right'>
-          <view class='title1' style="color:red;">¥666</view>
-             
-        </view>
-        
-      </view>
+<view class="container1">
+  <view class="orders-switch">
+    <view class="item {{ showType == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
+      <view class="txt">全部</view>
+    </view>
+    <view class="item {{ showType == 1 ? 'active' : ''}}" bindtap="switchTab" data-index='1'>
+      <view class="txt">待收货</view>
+    </view>
+    <view class="item {{ showType == 2 ? 'active' : ''}}" bindtap="switchTab" data-index='2'>
+      <view class="txt">待上架</view>
     </view>
   </view>
-</view>
+  <view class="no-order" wx:if="{{orderList.length <= 0}}">
+    <view class="c">
+      <image src="http://nos.netease.com/mailpub/hxm/yanxuan-wap/p/20150730/style/img/icon-normal/noCart-a8fe3f12e5.png" />
+      <text>还没有任何订单呢</text>
+    </view>
+  </view>
 
+  <view class="orders">
+    <navigator url="../applyInDetail/applyInDetail?id={{item.id}}" class="order" open-type="redirect" wx:for="{{orderList}}" wx:key="id">
+      <view class="h">
+        <view class="l">进货编号:{{item.id}}</view>
+        <view class="r">{{item.status}}</view>
+      </view>
+      <view class="goods">
+        <view class="img">
+          <image src="{{item.imageUrl}}"></image>
+        </view>
+        <view class="info">
+          <text class="name">{{item.goodsName}}</text>
+          <text class="number">共{{item.number}}件商品</text>
+        </view>
+        <view class="status"></view>
+      </view>
+      <view class="b">
+        <view class="l">实付：￥{{item.price}}</view>
+      </view>
+    </navigator>
+  </view>
+</view>

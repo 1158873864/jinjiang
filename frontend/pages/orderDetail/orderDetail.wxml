@@ -11,7 +11,7 @@
         <view class="btn active" bindtap="payOrder" wx:if="{{orderInfo.status=='待付款'}}">去付款</view>
         <view class="btn active" bindtap="confirmOrder" wx:if="{{orderInfo.status=='待收货'||orderInfo.status=='积分待收货'}}">确认收货</view>
         <view class="btn active" bindtap="deleteOrder" wx:if="{{orderInfo.status=='已取消'}}">删除订单</view>
-        <view class="btn active" bindtap="refundOrder" wx:if="{{orderInfo.status=='已完成'||orderInfo.status=='待收货'||orderInfo.status=='待发货'||orderInfo.status=='积分待发货'||orderInfo.status=='积分待收货'||orderInfo.status=='积分已完成'}}">申请退款</view>
+        <view class="btn active" bindtap="refundOrder" wx:if="{{orderInfo.status=='已完成'||orderInfo.status=='待收货'||orderInfo.status=='待发货'}}">申请退款</view>
       </view>
     </view>
   </view>

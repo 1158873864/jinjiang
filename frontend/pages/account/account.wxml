@@ -1,112 +1,113 @@
 <!--pages/me/me.wxml-->
 
-<view wx:if="{{identity=='member'}}" class="container">
+<view wx:if="{{user.identity=='member'}}" class="container">
   <view class='header'>
       <view class='card__main'>
          <view class="card_left">
              <view>积分</view>
-             <view>999999</view>
+             <view>{{user.integral}}</view>
          </view>
          <view class="card_line">
              
          </view>
         <view class="card_left">
              <view>余额</view>
-             <view>¥999999.0</view>
+             <view>¥{{user.balance}}</view>
          </view>
       </view>
   </view>
-   <image src="../../img/充值.png" class="share"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
 </view>
   
 
-<view wx:elif="{{identity=='shareholder'}}" class="container">
+<view wx:elif="{{user.identity=='shareholder'}}" class="container">
   <view class='header'>
       <view class='card__main'>
          <view class="card_left1">
              <view>个人账户</view>
-             <view>999999</view>
+             <view>{{user.balance}}</view>
          </view>
          <view class="card_line">
          </view>
         <view class="card_left1">
              <view>销售提成</view>
-             <view>¥999999.0</view>
+             <view>¥{{user.takeBalance}}</view>
          </view>
          <view class="card_line">
          </view>
         <view class="card_left1">
              <view>赊账</view>
-             <view>¥-999.0</view>
+             <view>¥-0</view>
          </view>
       </view>
   </view>
-   <image src="../../img/充值.png" class="share"></image>
-   <image src="../../img/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
 </view>
 
 
-<view wx:elif="{{identity=='staff'}}" class="container">
+<view wx:elif="{{user.identity=='staff'}}" class="container">
   <view class='header'>
       <view class='card__main'>
          
         <view class="card_left2">
              <view>账户余额</view>
-             <view>¥9999.0</view>
+             <view>¥{{user.balance}}</view>
          </view>
          
       </view>
   </view>
-   <image src="../../img/充值.png" class="share"></image>
-   <image src="../../img/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
 </view>
 
 
-<view wx:elif="{{identity=='manager'}}" class="container">
+<view wx:elif="{{user.identity=='manager'}}" class="container">
   <view class='header1'>
       <view class='card__main'>
          <view class="card_left3">
              <view>门店资金</view>
-             <view>¥999999.0</view>
+             <view>¥{{shop.balance}}</view>
          </view>
          <view class="card_line1">
              
          </view>
         <view class="card_left3">
              <view>个人帐户</view>
-             <view>¥999999.0</view>
+             <view>¥{{user.balance}}</view>
          </view>
       </view>
 
       <view class='card__main'>
          <view class="card_left3">
              <view>销售提成</view>
-             <view>¥999999.0</view>
+             <view>¥{{user.takeBalance}}</view>
          </view>
          <view class="card_line1">
              
          </view>
         <view class="card_left3">
              <view>赊账</view>
-             <view>-¥999.0</view>
+             <view>-¥0</view>
          </view>
       </view>
       
   </view>
-   <image src="../../img/充值.png" class="share"></image>
-   <image src="../../img/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
 </view>
 
 
 <view class="detail">
    <view style="margin-left:40%;">余额明细</view>
     <view class='box'  wx:for="{{list}}" wx:key="id">
-    <view>
+
+    <view wx:if="{{item.type!='赊账'}}">
       <view class='vessel'>
 
-          <view class='title'>666</view>
-          <view class='title'>充值</view>
-          <view class='title'>2019-10-19</view>
+          <view class='title'><text wx:if="{{item.type=='支出'}}">-</text>{{item.price}}</view>
+          <view class='title'>{{item.type}}</view>
+          <view class='title'>{{item.time}}</view>
         
       </view>
     </view>

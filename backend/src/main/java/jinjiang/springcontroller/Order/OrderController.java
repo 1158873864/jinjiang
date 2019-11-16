@@ -90,6 +90,24 @@ public class OrderController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找订单", notes = "")
+    @RequestMapping(value = "/back", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> back(@RequestParam("id") String id) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        orderBlService.back(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据id查找订单", notes = "")
+    @RequestMapping(value = "/refund", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> refund(@RequestParam("id") String id) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        orderBlService.refund(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
 
     @ApiOperation(value = "所有订单", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)

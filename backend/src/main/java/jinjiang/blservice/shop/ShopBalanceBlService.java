@@ -16,6 +16,8 @@ public interface ShopBalanceBlService {
 
     ShopBalance findById(String id) throws NotExistException;
 
+    void pass(String id) throws NotExistException;
+
     List<ShopBalance> findByTypeAndShopId(String type, String shopId) throws NotExistException;
 
     Page<ShopBalance> findAll(Pageable pageable);

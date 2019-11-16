@@ -20,10 +20,10 @@ public class ShopBalance {//地址
     private String name; //酒庄名称
 
     @Column(name = "type")
-    private String type; //收入、进货、报销
+    private String type; //收入、报销、支出
 
     @Column(name = "expenseType")
-    private String expenseType; //购买应用物资、房租、水电、
+    private String expenseType; //购买应用物资、房租、水电、员工工资、其它
 
     @Column(name = "price")
     private double price; //价格
@@ -37,7 +37,6 @@ public class ShopBalance {//地址
     @Column
     @ElementCollection(targetClass = String.class)
     private List<String> goodsList; //所购买商品名称列表
-
 
     public ShopBalance() {
     }

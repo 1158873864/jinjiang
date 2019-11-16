@@ -1,78 +1,257 @@
-//index.js
-// 获取应用实例
+var util = require('../../utils/util.js');
+var api = require('../../config/api.js');
 const app = getApp()
 var api = require('../../util/api.js')
 const {
   bg1
 } = require('../../util/data.js')
 Page({
-
-  /**
-   * 页面的初始数据
-   */
   data: {
-    courseList: []
+    orderList: [],
+    showType: 0,
+    user: {}
   },
+  onLoad: function (options) {
+    // 页面初始化 options为页面跳转所带来的参数
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
 
-  /**
-   * 生命周期函数--监听页面加载
-   */
-  onLoad: function(options) {
-    
-  },
-  //展示文章详情
-  onTouchThisArticle: function(e) {
-    var id = e.currentTarget.dataset.id //获取当前文章id
-    wx.navigateTo({
-      url: '../cultureDetail/cultureDetail?id=' + id
+        this.setData({
+          user: res.data.data.items
+        })
+
+        wx.request({
+          url: app.globalData.backendUrl + "stock/find/status/shopId",
+          data: {
+            status: '待发货',
+            shopId: user.shopId
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var orderList = res.data.data.items
+            wx.request({
+              url: app.globalData.backendUrl + "stock/find/status/shopId",
+              data: {
+                status: '待收货',
+                shopId: user.shopId
+              },
+              header: {
+                'Authorization': 'Bearer ' + app.getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'GET',
+              success: (res) => {
+                /*console.log(res)*/
+                var order = res.data.data.items
+                for (var i = 0; i < order.length; i++) {
+                  orderList.push(order[i])
+                }
+
+                wx.request({
+                  url: app.globalData.backendUrl + "stock/find/status/shopId",
+                  data: {
+                    status: '待上架',
+                    shopId: user.shopId
+                  },
+                  header: {
+                    'Authorization': 'Bearer ' + app.getToken(),
+                    'content-type': 'application/x-www-form-urlencoded'
+                  },
+                  method: 'GET',
+                  success: (res) => {
+                    /*console.log(res)*/
+                    var order = res.data.data.items
+                    for (var i = 0; i < order.length; i++) {
+                      orderList.push(order[i])
+                    }
+                    wx.request({
+                      url: app.globalData.backendUrl + "stock/find/status/shopId",
+                      data: {
+                        status: '已上架',
+                        shopId: user.shopId
+                      },
+                      header: {
+                        'Authorization': 'Bearer ' + app.getToken(),
+                        'content-type': 'application/x-www-form-urlencoded'
+                      },
+                      method: 'GET',
+                      success: (res) => {
+                        /*console.log(res)*/
+                        var order = res.data.data.items
+                        for (var i = 0; i < order.length; i++) {
+                          orderList.push(order[i])
+                        }
+                        this.setData({
+                          orderList: orderList
+                        })
+                      }
+                    })
+                  }
+                })
+              }
+            })
+
+          }
+        })
+      }
     })
-  },
-  /** 
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function() {
 
   },
+  switchTab: function (e) {
+    var showType = e.currentTarget.dataset.index
+    if (showType == 0) {
 
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function() {
+      wx.request({
+        url: app.globalData.backendUrl + "stock/find/status/shopId",
+        data: {
+          status: '待发货',
+          shopId: this.data.user.shopId
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var orderList = res.data.data.items
+          wx.request({
+            url: app.globalData.backendUrl + "stock/find/status/shopId",
+            data: {
+              status: '待上架',
+              shopId: this.data.user.shopId
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              var order = res.data.data.items
+              for (var i = 0; i < order.length; i++) {
+                orderList.push(order[i])
+              }
+              wx.request({
+                url: app.globalData.backendUrl + "stock/find/status/shopId",
+                data: {
+                  status: '已上架',
+                  shopId: this.data.user.shopId
+                },
+                header: {
+                  'Authorization': 'Bearer ' + app.getToken(),
+                  'content-type': 'application/x-www-form-urlencoded'
+                },
+                method: 'GET',
+                success: (res) => {
+                  /*console.log(res)*/
+                  var order = res.data.data.items
+                  for (var i = 0; i < order.length; i++) {
+                    orderList.push(order[i])
+                  }
+                  wx.request({
+                    url: app.globalData.backendUrl + "stock/find/status/shopId",
+                    data: {
+                      status: '待收货',
+                      shopId: this.data.user.shopId
+                    },
+                    header: {
+                      'Authorization': 'Bearer ' + app.getToken(),
+                      'content-type': 'application/x-www-form-urlencoded'
+                    },
+                    method: 'GET',
+                    success: (res) => {
+                      /*console.log(res)*/
+                      var order = res.data.data.items
+                      for (var i = 0; i < order.length; i++) {
+                        orderList.push(order[i])
+                      }
+                      this.setData({
+                        orderList: orderList,
+                        showType: showType
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          })
+
+        }
+      })
+    }
+    else if (showType == 1) {
+      wx.request({
+        url: app.globalData.backendUrl + "stock/find/status/shopId",
+        data: {
+          status: '待收货',
+          shopId: this.data.user.shopId
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var order = res.data.data.items
+          this.setData({
+            orderList: order,
+            showType: showType
+          })
+        }
+      })
+    }
+    else if (showType == 2) {
+      wx.request({
+        url: app.globalData.backendUrl + "stock/find/status/shopId",
+        data: {
+          status: '待上架',
+          shopId: this.data.user.shopId
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/x-www-form-urlencoded'
+        },
+        method: 'GET',
+        success: (res) => {
+          /*console.log(res)*/
+          var order = res.data.data.items
+          this.setData({
+            orderList: order,
+            showType: showType
+          })
+        }
+      })
+    }
 
   },
-
-  /**
-   * 生命周期函数--监听页面隐藏
-   */
-  onHide: function() {
-
+  onReady: function () {
+    // 页面渲染完成
   },
-
-  /**
-   * 生命周期函数--监听页面卸载
-   */
-  onUnload: function() {
-
+  onShow: function () {
+    // 页面显示
   },
-
-  /**
-   * 页面相关事件处理函数--监听用户下拉动作
-   */
-  onPullDownRefresh: function() {
-
+  onHide: function () {
+    // 页面隐藏
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function() {
-
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function() {
-
+  onUnload: function () {
+    // 页面关闭
   }
 })

@@ -9,6 +9,7 @@ Page({
    */
   data: {
     user:undefined,
+    hasLogin: false,
     array: [{
       id: '0',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的订单.png',
@@ -280,6 +281,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onShow: function (options) {
+    this.setData({
+      hasLogin: app.getLogin()
+    });
+    
     wx.request({
       url: app.globalData.backendUrl + "user/find/openid",
       data: {
@@ -310,12 +315,12 @@ Page({
           // array3[5].show = false
           // array4[2].show = false
           // array4[3].show = false
-          // this.setData({
-          //   array1: array1,
-          //   array2: array2,
-          //   array3: array3,
-          //   array4: array4
-          // }) 
+          this.setData({
+            array1: array1,
+            array2: array2,
+            array3: array3,
+            array4: array4
+          }) 
         }
         else if (identity == 'staff') {
           var array1 = this.data.array1
@@ -359,14 +364,34 @@ Page({
           var array4 = this.data.array4
           array1[1].show = false
           array1[2].show = false
-          array3[3].show = false
-          array3[4].show = false
+          array3[5].show = false
           this.setData({
             array1: array1,
             array2: array2,
             array3: array3,
             array4: array4
           })
+        }
+        else{
+          var array1 = this.data.array1
+          var array2 = this.data.array2
+          var array3 = this.data.array3
+          var array4 = this.data.array4
+          array1[3].show = false
+          array1[4].show = false
+          array3[1].show = false
+          array3[2].show = false
+          array3[3].show = false
+          array3[4].show = false
+          array3[5].show = false
+          array4[2].show = false
+          array4[3].show = false
+          this.setData({
+            array1: array1,
+            array2: array2,
+            array3: array3,
+            array4: array4
+          }) 
         }
       }
     })
@@ -398,6 +423,11 @@ Page({
     wx.navigateTo({
       url: 'createPost/createPost',
     })
-  }
+  },
+  goLogin() {
+    wx.redirectTo({
+      url: '/pages/login/login',
+    })
+  },
 
 })

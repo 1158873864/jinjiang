@@ -68,6 +68,11 @@ public class BalanceBlServiceImpl implements BalanceBlService {
     }
 
     @Override
+    public List<Balance> findByUserId(String userId){
+        return balanceDao.findByUserId(userId);
+    }
+
+    @Override
     public Page<Balance> findAll(Pageable pageable) {
         return balanceDao.findAll(pageable);
     }

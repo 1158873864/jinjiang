@@ -8,8 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    identity: 'manager',
-    list: [0,0,0,0]
+    user:{},
+    list: [],
+    shop:{}
   },
 
 
@@ -19,7 +20,65 @@ Page({
   onShow: function (options) {
     var that = this
     //获取个人信息
-    api.getMyInfo.call(this, app.getOpenid())
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+        wx.request({
+          url: app.globalData.backendUrl + "shop/find/id",
+          data: {
+            id: user.shopId
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            
+            this.setData({
+              shop: res.data.data.items
+            })
+          }
+        })
+
+        wx.request({
+          url: app.globalData.backendUrl + "balance/find/userId",
+          data: {
+            userId: user.id
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var list = res.data.data.items
+
+            this.setData({
+              list: res.data.data.items
+            })
+          }
+        })
+
+      }
+    })
+
   },
 
   

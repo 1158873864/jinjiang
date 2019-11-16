@@ -104,7 +104,7 @@ Page({
       success: function(res) {
         if (res.confirm) {
           wx.request({
-            url: app.globalData.backendUrl + "order/cancel",
+            url: app.globalData.backendUrl + "order/refund",
             data: {
               id: orderInfo.id
             },

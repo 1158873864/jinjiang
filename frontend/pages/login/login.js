@@ -8,11 +8,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    
     systemInfo: {},
     status:true,
     user:{}
-
   },
 
 
@@ -43,6 +41,7 @@ Page({
       method: 'GET',
       success: (res) => {
         //登录成功，显示小程序主页
+        wx.setStorageSync("hasLogin", true);
         wx.request({
           url: getApp().globalData.backendUrl + "user/find/openid",
           data: {

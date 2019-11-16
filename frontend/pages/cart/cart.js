@@ -31,10 +31,13 @@ Page({
   onShow: function() {
     // 页面显示
    
+    this.setData({
+      hasLogin: app.getLogin()
+    });
+
     this.getCartList();
-    // this.setData({
-    //   hasLogin: app.globalData.hasLogin
-    // });
+
+    
 
   },
   onHide: function() {
@@ -44,7 +47,9 @@ Page({
     // 页面关闭
   },
   goLogin() {
-    
+    wx.redirectTo({
+      url: '/pages/login/login',
+    })
   },
   getCartList: function() {
     let that = this;

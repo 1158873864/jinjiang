@@ -18,6 +18,9 @@ App({
   getWechatFaceUrl: function () {
     return wx.getStorageSync('wechatFaceUrl')
   },
+  getLogin: function(){
+    return wx.getStorageSync('hasLogin')
+  },
   getDate: function () {
     var date = new Date()
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
@@ -69,6 +72,7 @@ App({
                       success: (res) => {
                         if (res.statusCode == 200) {
                           //登录成功，显示小程序主页
+                          wx.setStorageSync("hasLogin", true);
                           wx.request({
                             url: that.globalData.backendUrl + "user/find/openid",
                             data: {
@@ -86,6 +90,7 @@ App({
                             }
                           })
                         } else {
+                          wx.setStorageSync("hasLogin", false);
                           wx.showModal({
                             title: '登录失败',
                             content: '获取token失败',
@@ -108,9 +113,10 @@ App({
                   },
                   fail: function (failData) {
                     console.log("用户拒绝授权");
-                    wx.redirectTo({
-                      url: '/pages/login/login',
-                    })
+                    // wx.redirectTo({
+                    //   url: '/pages/login/login',
+                    // })
+                    wx.setStorageSync("hasLogin", false);
                   }
                 });
               } else {

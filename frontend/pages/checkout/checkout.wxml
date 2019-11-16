@@ -84,7 +84,7 @@
   </view> 
   </picker>
 </view>
-<view class='article' bindtap='onStart'>
+<view class='article'>
 <picker bindchange="bindPickerChange1" value="{{payIndex}}" range="{{pays}}">
   <view class='article_row'>
     <text class="start_left">支付方式:</text>

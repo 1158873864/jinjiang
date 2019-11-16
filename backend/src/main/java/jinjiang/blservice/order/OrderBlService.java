@@ -32,7 +32,11 @@ public interface OrderBlService {
 
     void integralTake(String id) throws NotExistException;
 
+    void refund(String id) throws NotExistException;
+
     void pay(Order o) throws NotExistException;
+
+    void back(String id) throws NotExistException;
 
     Page<Order> findAll(Pageable pageable);
 

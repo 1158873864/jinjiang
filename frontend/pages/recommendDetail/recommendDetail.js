@@ -33,7 +33,8 @@ Page({
     isGroupon: false, //标识是否是一个参团购买
     soldout: false,
     canWrite: false, //用户是否获取了保存相册的权限
-    user: undefined
+    user: undefined,
+    hasLogin: false
   },
 
   // 页面分享
@@ -326,11 +327,14 @@ Page({
   },
   onShow: function () {
     // 页面显示
-    
+    this.setData({
+      hasLogin: app.getLogin()
+    });
   },
 
   //立即购买（先自动加入购物车）
   addFast: function () {
+    if(this.data.hasLogin){
     var that = this;
     if (this.data.openAttr == false) {
       //打开规格选择窗口
@@ -436,12 +440,18 @@ Page({
 
      
     }
-
+    }
+    else{
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
 
   },
 
   //添加到购物车
   addToCart: function () {
+    if(this.data.hasLogin){
     var that = this;
     if (this.data.openAttr == false) {
       //打开规格选择窗口
@@ -510,7 +520,12 @@ Page({
       })
 
     }
-
+    }
+    else {
+      wx.navigateTo({
+        url: '/pages/login/login',
+      })
+    }
   },
 
   cutNumber: function () {

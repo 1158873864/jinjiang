@@ -6,30 +6,21 @@
 
 
 <view class="container container--color-white">
-
-<view class='headWrapper' style='background-color:black; background-size: cover;background-repeat: no-repeat; background-position: bottom'>
-    <!--搜索框-->
+  <view class='box'  wx:for="{{shopBalance}}" wx:key="id">
     <view>
-      <template class='search' is='searchBar' data='{{placeholder: "搜搜你感兴趣的商铺吧~", searchCondition: searchCondition,onSearch:onSearch}}'></template>
-    </view>
-  </view>
-
-
-
-  <view class='box'  wx:for="{{courseList}}" wx:key="id">
-    <view bindtap='onTouchThisArticle' data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='left'>
-        <view class='title1'>报销人</view>
-        <view class='title1'>报销类别</view>
-        <view class='title1'>报销详情</view>
-           <view class='title1' style="color:red;">¥666</view>
-          <view class='title'>2019-2-10 10:10:10</view>
+        <view class='title1'>报销人：{{item.goodsList[2]=='未审批'? item.goodsList[1]: item.goodsList[0]}}</view>
+        <view class='title1'>类别：{{item.expenseType}}</view>
+        <view class='title1'>详情：{{item.detail}}</view>
+        <view class='title1'>{{item.goodsList[2]}}</view>
+           <view class='title1' style="color:red;">¥{{item.price}}</view>
+          <view class='title'>{{item.time}}</view>
           
         </view>
-
-        <view class='right'>
-          <image class='btn1' src="../../img/confirm.png"></image>        
+       
+        <view class='right' wx:if="{{item.goodsList[2]=='未审批'}}">
+          <image class='btn1' src="https://take-out.oss-cn-hangzhou.aliyuncs.com/confirm.png" bindtap='onTouchThisArticle' data-id='{{item.id}}'></image>        
         </view>
         
       </view>
