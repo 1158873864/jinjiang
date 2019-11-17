@@ -1,10 +1,9 @@
 package jinjiang.bl.admin;
 
-import jinjiang.blservice.admin.CultureService;
 import jinjiang.blservice.recommend.RecommendService;
-import jinjiang.dao.admin.CultureDao;
+import jinjiang.dao.account.UserDao;
 import jinjiang.dao.recommend.RecommendDao;
-import jinjiang.entity.admin.Culture;
+import jinjiang.entity.account.User;
 import jinjiang.entity.recommend.Recommend;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,16 +19,27 @@ import java.util.Optional;
 @Service
 public class RecommendBlServiceImpl implements RecommendService {
     private final RecommendDao recommendDao;
+    private final UserDao userDao;
 
     @Autowired
-    public RecommendBlServiceImpl(RecommendDao recommendDao){
+    public RecommendBlServiceImpl(RecommendDao recommendDao, UserDao userDao){
 
         this.recommendDao = recommendDao;
+        this.userDao = userDao;
     }
 
     @Override
     public void addRecommend(Recommend recommend) {
-         recommendDao.save(recommend);
+        Optional<User> optionalUser=userDao.findById(recommend.getUser());
+        if(optionalUser.isPresent()){
+            User user=optionalUser.get();
+            if(user.getIdentity().equals("member")){
+                Optional<Recommend> optionalRecommend=recommendDao.findByUser(recommend.getUser());
+                if(!optionalRecommend.isPresent()){
+                    recommendDao.save(recommend);
+                }
+            }
+        }
     }
 
     @Override

@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,18 @@ public class DiscountBlServiceImpl implements DiscountBlservice {
 
     @Override
     public void addDiscount(Discount diacount) {
-      disDao.save(diacount);
+        if(diacount.getTimeType()==0){
+            int days=diacount.getDays();
+            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+            Calendar c = Calendar.getInstance();
+            System.out.println("当前日期:"+sf.format(c.getTime()));
+            c.add(Calendar.DAY_OF_MONTH, days);
+            System.out.println("增加一天后日期:"+sf.format(c.getTime()));
+            diacount.setStartTime(sf.format(c.getTime()));
+            diacount.setEndTime(sf.format(c.getTime()));
+            disDao.save(diacount);
+        }
+        disDao.save(diacount);
     }
 
     @Override

@@ -2,14 +2,20 @@ package jinjiang.bl.order;
 
 import jinjiang.blservice.order.OrderBlService;
 import jinjiang.dao.account.BalanceDao;
+import jinjiang.dao.account.CouponDao;
+import jinjiang.dao.account.DiscountDao;
 import jinjiang.dao.account.UserDao;
 import jinjiang.dao.admin.DeductDao;
 import jinjiang.dao.order.OrderDao;
+import jinjiang.dao.recommend.RecommendDao;
 import jinjiang.dao.shop.*;
 import jinjiang.entity.account.Balance;
+import jinjiang.entity.account.Coupon;
+import jinjiang.entity.account.Discount;
 import jinjiang.entity.account.User;
 import jinjiang.entity.admin.Deduct;
 import jinjiang.entity.order.Order;
+import jinjiang.entity.recommend.Recommend;
 import jinjiang.entity.shop.*;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.OrderResponse;
@@ -36,8 +42,11 @@ public class OrderBlServiceImpl implements OrderBlService {
     private final ShopDao shopDao;
     private final BalanceDao balanceDao;
     private final ShopBalanceDao shopBalanceDao;
+    private final RecommendDao recommendDao;
+    private final DiscountDao discountDao;
+    private final CouponDao couponDao;
     @Autowired
-    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao, ShopBalanceDao shopBalanceDao){
+    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao, ShopBalanceDao shopBalanceDao, RecommendDao recommendDao, DiscountDao discountDao, CouponDao couponDao){
         this.orderdoa=orderdoa;
         this.userDao = userDao;
         this.goodsDao = goodsDao;
@@ -47,6 +56,9 @@ public class OrderBlServiceImpl implements OrderBlService {
         this.shopDao = shopDao;
         this.balanceDao = balanceDao;
         this.shopBalanceDao = shopBalanceDao;
+        this.recommendDao = recommendDao;
+        this.discountDao = discountDao;
+        this.couponDao = couponDao;
     }
 
     @Override
@@ -179,6 +191,18 @@ public class OrderBlServiceImpl implements OrderBlService {
 
     @Override
     public void pay(Order o) throws NotExistException {
+        Optional<Recommend> optionalRecommend=recommendDao.findByUser(o.getUserId());
+        if(optionalRecommend.isPresent()){
+            Recommend recommend=optionalRecommend.get();
+            recommend.setStatus(true);
+            recommendDao.save(recommend);
+            Optional<Discount> optionalDiscount=discountDao.findByGoodsType("1");
+            if(optionalDiscount.isPresent()){
+                Discount discount=optionalDiscount.get();
+                Coupon coupon=new Coupon(o.getUserId(),discount.getId(),"未使用",discount.getStartTime(),discount.getEndTime());
+                couponDao.save(coupon);
+            }
+        }
         String id=o.getId();
         double actualPrice=o.getPrice();
         List<String> goodsName=new ArrayList<>();
