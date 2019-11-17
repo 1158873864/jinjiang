@@ -47,7 +47,28 @@ Page({
   },
 
   //事件处理函数
-  onLoad: function() {
+  onLoad: function(options) {
+    var referrer=options.id
+    wx.setStorageSync('referrer', referrer)
+    if(app.getLogin()){
+      wx.request({
+        url: app.globalData.backendUrl + "recommend/add",
+        data: {
+          id: '',
+          referrer: referrer,
+          user:app.getId(),
+          status: false
+        },
+        header: {
+          'Authorization': 'Bearer ' + app.getToken(),
+          'content-type': 'application/json'
+        },
+        method: 'POST',
+        success: (res) => {
+          
+        }
+      })
+    }
     wx.request({
       url: app.globalData.backendUrl + "ad/find/showPlace",
       data: {

@@ -21,6 +21,9 @@ App({
   getLogin: function(){
     return wx.getStorageSync('hasLogin')
   },
+  getReferrer: function () {
+    return wx.getStorageSync('referrer')
+  },
   getDate: function () {
     var date = new Date()
     return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()

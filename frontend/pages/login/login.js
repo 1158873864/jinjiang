@@ -56,6 +56,24 @@ Page({
             /*console.log(res)*/
             var user = res.data.data.items
             wx.setStorageSync('id', user.id)
+            var referrer = app.getReferrer()
+            wx.request({
+              url: app.globalData.backendUrl + "recommend/add",
+              data: {
+                id: '',
+                referrer: referrer,
+                user: app.getId(),
+                status: false
+              },
+              header: {
+                'Authorization': 'Bearer ' + app.getToken(),
+                'content-type': 'application/json'
+              },
+              method: 'POST',
+              success: (res) => {
+                
+              }
+            })
           }
         })
       }
