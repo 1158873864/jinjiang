@@ -263,7 +263,7 @@ Page({
                     paySign: requestPaymentParams.paySign,
                     success: (res) => {
                       wx.showToast({
-                        title: '充值成功',
+                        title: '支付成功',
                         icon: 'success',
                         duration: 1000
                       })

@@ -8,7 +8,7 @@ import java.util.List;
 @Entity
 @Table(name = "balance")
 @GenericGenerator(name = "jpa-uuid", strategy = "uuid")
-public class Balance {//地址
+public class Balance {//人员交易
     @Id
     @GeneratedValue(generator = "jpa-uuid")
     private String id;//id

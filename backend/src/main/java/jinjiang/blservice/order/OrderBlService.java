@@ -1,7 +1,5 @@
 package jinjiang.blservice.order;
 
-
-import jinjiang.entity.account.User;
 import jinjiang.entity.order.Order;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.OrderResponse;
@@ -53,4 +51,8 @@ public interface OrderBlService {
     WxBuyCreditResponse paywx(Order order);
 
     String getWxPayResult(HttpServletRequest request);
+
+    WxBuyCreditResponse recharge(String id, double price);
+
+    String getWxPayResult2(HttpServletRequest request);
 }

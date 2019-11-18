@@ -198,4 +198,18 @@ public class OrderController {
     public String getWxPayResult(HttpServletRequest httpServletRequest) {
         return orderBlService.getWxPayResult(httpServletRequest);
     }
+
+    @ApiOperation(value = "用户通过微信支付购买积分", notes = "用户通过微信支付购买积分")
+    @RequestMapping(value = "/recharge", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Response> recharge(@RequestParam("id") String id,@RequestParam("price") double price) {
+        return new ResponseEntity<>(orderBlService.recharge(id,price), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "此接口用户接收微信支付后台的支付结果通知", notes = "此接口用户接收微信支付后台的支付结果通知")
+    @RequestMapping(value = "/getWxPayResult2", method = RequestMethod.POST)
+    @ResponseBody
+    public String getWxPayResult2(HttpServletRequest httpServletRequest) {
+        return orderBlService.getWxPayResult(httpServletRequest);
+    }
 }

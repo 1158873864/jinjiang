@@ -31,13 +31,37 @@ public class RecommendBlServiceImpl implements RecommendService {
     @Override
     public void addRecommend(Recommend recommend) {
         Optional<User> optionalUser=userDao.findById(recommend.getUser());
+        Optional<User> referrer=userDao.findById(recommend.getReferrer());
         if(optionalUser.isPresent()){
             User user=optionalUser.get();
             if(user.getIdentity().equals("member")){
                 Optional<Recommend> optionalRecommend=recommendDao.findByUser(recommend.getUser());
                 if(!optionalRecommend.isPresent()){
-                    recommendDao.save(recommend);
+                    if(user.getShareholderId().equals("")){
+                        if(user.getRemark().equals("")){
+                            if(referrer.isPresent()){
+                                User r=referrer.get();
+                                if(r.getIdentity().equals("shareholder")){
+                                    user.setShareholderId(r.getId());
+                                    userDao.save(user);
+                                }
+                                else if(r.getIdentity().equals("staff")){
+                                    user.setRemark(r.getRemark());
+                                    userDao.save(user);
+                                }
+                                else if(r.getIdentity().equals("member")){
+                                    recommendDao.save(recommend);
+                                    if(r.getShareholderId().equals("")){
 
+                                    }
+                                    else{
+                                        user.setShareholderId(r.getShareholderId());
+                                        userDao.save(user);
+                                    }
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

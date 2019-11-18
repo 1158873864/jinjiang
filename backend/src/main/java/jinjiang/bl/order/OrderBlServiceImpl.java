@@ -971,4 +971,106 @@ public class OrderBlServiceImpl implements OrderBlService {
             return "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[ERROR]]></return_msg></xml>";
         }
     }
+
+    @Override
+    public WxBuyCreditResponse recharge(String id,double price) {
+        User user=userDao.getOne(id);
+        Balance balance=new Balance(user.getId(),user.getUsername(),"充值",price,"用户充值",FormatDateTime.toLongDateString(new Date()),new ArrayList<>());
+        balanceDao.save(balance);
+        SortedMap<String, String> packageParams = new TreeMap<>();
+        packageParams.put("appid", APP_ID);
+        packageParams.put("mch_id", MCH_ID);
+        packageParams.put("nonce_str", RandomUtil.generateNonceStr());//时间戳
+        packageParams.put("body", BODY);//支付主体
+        packageParams.put("out_trade_no", balance.getId() + "");//BuyCredit表编号
+        packageParams.put("total_fee", (int)balance.getPrice()*100 + "");//人民币价格
+        packageParams.put("notify_url", "https://www.shaoshanlu.com:3389/getWxPayResult2");//支付返回地址，服务器收到之后将订单状态从"waiting"改为"finished"或"failed"
+        packageParams.put("trade_type", TRADE_TYPE);//这个api有，固定的
+        packageParams.put("openid", user.getOpenid());//openid
+        //获取sign
+        String sign = PayCommonUtil.createSign("UTF-8", packageParams, API_KEY);//最后这个是自己设置的32位密钥
+        packageParams.put("sign", sign);
+
+        //发送请求，得到含有prepay_id的XML
+        String requestXML = PayCommonUtil.getRequestXml(packageParams);
+        System.out.println(requestXML);
+        String resXml = null;
+        try {
+            resXml = HttpUtil.postData("https://api.mch.weixin.qq.com/pay/unifiedorder", requestXML);
+            System.out.println("resXml");
+            System.out.println(resXml);
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
+
+        //根据微信回复填写给小程序的回复
+        String waitingTimeStamp = String.valueOf(System.currentTimeMillis()); //回复给微信小程序的时间戳
+        String nonceStr = null;
+        try {
+            nonceStr = XMLUtil.parserXmlToGetNonceStr(resXml);
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
+        String packageContent = null;
+        try {
+            packageContent = "prepay_id=" + XMLUtil.parserXmlToGetPrepayId(resXml);
+        } catch (SystemException e) {
+            e.printStackTrace();
+        }
+        String signType = SIGN_TYPE;
+        String apiKey = API_KEY;
+        SortedMap<String, String> sortedMap = new TreeMap<>();
+        sortedMap.put("appId", APP_ID);
+        sortedMap.put("timeStamp", waitingTimeStamp);
+        sortedMap.put("nonceStr", nonceStr);
+        sortedMap.put("package", packageContent);
+        sortedMap.put("signType", signType);
+        String paySign = PayCommonUtil.createSign("UTF-8", sortedMap, apiKey);
+        return new WxBuyCreditResponse(new WxBuyCreditItem(balance.getId(), waitingTimeStamp, nonceStr, packageContent, signType, paySign));
+    }
+
+
+    @Override
+    public String getWxPayResult2(HttpServletRequest request) {
+        System.out.println("Wx notification arrived");
+        try {
+            InputStream inStream = request.getInputStream();
+            int _buffer_size = 1024;
+            if (inStream != null) {
+                ByteArrayOutputStream outStream = new ByteArrayOutputStream();
+                byte[] tempBytes = new byte[_buffer_size];
+                int count = -1;
+                while ((count = inStream.read(tempBytes, 0, _buffer_size)) != -1) {
+                    outStream.write(tempBytes, 0, count);
+                }
+                tempBytes = null;
+                outStream.flush();
+                String resultXML = new String(outStream.toByteArray(), StandardCharsets.UTF_8); //将流转换成字符串
+                SortedMap<Object, Object> sortedMap = XMLUtil.getSortedMapFromXML(resultXML);
+                if (PayCommonUtil.isTenpaySign("UTF-8", sortedMap, API_KEY)) {
+                    Balance balance = balanceDao.getOne((String)sortedMap.get("out_trade_no"));
+                    if (sortedMap.get("return_code").equals("SUCCESS")) {
+                        if (sortedMap.get("result_code").equals("SUCCESS")) {
+                            User user=userDao.getOne(balance.getUserId());
+                            user.setBalance(user.getBalance()+balance.getPrice());
+                            userDao.save(user);
+                        } else {
+                            System.out.println("错误！");
+                        }
+                    } else {
+                        throw new Exception("微信支付后台通信标识为FAIL！");
+                    }
+                } else {
+                    throw new Exception("微信支付后台通信签名校验失败！");
+                }
+            }
+            //通知微信支付系统接收到信息
+            return "<xml><return_code><![CDATA[SUCCESS]]></return_code><return_msg><![CDATA[OK]]></return_msg></xml>";
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+            //如果失败返回错误，微信会再次发送支付信息
+            return "<xml><return_code><![CDATA[FAIL]]></return_code><return_msg><![CDATA[ERROR]]></return_msg></xml>";
+        }
+    }
+
 }
