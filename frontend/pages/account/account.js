@@ -81,6 +81,10 @@ Page({
 
   },
 
-  
+  recharge: function(){
+    wx.navigateTo({
+      url: '../recharge/recharge',
+    })
+  }
 
 })

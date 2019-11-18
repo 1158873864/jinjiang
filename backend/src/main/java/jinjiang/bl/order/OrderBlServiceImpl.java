@@ -719,7 +719,7 @@ public class OrderBlServiceImpl implements OrderBlService {
         packageParams.put("nonce_str", RandomUtil.generateNonceStr());//时间戳
         packageParams.put("body", BODY);//支付主体
         packageParams.put("out_trade_no", order.getId() + "");//BuyCredit表编号
-        packageParams.put("total_fee", (int)order.getPrice()*100 + "");//人民币价格
+        packageParams.put("total_fee", (int)(order.getPrice()*100) + "");//人民币价格
         packageParams.put("notify_url", NOTIFY_URL);//支付返回地址，服务器收到之后将订单状态从"waiting"改为"finished"或"failed"
         packageParams.put("trade_type", TRADE_TYPE);//这个api有，固定的
         packageParams.put("openid", openid);//openid
@@ -983,7 +983,7 @@ public class OrderBlServiceImpl implements OrderBlService {
         packageParams.put("nonce_str", RandomUtil.generateNonceStr());//时间戳
         packageParams.put("body", BODY);//支付主体
         packageParams.put("out_trade_no", balance.getId() + "");//BuyCredit表编号
-        packageParams.put("total_fee", (int)balance.getPrice()*100 + "");//人民币价格
+        packageParams.put("total_fee", (int)(balance.getPrice()*100) + "");//人民币价格
         packageParams.put("notify_url", "https://www.shaoshanlu.com:3389/getWxPayResult2");//支付返回地址，服务器收到之后将订单状态从"waiting"改为"finished"或"failed"
         packageParams.put("trade_type", TRADE_TYPE);//这个api有，固定的
         packageParams.put("openid", user.getOpenid());//openid

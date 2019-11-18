@@ -84,6 +84,19 @@ public class BalanceBlServiceImpl implements BalanceBlService {
     }
 
     @Override
+    public List<Balance> findByTypeAndShopId(String type, String shopId){
+        List<User> users=userDao.findByIdentityAndShopId("shareholder",shopId);
+        List<Balance> balances=new ArrayList<>();
+        for(User user:users){
+            List<Balance> balanceList=balanceDao.findByTypeAndUserId(type,user.getId());
+            for(Balance balance:balanceList){
+                balances.add(balance);
+            }
+        }
+        return balances;
+    }
+
+    @Override
     public List<Balance> findByUserId(String userId){
         return balanceDao.findByUserId(userId);
     }

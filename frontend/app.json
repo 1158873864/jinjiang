@@ -45,7 +45,8 @@
     "pages/orderManage/orderManage",
     "pages/stockManage/stockManage",
     "pages/applyIn/applyIn",
-    "pages/income/income"
+    "pages/income/income",
+    "pages/recharge/recharge"
   ],
   "window": {
     "backgroundTextStyle": "light",

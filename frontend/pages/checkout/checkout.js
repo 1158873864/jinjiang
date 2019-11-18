@@ -196,6 +196,7 @@ Page({
       util.showErrorToast('请选择收货地址');
       return false;
     }
+    var that = this
     var order=this.data.order
     order.price=this.data.actualPrice
     order.person = this.data.checkedAddress.person

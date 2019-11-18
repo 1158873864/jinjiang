@@ -21,6 +21,8 @@ public interface BalanceBlService {
 
     List<Balance> findByTypeAndUserId(String type, String userId) throws NotExistException;
 
+    List<Balance> findByTypeAndShopId(String type, String shopId);
+
     List<Balance> findByUserId(String userId);
 
     Page<Balance> findAll(Pageable pageable);
