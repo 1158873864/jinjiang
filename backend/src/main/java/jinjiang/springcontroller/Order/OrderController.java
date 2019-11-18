@@ -1,14 +1,13 @@
 package jinjiang.springcontroller.Order;
 
 
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.*;
 import jinjiang.blservice.account.UserBlService;
 import jinjiang.blservice.order.OrderBlService;
 import jinjiang.entity.account.User;
 import jinjiang.entity.order.Order;
 import jinjiang.exception.NotExistException;
+import jinjiang.response.Response;
 import jinjiang.response.Result;
 import jinjiang.response.ResultGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.Map;
@@ -183,5 +183,19 @@ public class OrderController {
     public ResponseEntity<Result> integralTake(@RequestParam("id") String id) throws NotExistException {
         orderBlService.integralTake(id);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "用户通过微信支付购买积分", notes = "用户通过微信支付购买积分")
+    @RequestMapping(value = "/buyMyCredit", method = RequestMethod.POST)
+    @ResponseBody
+    public ResponseEntity<Response> buyMyCredit(@Valid @RequestBody Order order) {
+        return new ResponseEntity<>(orderBlService.paywx(order), HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "此接口用户接收微信支付后台的支付结果通知", notes = "此接口用户接收微信支付后台的支付结果通知")
+    @RequestMapping(value = "/getWxPayResult", method = RequestMethod.POST)
+    @ResponseBody
+    public String getWxPayResult(HttpServletRequest httpServletRequest) {
+        return orderBlService.getWxPayResult(httpServletRequest);
     }
 }

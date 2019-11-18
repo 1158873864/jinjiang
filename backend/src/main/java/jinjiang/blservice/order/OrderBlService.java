@@ -5,9 +5,11 @@ import jinjiang.entity.account.User;
 import jinjiang.entity.order.Order;
 import jinjiang.exception.NotExistException;
 import jinjiang.response.OrderResponse;
+import jinjiang.response.WxBuyCreditResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 public interface OrderBlService {
@@ -47,4 +49,8 @@ public interface OrderBlService {
     List<OrderResponse> findByStatusAndShopId(String status, String shopId);
 
     OrderResponse findByIdWX(String orderId);
+
+    WxBuyCreditResponse paywx(Order order);
+
+    String getWxPayResult(HttpServletRequest request);
 }

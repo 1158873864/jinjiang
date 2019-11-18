@@ -45,10 +45,10 @@ wechat:
   order_url: https://api.mch.weixin.qq.com/pay/unifiedorder
   id: wx925bde00c413bb22
   secret: d102d7a1487ae1124ae9cf398109ca07
-  mch_id: 1515757801
+  mch_id: 1562923061
   body: 金酱直营酒庄
   device_info: WEB
-  notify_url: https://junrongcenter.com:3389/getWxPayResult
+  notify_url: https://www.shaoshanlu.com:3389/getWxPayResult
   trade_type: JSAPI
-  api_key: junrongcenterxiaochengxu556677mm
+  api_key: jinjiangjinjiangjinjiang12345678
   sign_type: MD5

@@ -37,6 +37,7 @@ public class RecommendBlServiceImpl implements RecommendService {
                 Optional<Recommend> optionalRecommend=recommendDao.findByUser(recommend.getUser());
                 if(!optionalRecommend.isPresent()){
                     recommendDao.save(recommend);
+
                 }
             }
         }

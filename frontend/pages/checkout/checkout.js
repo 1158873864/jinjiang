@@ -210,30 +210,79 @@ Page({
       }
     order.goodsList = goods
     if(order.status=='待付款'){
-      if(this.data.user.balance>=order.price){
-        order.status='待发货'
+
+      if(this.data.pay==='余额'){
+        if (this.data.user.balance >= order.price) {
+          order.status = '待发货'
+          wx.request({
+            url: app.globalData.backendUrl + "order/pay",
+            data: order,
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/json'
+            },
+            method: 'POST',
+            success: (res) => {
+              /*console.log(res)*/
+              wx.showToast({
+                title: '余额支付成功'
+              })
+              wx.navigateTo({
+                url: '../order/order?showType=0',
+              })
+            }
+          })
+        }
+        else {
+          util.showErrorToast('余额不足')
+        }
+      }
+      else{
         wx.request({
-          url: app.globalData.backendUrl + "order/pay",
-          data: order,
+          url: app.globalData.backendUrl + "order/buyMyCredit",
+          method: "POST",
           header: {
             'Authorization': 'Bearer ' + app.getToken(),
             'content-type': 'application/json'
           },
-          method: 'POST',
+          data: order,
           success: (res) => {
-            /*console.log(res)*/
-            wx.showToast({
-              title: '余额支付成功'
-            })
-            wx.navigateTo({
-              url: '../order/order?showType=0',
-            })
+            if (res.statusCode == 200) {
+              wx.showModal({
+                title: '请在15分钟内支付完成',
+                content: '',
+                showCancel: false,
+                success: () => {
+                  var requestPaymentParams = res.data.wxBuyCredit
+                  console.log(requestPaymentParams)
+                  wx.requestPayment({
+                    timeStamp: requestPaymentParams.timeStamp,
+                    nonceStr: requestPaymentParams.nonceStr,
+                    package: requestPaymentParams.packageContent,
+                    signType: requestPaymentParams.signType,
+                    paySign: requestPaymentParams.paySign,
+                    success: (res) => {
+                      wx.showToast({
+                        title: '充值成功',
+                        icon: 'success',
+                        duration: 1000
+                      })
+                      that.onLoad()
+                    }
+                  })
+                }
+              })
+            } else if (res.statusCode == 404) {
+              wx.showToast({
+                title: '充值失败',
+                icon: 'none',
+                duration: 1000
+              });
+            }
           }
         })
       }
-      else{
-        util.showErrorToast('余额不足')
-      }
+      
     }
     else{
       wx.request({

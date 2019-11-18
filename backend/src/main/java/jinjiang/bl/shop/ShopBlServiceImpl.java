@@ -106,7 +106,7 @@ public class ShopBlServiceImpl implements ShopBlService {
             double distance=Double.valueOf(df.format(getDistance(latitude,longitude,o[1],o[0])/1000));
             shop.setBalance(distance);
         }
-        return shops ;
+        return shops;
     }
 
 
