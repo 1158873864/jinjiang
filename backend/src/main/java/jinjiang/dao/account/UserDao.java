@@ -14,4 +14,5 @@ public interface UserDao extends JpaRepository<User, String> {
     Page<User> findByShopId(String ShopId, Pageable pageable);
     Page<User> findByIdentityAndShopId(String identity, String ShopId, Pageable pageable);
     Optional<User> findByOpenid(String openid);
+    List<User> findByShareholderId(String shareholderId);
 }

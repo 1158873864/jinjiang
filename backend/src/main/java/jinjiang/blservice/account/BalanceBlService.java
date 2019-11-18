@@ -17,7 +17,9 @@ public interface BalanceBlService {
 
     Balance findById(String id) throws NotExistException;
 
-    List<Balance> findByTypeAndUserId(String type,String userId) throws NotExistException;
+    List<Balance> findByShareholderId(String shareholderId) throws NotExistException;
+
+    List<Balance> findByTypeAndUserId(String type, String userId) throws NotExistException;
 
     List<Balance> findByUserId(String userId);
 

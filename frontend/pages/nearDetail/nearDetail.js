@@ -10,13 +10,27 @@ Page({
   data: {
 
     goods:[],
-    shop:undefined
+    shop:undefined,
+    distance:0,
+    longitude:0,
+    latitude:0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    wx.getLocation({
+      type: 'wgs84',
+      success: (res) => {
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy
+        this.setData({
+          latitude: latitude,
+          longitude: longitude
+        })
     wx.request({
       url: app.globalData.backendUrl + "shop/find/id",
       data: {
@@ -31,6 +45,27 @@ Page({
         /*console.log(res)*/
         this.setData({
           shop: res.data.data.items
+        })
+        var shop = res.data.data.items
+        wx.request({
+          url: app.globalData.backendUrl + "shop/cal",
+          data: {
+            shopId: shop.id,
+            longitude: longitude,
+            latitude: latitude
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var distance = res.data.data.items
+            this.setData({
+              distance: distance
+            })
+          }
         })
       }
     })
@@ -52,8 +87,20 @@ Page({
         })
       }
     })
+      }
+
+    })
   },
 
+  go:function(){
+    wx.openLocation({
+      latitude: this.data.latitude,
+      longitude: this.data.longitude,
+      name: this.data.shop.province + this.data.shop.city + this.data.shop.district + this.data.shop.detail,
+      scale: 28
+    })
+
+  },
   //展示商品详情
   onTouchThisArticle: function (e) {
     var id = e.currentTarget.dataset.id //获取当前商品id

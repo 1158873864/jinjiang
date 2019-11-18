@@ -12,8 +12,8 @@
       </view>
       <view style="display:flex;margin-top: 6px;">
         <image style="width:14px;height:15px;margin-top:3px; " src="https://take-out.oss-cn-hangzhou.aliyuncs.com/图层4.png"></image>
-        <text style='font-size:0.8rem'>距离：11km</text>
-         <text style='margin-left:130px; color:orange;font-size:0.8rem'>到这里去</text>
+        <text style='font-size:0.8rem'>距离：{{distance}}km</text>
+         <text style='margin-left:130px; color:orange;font-size:0.8rem' bindtap="go">到这里去</text>
          <image style="width:15px;height:15px;margin-top:4px;" src="https://take-out.oss-cn-hangzhou.aliyuncs.com/图层7.png"></image>
       </view>
     </view>

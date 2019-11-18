@@ -1,16 +1,17 @@
 package jinjiang.bl.account;
 
 import jinjiang.blservice.account.BalanceBlService;
-import jinjiang.dao.account.AddressDao;
 import jinjiang.dao.account.BalanceDao;
-import jinjiang.entity.account.Address;
+import jinjiang.dao.account.UserDao;
 import jinjiang.entity.account.Balance;
+import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -18,10 +19,12 @@ import java.util.Optional;
 public class BalanceBlServiceImpl implements BalanceBlService {
 
     private final BalanceDao balanceDao;
+    private final UserDao userDao;
 
     @Autowired
-    public BalanceBlServiceImpl( BalanceDao balanceDao) {
+    public BalanceBlServiceImpl(BalanceDao balanceDao, UserDao userDao) {
         this.balanceDao = balanceDao;
+        this.userDao = userDao;
     }
 
     @Override
@@ -60,6 +63,19 @@ public class BalanceBlServiceImpl implements BalanceBlService {
     @Override
     public Balance findById(String id) throws NotExistException {
         return balanceDao.findById(id).get();
+    }
+
+    @Override
+    public List<Balance> findByShareholderId(String shareholderId) throws NotExistException {
+        List<User>  users=userDao.findByShareholderId(shareholderId);
+        List<Balance> balances=new ArrayList<>();
+        for(int i=0;i<users.size();i++){
+            List<Balance> balance=balanceDao.findByTypeAndUserId("支出",users.get(i).getId());
+            for(int j=0;j<balance.size();j++){
+                balances.add(balance.get(j));
+            }
+        }
+        return balances;
     }
 
     @Override

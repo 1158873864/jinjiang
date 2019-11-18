@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,6 +64,24 @@ public class ShopController {
     public ResponseEntity<Result> getUserById(@RequestParam("id") String id) throws NotExistException {
         Map<String, Object> result = new HashMap<>();
         result.put("items",shopBlService.findById(id));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据id查找门店", notes = "")
+    @RequestMapping(value = "/cal", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> cal(@RequestParam("shopId") String shopId,@RequestParam("longitude") double longitude,@RequestParam("latitude") double latitude) throws NotExistException, IOException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",shopBlService.cal(shopId,longitude,latitude));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据id查找门店", notes = "")
+    @RequestMapping(value = "/find/all/wx", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findAll(@RequestParam("longitude") double longitude,@RequestParam("latitude") double latitude) throws NotExistException, IOException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",shopBlService.findAllwx(longitude,latitude));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 

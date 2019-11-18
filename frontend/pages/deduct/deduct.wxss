@@ -54,7 +54,6 @@
 }
 
 .right {
-  display: block;
   margin-left: 110px;
   margin-top: 10px;
   width: 30%;
@@ -72,11 +71,6 @@
 .title1 {
   font-size: 18px;
   color: rgb(0, 0, 0);
-}
-.title2 {
-  margin-top: 34px;
-  font-size: 18px;
-  color: red;
 }
 .shoping{
   /* border: 1px solid red; */
@@ -154,4 +148,35 @@
 .scroll-views{
   height: 100%;
 
+}
+
+
+.orders-switch {
+  width: 100%;
+  background: #fff;
+  height: 84rpx;
+  /* border-bottom: 1px solid rgba(0,0,0,.15); */
+}
+
+.orders-switch .item {
+  display: inline-block;
+  height: 82rpx;
+  width: 50%;
+  padding: 0 15rpx;
+  text-align: center;
+}
+
+.orders-switch .item .txt {
+  display: inline-block;
+  height: 82rpx;
+  padding: 0 20rpx;
+  line-height: 82rpx;
+  color: #9a9ba1;
+  font-size: 30rpx;
+  width: 170rpx;
+}
+
+.orders-switch .item.active .txt {
+  color: #ab956d;
+  border-bottom: 4rpx solid #ab956d;
 }

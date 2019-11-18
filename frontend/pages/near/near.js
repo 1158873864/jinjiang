@@ -12,31 +12,49 @@ Page({
    */
   data: {
     courseList: [],
-    page:0
+    page:0,
+    tempcourseList:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    wx.request({
-      url: app.globalData.backendUrl + "shop/find/all",
-      data: {
-        page: this.page,
-        size: 20
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
+    wx.getLocation({
+      type: 'wgs84',
       success: (res) => {
-        /*console.log(res)*/
-        this.setData({
-          courseList: res.data.data.items.content
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy
+        // wx.showModal({
+        //   title: '当前位置',
+        //   content: '经度' + res.longitude + '纬度' + res.latitude,
+        // })
+
+        wx.request({
+          url: app.globalData.backendUrl + "shop/find/all/wx",
+          data: {
+            longitude: longitude,
+            latitude:latitude
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var courseList = res.data.data.items
+            this.setData({
+              courseList: courseList
+            })
+          }
         })
       }
+
     })
+    
   },
   //展示文章详情
   onTouchThisArticle: function(e) {
@@ -83,31 +101,7 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function() {
-    var page1 = this.page + 1
-    this.setData({
-      page: page1
-    })
-    wx.request({
-      url: app.globalData.backendUrl + "shop/find/all",
-      data: {
-        page: this.page,
-        size: 20
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        /*console.log(res)*/
-        this.setData({
-          courseList: res.data.data.items.content
-        })
-      }
-    })
-  },
-
+  
   /**
    * 用户点击右上角分享
    */

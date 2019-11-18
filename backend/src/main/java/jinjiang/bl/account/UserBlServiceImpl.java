@@ -131,6 +131,12 @@ public class UserBlServiceImpl implements UserBlService {
 	}
 
 	@Override
+	public List<User> findByShareholderId(String shareholderId) {
+		return userDao.findByShareholderId(shareholderId);
+	}
+
+
+	@Override
 	public Page<User> findIdentityAndShop(String identity,String shopId,Pageable pageable) {
 		return userDao.findByIdentityAndShopId(identity,shopId,pageable);
 	}

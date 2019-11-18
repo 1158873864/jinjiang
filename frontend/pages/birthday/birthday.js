@@ -11,38 +11,61 @@ Page({
    * 页面的初始数据
    */
   data: {
-    courseList: []
+    courseList: [],
+    user:{}
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
-    if (options.courseGroupId) {
-      var courseGroupId = options.courseGroupId;
-      var that = this
-      wx.request({
-        url: app.globalData.backendUrl + "courseGroup/findById",
-        header: {
-          'Authorization': 'Bearer ' + app.getToken(),
-          'content-type': 'application/x-www-form-urlencoded'
-        },
-        method: 'GET',
-        data: {
-          id: courseGroupId
-        },
-        success: (res) => {
-          res.data.courseGroupItem.courseList.forEach(item => {
-            item.image = app.globalData.picUrl + item.image
-          })
-          that.setData({
-            courseList: res.data.courseGroupItem.courseList
-          })
-        }
-      })
-    } else {
-      api.getCourseList.call(this)
-    }
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+        wx.request({
+          url: app.globalData.backendUrl + "user/find/shopId",
+          data: {
+            shopId: user.shopId,
+            page:0,
+            size:100
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var list = res.data.data.items.content
+            var courseList=[]
+            for(var i=0;i<list.length;i++){
+              if(list[i].identity=='member'){
+                courseList.push(list[i])
+              }
+            }
+            this.setData({
+              courseList: courseList
+            })
+          }
+        })
+
+      }
+    })
+
   },
   //展示文章详情
   onTouchThisArticle: function(e) {

@@ -89,6 +89,15 @@ public class BalanceController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找用户", notes = "")
+    @RequestMapping(value = "/find/shareholderId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByShareholderId(@RequestParam("shareholderId") String shareholderId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",balanceBlService.findByShareholderId(shareholderId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
         //接通
         @ApiOperation(value = "所有地址", notes = "")
         @RequestMapping(value = "/find/all", method = RequestMethod.GET)

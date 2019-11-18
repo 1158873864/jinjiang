@@ -11,13 +11,13 @@
     <view bindtap='onTouchThisArticle' data-id='{{item.id}}'>
       <view class='vessel'>
         
-        <image class='card__left' src='../../img/shop.jpg'></image>
+        <image class='card__left' src='{{item.faceUrl}}'></image>
         <view class='right'>
-          <view class='title'>名字</view>
+          <view class='title'>{{item.username}}</view>
+          <view class='title'>{{item.mobilePhone}}</view>
           <view class='shoping'>
             <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
-            
-           生日：2019-10-19
+           生日：{{item.birthday}}
           </view>
         </view>
         

@@ -28,7 +28,7 @@
           <view class='shoping'>
           
             <image class="position" src='https://take-out.oss-cn-hangzhou.aliyuncs.com/定位.png'></image>
-            <text class='img_cart'>距离：11km</text>
+            <text class='img_cart'>距离：{{item.balance}}km</text>
           </view>
         </view>
         

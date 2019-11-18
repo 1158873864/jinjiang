@@ -8,17 +8,18 @@
 <view class="container container--color-white">
 
 
-  <view class='box'  wx:for="{{courseList}}" wx:key="id">
-    <view bindtap='onTouchThisArticle' data-id='{{item.id}}'>
+  <view class='box'  wx:for="{{user}}" wx:key="id">
+    <view data-id='{{item.id}}'>
       <view class='vessel'>
         
-        <image class='card__left' src='../../img/shop.jpg'></image>
+        <image class='card__left' src='{{item.faceUrl}}'></image>
         <view class='right'>
-          <view class='title'>名字</view>
+          <view class='title'>{{item.username}}</view>
+           <view class='title'>{{item.mobilePhone}}</view>
           <view class='shoping'>
             <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
             
-           2019-10-19
+           {{item.regtime}}
           </view>
         </view>
         
