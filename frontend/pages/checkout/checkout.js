@@ -268,7 +268,10 @@ Page({
                         icon: 'success',
                         duration: 1000
                       })
-                      that.onLoad()
+                      wx.navigateTo({
+                        url: '../order/order?showType=0',
+                      })
+                      
                     }
                   })
                 }

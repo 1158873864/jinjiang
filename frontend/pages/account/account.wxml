@@ -16,7 +16,7 @@
          </view>
       </view>
   </view>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" bindtap="recharge" class="share"></image>
 </view>
   
 

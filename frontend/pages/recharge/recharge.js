@@ -45,14 +45,7 @@ Page({
 
   onSave: function() {
     /* 检查输入合法性 */
-    if (!(this.data.price === "" || /^1[34578]\d{9}$/.test(this.data.price))) {
-      wx.showToast({
-        title: '格式有误，请重填',
-        icon: 'none'
-      })
-      return
-    }
-
+    
     var that = this
     wx.request({
       url: app.globalData.backendUrl + "order/recharge",
@@ -86,7 +79,9 @@ Page({
                     icon: 'success',
                     duration: 1000
                   })
-                  that.onLoad()
+                  wx.navigateTo({
+                    url: '../account/account',
+                  })
                 }
               })
             }
