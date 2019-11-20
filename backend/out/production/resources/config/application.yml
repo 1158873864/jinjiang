@@ -48,7 +48,7 @@ wechat:
   mch_id: 1562923061
   body: 金酱直营酒庄
   device_info: WEB
-  notify_url: https://www.shaoshanlu.com:3389/getWxPayResult
+  notify_url: https://www.shaoshanlu.com:3389/order/getWxPayResult
   trade_type: JSAPI
   api_key: jinjiangjinjiangjinjiang12345678
   sign_type: MD5

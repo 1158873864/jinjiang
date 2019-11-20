@@ -12,22 +12,22 @@
 
       <el-table-column align="center" width="100px" label="进货ID" prop="id" sortable/>
 
-      <el-table-column align="center" label="采购主题" prop="userName"/>
+      <el-table-column align="center" label="酒庄名称" prop="name"/>
 
-      <el-table-column align="center" label="备注" prop="address"/>
+      <el-table-column align="center" label="采购商品" prop="goodsName"/>
 
-      <el-table-column align="center" label="采购商品" prop="mobilePone"/>
+      <el-table-column align="center" label="数量" prop="number"/>
 
-      <el-table-column align="center" label="数量" prop="person"/>
+      <el-table-column align="center" label="价格" prop="price"/>
 
-      <el-table-column align="center" label="合计金额" prop="person"/>
+      <el-table-column align="center" label="状态" prop="status"/>
 
-      <el-table-column align="center" label="酒庄" prop="freight"/>
+      <el-table-column align="center" label="时间" prop="time"/>
 
-      <el-table-column align="center" label="状态" prop="freight"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+          <el-button v-show="scope.row.status=='待发货'" type="primary" size="mini" @click="handleSend(scope.row)">确认发货</el-button>
           <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -137,7 +137,7 @@ import Pagination from '@/components/Pagination' // Secondary package based on e
 
 
 export default {
-    name: 'Order',
+    name: 'Stock',
     components: { Pagination },
     data() {
       return {
@@ -194,28 +194,13 @@ export default {
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "order/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "stock/find/all?page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = []
-
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                this.list[i].goods = res.data.data.items
-
-              }).catch(error => {
-              });
-
-            }
+            this.list = response.data.data.items.content
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -223,19 +208,6 @@ export default {
           this.list = []
           this.total = 0
           this.listLoading = false
-        });
-
-        axios({
-          method: 'get',
-          url: config.baseApi + "user/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.users = response.data.data.items.content
-
-        }).catch(error => {
         });
 
       },
@@ -331,54 +303,6 @@ export default {
           }
         })
       },
-      handleUpdate(row) {
-
-        this.dataForm = Object.assign({}, row)
-        this.dialogStatus = 'update'
-        this.dialogFormVisible = true
-
-        this.$nextTick(() => {
-          this.$refs['dataForm'].clearValidate()
-        })
-      },
-      updateData() {
-        this.$refs['dataForm'].validate((valid) => {
-          if (valid) {
-
-            axios({
-              method: 'put',
-              url: config.baseApi + "order/update",
-              headers:{
-                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-              },
-              data:this.dataForm
-            }).then(response => {
-              if(response.data.code==0){
-                for (const v of this.list) {
-                  if (v.id === this.dataForm.id) {
-                    const index = this.list.indexOf(v)
-                    this.list.splice(index, 1, this.dataForm)
-                    break
-                  }
-                }
-                this.dialogFormVisible = false
-                this.$notify.success({
-                  title: '成功',
-                  message: '更新商品成功'
-                })
-
-              }
-            }).catch(error => {
-              this.$notify.error({
-                title: '失败',
-                message: response.data.errmsg
-              })
-            });
-
-
-          }
-        })
-      },
       handleDelete(row) {
         /*this.$notify.error({
           title: '警告',
@@ -387,7 +311,7 @@ export default {
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "order/delete?id="+row.id,
+          url: config.baseApi + "stock/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -397,7 +321,37 @@ export default {
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除商品成功'
+              message: '删除成功'
+            })
+
+          }
+        }).catch(error => {
+          this.$notify.error({
+            title: '失败',
+            message: response.data.errmsg
+          })
+        });
+
+
+      },
+      handleSend(row) {
+        /*this.$notify.error({
+          title: '警告',
+          message: '用户删除操作不支持！'
+        })*/
+        var data = {id:row.id};
+        axios({
+          method: 'get',
+          url: config.baseApi + "stock/send?id="+row.id,
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.getList()
+            this.$notify.success({
+              title: '成功',
+              message: '发货成功'
             })
 
           }

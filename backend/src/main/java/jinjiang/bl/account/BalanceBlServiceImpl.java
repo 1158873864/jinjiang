@@ -6,12 +6,14 @@ import jinjiang.dao.account.UserDao;
 import jinjiang.entity.account.Balance;
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import jinjiang.util.FormatDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,6 +31,7 @@ public class BalanceBlServiceImpl implements BalanceBlService {
 
     @Override
     public Balance addBalance(Balance balance) {
+        balance.setTime(FormatDateTime.toLongDateString(new Date()));
         return balanceDao.save(balance);
     }
 
@@ -85,7 +88,9 @@ public class BalanceBlServiceImpl implements BalanceBlService {
 
     @Override
     public List<Balance> findByTypeAndShopId(String type, String shopId){
+        System.out.println(shopId);
         List<User> users=userDao.findByIdentityAndShopId("shareholder",shopId);
+        System.out.println("users");
         List<Balance> balances=new ArrayList<>();
         for(User user:users){
             List<Balance> balanceList=balanceDao.findByTypeAndUserId(type,user.getId());
@@ -95,6 +100,12 @@ public class BalanceBlServiceImpl implements BalanceBlService {
         }
         return balances;
     }
+
+    @Override
+    public List<Balance> findByType(String type){
+        return balanceDao.findByType(type);
+    }
+
 
     @Override
     public List<Balance> findByUserId(String userId){

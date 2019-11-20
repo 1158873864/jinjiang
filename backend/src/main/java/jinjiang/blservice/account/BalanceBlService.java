@@ -23,6 +23,8 @@ public interface BalanceBlService {
 
     List<Balance> findByTypeAndShopId(String type, String shopId);
 
+    List<Balance> findByType(String type);
+
     List<Balance> findByUserId(String userId);
 
     Page<Balance> findAll(Pageable pageable);

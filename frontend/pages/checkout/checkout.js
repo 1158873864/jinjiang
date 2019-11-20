@@ -205,9 +205,12 @@ Page({
     order.type=this.data.type
     order.remark=this.data.message
     var goods=[]
+    var goodsName=[]
     var goodsList=order.goodsList
       for(var i = 0; i < goodsList.length;i++){
         goods.push(goodsList[i].id)
+        goodsName.push(goodsList[i].name)
+        
       }
     order.goodsList = goods
     if(order.status=='待付款'){
@@ -235,7 +238,65 @@ Page({
           })
         }
         else {
-          util.showErrorToast('余额不足')
+          if (this.data.user.identity == 'shareholder' || this.data.user.identity =='manager'){
+            wx.showModal({
+              title: '赊账',
+              content: '您的身份为股东，是否赊账',
+              success: function (res) {
+                if (res.confirm) {
+                  if (that.data.user.invest * 0.3 > that.data.actualPrice){
+                  wx.request({
+                    url: app.globalData.backendUrl + "balance/add",
+                    data: {
+                      id:'',
+                      userId: that.data.user.id,
+                      username: that.data.user.username,
+                      type:"赊账",
+                      price: that.data.actualPrice,
+                      detail:"购买商品赊账",
+                      time:'',
+                      goodsList: goodsName
+                    },
+                    header: {
+                      'Authorization': 'Bearer ' + app.getToken(),
+                      'content-type': 'application/json'
+                    },
+                    method: 'POST',
+                    success: (res) => {
+                      /*console.log(res)*/
+                      wx.request({
+                        url: app.globalData.backendUrl + "order/pay",
+                        data: order,
+                        header: {
+                          'Authorization': 'Bearer ' + app.getToken(),
+                          'content-type': 'application/json'
+                        },
+                        method: 'POST',
+                        success: (res) => {
+                          /*console.log(res)*/
+                          wx.showToast({
+                            title: '赊账成功'
+                          })
+                          wx.navigateTo({
+                            url: '../order/order?showType=0',
+                          })
+                        }
+                      })
+                    }
+                  })
+                  }
+                  else{
+                    util.showErrorToast('您的额度不足')
+                  }
+
+                }
+              }
+            })
+            
+          }
+          else{
+             util.showErrorToast('余额不足')
+          }
         }
       }
       else{
@@ -278,7 +339,7 @@ Page({
               })
             } else if (res.statusCode == 404) {
               wx.showToast({
-                title: '充值失败',
+                title: '支付失败',
                 icon: 'none',
                 duration: 1000
               });

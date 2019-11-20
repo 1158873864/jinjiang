@@ -302,19 +302,19 @@ Page({
         })
         var identity = res.data.data.items.identity
         if(identity=='member'){
-          // var array1 = this.data.array1
-          // var array2 = this.data.array2
-          // var array3 = this.data.array3
-          // var array4 = this.data.array4
-          // array1[3].show=false
-          // array1[4].show = false
-          // array3[1].show = false
-          // array3[2].show = false
-          // array3[3].show = false
-          // array3[4].show = false
-          // array3[5].show = false
-          // array4[2].show = false
-          // array4[3].show = false
+          var array1 = this.data.array1
+          var array2 = this.data.array2
+          var array3 = this.data.array3
+          var array4 = this.data.array4
+          array1[3].show= false
+          array1[4].show = false
+          array3[1].show = false
+          array3[2].show = false
+          array3[3].show = false
+          array3[4].show = false
+          array3[5].show = false
+          array4[2].show = false
+          array4[3].show = false
           this.setData({
             array1: array1,
             array2: array2,

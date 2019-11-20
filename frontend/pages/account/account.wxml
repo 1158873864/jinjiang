@@ -37,12 +37,12 @@
          </view>
         <view class="card_left1">
              <view>赊账</view>
-             <view>¥-0</view>
+             <view>¥-{{credit}}</view>
          </view>
       </view>
   </view>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share" bindtap="recharge"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1" bindtap="withdraw"></image>
 </view>
 
 
@@ -57,8 +57,8 @@
          
       </view>
   </view>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share" bindtap="recharge"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1" bindtap="withdraw"></image>
 </view>
 
 
@@ -88,13 +88,13 @@
          </view>
         <view class="card_left3">
              <view>赊账</view>
-             <view>-¥0</view>
+             <view>-¥{{credit}}</view>
          </view>
       </view>
       
   </view>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share"></image>
-   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/充值.png" class="share" bindtap="recharge"></image>
+   <image src="https://take-out.oss-cn-hangzhou.aliyuncs.com/提现.png" class="share1" bindtap="withdraw"></image>
 </view>
 
 

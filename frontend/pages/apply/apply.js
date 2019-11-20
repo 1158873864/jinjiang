@@ -108,7 +108,7 @@ Page({
   },
   updateNumber: function (e) {
     var number = e.detail.value;
-    var price=this.data.goods.price*number
+    var price = this.data.goods.stockPrice*number
     this.setData({
       number: number,
       price:price
@@ -119,7 +119,7 @@ Page({
   bindPickerChange: function (e) {
     console.log('picker发送选择改变，携带值为', e.detail.value)
     var s = this.data.goodsList
-    var price = s[e.detail.value].price * this.data.number
+    var price = s[e.detail.value].stockPrice * this.data.number
     this.setData({
       index: e.detail.value,
       goods: s[e.detail.value],

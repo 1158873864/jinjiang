@@ -4,24 +4,29 @@
 <import src='/template/adBar/adBar.wxml'></import>
 <import src='/template/likeIcon/likeIcon.wxml'></import>
 
-
 <view class="container container--color-white">
 
-
-
+<view class="orders-switch">
+    <view class="item {{ type == 0 ? 'active' : ''}}" bindtap="switchTab" data-index='0'>
+      <view class="txt">收入</view>
+    </view>
+    <view class="item {{ type == 1 ? 'active' : ''}}" bindtap="switchTab" data-index='1'>
+      <view class="txt">支出</view>
+    </view>
+  </view>
 
 
   <view class='box'  wx:for="{{courseList}}" wx:key="id">
     <view data-kind='{{item.kind}}' data-id='{{item.id}}'>
       <view class='vessel'>
         <view class='left'>
-          <view class='title1'>明天</view>
-          <view class='title'>2019-10-10 9:10:10</view>
+          <view class='title1' wx:if="{{item.type!='报销'}}"><view wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">{{gitem}}</view></view>
+          <view class='title'>{{item.detail}}</view>
+           <view class='title'>{{item.expenseType}}</view>
+          <view class='title'>{{item.time}}</view>
         </view>
-
         <view class='right'>
-          <view class='title1' style="color:red;">¥666</view>
-             
+          <view class='title1' style="color:red;">¥{{item.price}}</view>
         </view>
         
       </view>

@@ -70,6 +70,13 @@
           <el-input v-model="dataForm.balance"/>
         </el-form-item>
 
+        <el-form-item label="身份" prop="identity">
+          <el-select v-model="dataForm.identity">
+            <el-option v-for="item in inde" :key="item.value" :label="item.label" :value="item.value"/>
+          </el-select>
+        </el-form-item>
+
+
         <el-form-item label="酒庄">
           <el-select v-model="dataForm.shopId">
             <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
@@ -125,6 +132,7 @@
         passwordForm:{
           password:'',
         },
+        inde: [{'label':'会员','value':'member'},{'label':'股东','value':'shareholder'},{'label':'员工','value':'staff'},{'label':'庄主','value':'manager'}],
         dataForm: {
           id: '',
           username: '',

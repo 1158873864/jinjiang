@@ -86,7 +86,7 @@ export default {
       }
     }).then(response => {
       if(response.data.code==0){
-        this.userTotal = response.data.data.items.totalPages//response.data.data.total
+        this.userTotal = response.data.data.items.numberOfElements//response.data.data.total
       }
     }).catch(error => {
     });
@@ -98,7 +98,7 @@ export default {
       }
     }).then(response => {
       if(response.data.code==0){
-        this.goodsTotal = response.data.data.items.totalPages//response.data.data.total
+        this.goodsTotal = response.data.data.items.numberOfElements//response.data.data.total
       }
     }).catch(error => {
     });
@@ -110,7 +110,7 @@ export default {
       }
     }).then(response => {
       if(response.data.code==0){
-        this.productTotal = response.data.data.items.totalPages//response.data.data.total
+        this.productTotal = response.data.data.items.numberOfElements//response.data.data.total
       }
     }).catch(error => {
     });
@@ -122,7 +122,7 @@ export default {
       }
     }).then(response => {
       if(response.data.code==0){
-        this.orderTotal = response.data.data.items.totalPages//response.data.data.total
+        this.orderTotal = response.data.data.items.numberOfElements//response.data.data.total
       }
     }).catch(error => {
     });

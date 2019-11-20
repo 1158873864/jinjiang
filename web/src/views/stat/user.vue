@@ -13,13 +13,13 @@
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
 
-      <el-table-column align="center" label="会员名称" prop="userName"/>
+      <el-table-column align="center" label="会员名称" prop="username"/>
 
-      <el-table-column align="center" label="消费金额" prop="address"/>
+      <el-table-column align="center" label="消费金额" prop="price"/>
 
-      <el-table-column align="center" label="消费日期" prop="mobilePone"/>
+      <el-table-column align="center" label="消费时间" prop="time"/>
 
-      <el-table-column align="center" label="消费类型" prop="mobilePone"/>
+      <el-table-column align="center" label="详细内容" prop="detail"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -189,28 +189,14 @@
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "order/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "balance/find/type?type=支出",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = []
+            this.list = response.data.data.items
 
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                this.list[i].goods = res.data.data.items
-
-              }).catch(error => {
-              });
-
-            }
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -218,19 +204,6 @@
           this.list = []
           this.total = 0
           this.listLoading = false
-        });
-
-        axios({
-          method: 'get',
-          url: config.baseApi + "user/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.users = response.data.data.items.content
-
-        }).catch(error => {
         });
 
       },
@@ -382,7 +355,7 @@
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "order/delete?id="+row.id,
+          url: config.baseApi + "balance/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -392,7 +365,7 @@
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除商品成功'
+              message: '删除成功'
             })
 
           }

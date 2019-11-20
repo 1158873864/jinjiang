@@ -210,6 +210,6 @@ public class OrderController {
     @RequestMapping(value = "/getWxPayResult2", method = RequestMethod.POST)
     @ResponseBody
     public String getWxPayResult2(HttpServletRequest httpServletRequest) {
-        return orderBlService.getWxPayResult(httpServletRequest);
+        return orderBlService.getWxPayResult2(httpServletRequest);
     }
 }

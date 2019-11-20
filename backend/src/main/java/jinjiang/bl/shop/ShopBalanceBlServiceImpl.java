@@ -114,6 +114,11 @@ public class ShopBalanceBlServiceImpl implements ShopBalanceBlService {
     }
 
     @Override
+    public List<ShopBalance> findByType(String type){
+        return shopBalanceDao.findByType(type);
+    }
+
+    @Override
     public Page<ShopBalance> findAll(Pageable pageable) {
         return shopBalanceDao.findAll(pageable);
     }

@@ -12,11 +12,13 @@
 
       <el-table-column align="center" width="100px" label="赊账ID" prop="id" sortable/>
 
-      <el-table-column align="center" label="股东名称" prop="userName"/>
+      <el-table-column align="center" label="股东名称" prop="username"/>
 
-      <el-table-column align="center" label="赊账金额" prop="address"/>
+      <el-table-column align="center" label="赊账金额" prop="price"/>
 
-      <el-table-column align="center" label="日期" prop="mobilePone"/>
+      <el-table-column align="center" label="详细" prop="detail"/>
+
+      <el-table-column align="center" label="时间" prop="time"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -186,28 +188,14 @@ export default {
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "order/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "balance/find/type?type=赊账",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = []
+            this.list = response.data.data.items
 
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                this.list[i].goods = res.data.data.items
-
-              }).catch(error => {
-              });
-
-            }
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -217,18 +205,6 @@ export default {
           this.listLoading = false
         });
 
-        axios({
-          method: 'get',
-          url: config.baseApi + "user/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.users = response.data.data.items.content
-
-        }).catch(error => {
-        });
 
       },
       handleFilter() {
@@ -379,7 +355,7 @@ export default {
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "order/delete?id="+row.id,
+          url: config.baseApi + "balance/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }

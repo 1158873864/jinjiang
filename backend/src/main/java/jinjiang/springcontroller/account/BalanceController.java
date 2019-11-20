@@ -90,6 +90,15 @@ public class BalanceController {
     }
 
     @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+    @RequestMapping(value = "/find/type", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getUserByType(@RequestParam("type") String type) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",balanceBlService.findByType(type));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
     @RequestMapping(value = "/find/userId", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> getUserId(@RequestParam("userId") String userId) throws NotExistException {

@@ -82,12 +82,20 @@ public class ShopBalanceController {
     }
 
     @ApiOperation(value = "根据地址id查找地址详情", notes = "")
-
     @RequestMapping(value = "/find/type/shopId", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> getUserByUserId(@RequestParam("type") String type,@RequestParam("shopId") String shopId) throws NotExistException {
         Map<String, Object> result = new HashMap<>();
         result.put("items",shopBalanceBlService.findByTypeAndShopId(type,shopId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+    @RequestMapping(value = "/find/type", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getUserByType(@RequestParam("type") String type) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",shopBalanceBlService.findByType(type));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 

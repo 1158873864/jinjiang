@@ -12,17 +12,15 @@
 
       <el-table-column align="center" width="100px" label="报销ID" prop="id" sortable/>
 
-      <el-table-column align="center" label="酒庄" prop="userName"/>
+      <el-table-column align="center" label="酒庄" prop="name"/>
 
-      <el-table-column align="center" label="提交员工" prop="address"/>
+      <el-table-column align="center" label="详细内容" prop="detail"/>
 
-      <el-table-column align="center" label="类型" prop="mobilePone"/>
+      <el-table-column align="center" label="类型" prop="expenseType"/>
 
-      <el-table-column align="center" label="明细" prop="mobilePone"/>
+      <el-table-column align="center" label="金额" prop="price"/>
 
-      <el-table-column align="center" label="金额" prop="mobilePone"/>
-
-      <el-table-column align="center" label="时间" prop="mobilePone"/>
+      <el-table-column align="center" label="时间" prop="time"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -192,28 +190,13 @@ export default {
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "order/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "shopBalance/find/type?type=报销",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = []
-
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                this.list[i].goods = res.data.data.items
-
-              }).catch(error => {
-              });
-
-            }
+            this.list = response.data.data.items
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -222,20 +205,6 @@ export default {
           this.total = 0
           this.listLoading = false
         });
-
-        axios({
-          method: 'get',
-          url: config.baseApi + "user/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-
-          this.users = response.data.data.items.content
-
-        }).catch(error => {
-        });
-
       },
       handleFilter() {
         this.listQuery.page = 1
@@ -385,7 +354,7 @@ export default {
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "order/delete?id="+row.id,
+          url: config.baseApi + "shopBalance/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -395,7 +364,7 @@ export default {
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除商品成功'
+              message: '删除成功'
             })
 
           }

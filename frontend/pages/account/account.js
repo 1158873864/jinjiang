@@ -10,7 +10,8 @@ Page({
   data: {
     user:{},
     list: [],
-    shop:{}
+    shop:{},
+    credit: 0
   },
 
 
@@ -33,9 +34,13 @@ Page({
       success: (res) => {
         /*console.log(res)*/
         var user = res.data.data.items
-
+        var credit=0
+        if(user.balance<0){
+          credit=0-user.balance
+        }
         this.setData({
-          user: res.data.data.items
+          user: res.data.data.items,
+          credit: credit
         })
         wx.request({
           url: app.globalData.backendUrl + "shop/find/id",
@@ -69,7 +74,6 @@ Page({
           success: (res) => {
             /*console.log(res)*/
             var list = res.data.data.items
-
             this.setData({
               list: res.data.data.items
             })
@@ -84,6 +88,11 @@ Page({
   recharge: function(){
     wx.navigateTo({
       url: '../recharge/recharge',
+    })
+  },
+  withdraw: function () {
+    wx.showToast({
+      title: '公众账户开启90日后可使用',
     })
   }
 
