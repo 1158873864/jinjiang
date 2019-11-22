@@ -105,6 +105,34 @@ public class StockBlServiceImpl implements StockBlService {
     }
 
     @Override
+    public void refund(String id) throws NotExistException {
+        Optional<Stock> optionalStock = stockDao.findById(id);
+        if (optionalStock.isPresent()){
+            Stock newStock=optionalStock.get();
+            newStock.setStatus("退款中");
+            stockDao.save(newStock);
+        }else {
+            throw new NotExistException("address ID", id);
+        }
+    }
+
+    @Override
+    public void back(String id) throws NotExistException {
+        Optional<Stock> optionalStock = stockDao.findById(id);
+        if (optionalStock.isPresent()){
+            Stock newStock=optionalStock.get();
+            newStock.setStatus("已退款");
+            stockDao.save(newStock);
+            List<String> goodsList=new ArrayList<>();
+            goodsList.add(newStock.getGoodsId());
+            ShopBalance shopBalance=new ShopBalance(newStock.getShopId(),newStock.getName(),"收入","",newStock.getPrice(),"进货退款："+newStock.getGoodsName(),FormatDateTime.toLongDateString(new Date()),goodsList);
+            shopBalanceDao.save(shopBalance);
+        }else {
+            throw new NotExistException("address ID", id);
+        }
+    }
+
+    @Override
     public void grounding(String id) throws NotExistException {
         Optional<Stock> optionalStock = stockDao.findById(id);
         if (optionalStock.isPresent()){
@@ -134,6 +162,11 @@ public class StockBlServiceImpl implements StockBlService {
     @Override
     public List<Stock> findByTypeAndShopId(String status, String shopId){
         return stockDao.findByStatusAndShopId(status,shopId);
+    }
+
+    @Override
+    public Page<Stock> findByShopId(String shopId,Pageable pageable){
+        return stockDao.findByShopId(shopId,pageable);
     }
 
     @Override

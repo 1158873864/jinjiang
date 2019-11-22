@@ -103,8 +103,25 @@ public class StockController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
 
-    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
 
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+    @RequestMapping(value = "/refund", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> refund(@RequestParam("id") String id) throws NotExistException {
+        stockBlService.refund(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
+
+
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
+    @RequestMapping(value = "/back", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> back(@RequestParam("id") String id) throws NotExistException {
+        stockBlService.back(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "根据地址id查找地址详情", notes = "")
     @RequestMapping(value = "/find/status/shopId", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> getUserByUserId(@RequestParam("status") String status,@RequestParam("shopId") String shopId) throws NotExistException {
@@ -122,6 +139,16 @@ public class StockController {
             result.put("items",stockBlService.findAll(pageable));
             return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
         }
+
+    //接通
+    @ApiOperation(value = "所有地址", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getAllUser(@RequestParam("shopId") String shopId,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",stockBlService.findByShopId(shopId,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
 
 
 

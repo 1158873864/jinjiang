@@ -3,10 +3,16 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 200px;" placeholder="请输入关键词"/>
 
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
       <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
+      <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="getList">展示全部</el-button>
       </div>
 
     <!-- 查询结果 -->
@@ -146,6 +152,8 @@ export default {
       list: null,
       total: 0,
       listLoading: true,
+      shopId:'',
+      shopIds:[],
       listQuery: {
         page: 1,
         limit: 20,
@@ -199,6 +207,18 @@ export default {
   methods: {
   getList() {
 
+    axios({
+      method: 'get',
+      url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+      headers:{
+        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+      }
+    }).then(response => {
+
+      this.shopIds = response.data.data.items.content
+
+    }).catch(error => {
+    });
 
     axios({
       method: 'get',
@@ -271,6 +291,66 @@ export default {
     });
 
     },
+    changeShop(){
+      var shopId=this.shopId
+      axios({
+        method: 'get',
+        url: config.baseApi + "user/find/identity-shopId?identity=member&shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+        if(response.data.code==0){
+          this.list = response.data.data.items.content
+          for(let i=0;i<this.list.length;i++){
+            axios({
+              method: 'get',
+              url: config.baseApi + "user/find/id?id="+ this.list[i].shareholderId,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              console.log(res.data.data.items.name)
+              this.list[i].shareholderName = res.data.data.items.name
+
+            }).catch(error => {
+            });
+            axios({
+              method: 'get',
+              url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              console.log(res.data.data.items.name)
+              this.list[i].shopName = res.data.data.items.name
+
+            }).catch(error => {
+            });
+            axios({
+              method: 'get',
+              url: config.baseApi + "level/find/id?id="+ this.list[i].level,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              console.log(res.data.data.items.name)
+              this.list[i].levelName = res.data.data.items.name
+
+            }).catch(error => {
+            });
+
+          }
+          this.total = response.data.data.items.totalPages//response.data.data.total
+          this.listLoading = false
+        }
+      }).catch(error => {
+        this.list = []
+        this.total = 0
+        this.listLoading = false
+      });
+    },
+
     handleFilter() {
       this.listQuery.page = 1
       this.list=[]
@@ -337,7 +417,7 @@ export default {
         takeBalance:0,
         integral:0,
         regtime:'',
-        shopId:'',
+        shopId:this.shopId,
         shareholderId:'',
         invest:0
       }
@@ -370,7 +450,7 @@ export default {
                 message: '添加用户成功'
               })
               this.listQuery.page = 1
-              this.getList()
+              this.changeShop()
             }
           }).catch(error => {
             this.$notify.error({

@@ -5,7 +5,7 @@
     <div class="filter-container">
       <span>酒庄选择</span>
 
-        <el-select v-model="dataForm.shopId">
+        <el-select v-model="shopId" @change="changeShop">
           <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
         </el-select>
 
@@ -94,12 +94,6 @@
           </el-select>
         </el-form-item>
 
-        <el-form-item label="酒庄">
-          <el-select v-model="dataForm.shopId">
-            <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
-          </el-select>
-        </el-form-item>
-
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -139,6 +133,7 @@
         list: null,
         total: 0,
         listLoading: true,
+        shopId:'',
         shopIds:[],
         listQuery: {
           page: 1,
@@ -243,6 +238,41 @@
         });
 
       },
+      changeShop(){
+        var shopId=this.shopId
+        axios({
+          method: 'get',
+          url: config.baseApi + "user/find/identity-shopId?identity=shareholder&shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.list = response.data.data.items.content
+            for(let i=0;i<this.list.length;i++){
+              axios({
+                method: 'get',
+                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+                headers:{
+                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                }
+              }).then(res => {
+                console.log(res.data.data.items.name)
+                this.list[i].shopName = res.data.data.items.name
+
+              }).catch(error => {
+              });
+
+            }
+            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.listLoading = false
+          }
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+      },
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -298,7 +328,7 @@
           takeBalance:0,
           integral:0,
           regtime:'',
-          shopId:'',
+          shopId:this.shopId,
           shareholderId:'',
           invest:0
         }
@@ -332,7 +362,7 @@
                   message: '添加用户成功'
                 })
                 this.listQuery.page = 1
-                this.getList()
+                this.changeShop()
               }
             }).catch(error => {
               this.$notify.error({

@@ -3,7 +3,12 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 300px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
       <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
     </div>
@@ -17,7 +22,7 @@
               <span>{{ props.row.discountName }}</span>
             </el-form-item>
             <el-form-item label="商品封面图">
-                <img v-if="props.row.imageUrl" :src="props.row.imageUrl" width="40">
+              <img v-if="props.row.imageUrl" :src="props.row.imageUrl" width="40">
             </el-form-item>
             <el-form-item label="商品轮播图">
               <img v-for="pic in props.row.swiperImgs" :key="pic" :src="pic" width="40">
@@ -130,11 +135,6 @@
           <editor :init="editorInit" v-model="dataForm.detail"/>
         </el-form-item>
 
-        <el-form-item label="酒庄">
-          <el-select v-model="dataForm.shopId">
-            <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
-          </el-select>
-        </el-form-item>
 
         <el-form-item label="可用优惠卷" prop="discountId">
           <el-select v-model="dataForm.discountId">
@@ -193,16 +193,16 @@
 </style>
 
 <script>
-import { createStorage, uploadPath,filePath } from '@/api/storage'
-import { uploadDetailPic } from '@/api/upload'
-import Editor from '@tinymce/tinymce-vue'
-import axios from 'axios'
-import * as config from '../../../config'
-import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
+  import { createStorage, uploadPath,filePath } from '@/api/storage'
+  import { uploadDetailPic } from '@/api/upload'
+  import Editor from '@tinymce/tinymce-vue'
+  import axios from 'axios'
+  import * as config from '../../../config'
+  import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
 
-export default {
-    name: 'recommendGoods',
+  export default {
+    name: 'List',
     components: { Pagination,Editor },
     data() {
       return {
@@ -221,6 +221,7 @@ export default {
         passwordForm:{
           password:'',
         },
+        shopId:'',
         shopIds:[],
         dataForm: {
           id: '',
@@ -388,6 +389,54 @@ export default {
           }
         }
       },
+      changeShop(){
+        var shopId=this.shopId
+        axios({
+          method: 'get',
+          url: config.baseApi + "goods2/find/ShopId?ShopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.list = response.data.data.items.content
+            for(let i=0;i<this.list.length;i++){
+              axios({
+                method: 'get',
+                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+                headers:{
+                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                }
+              }).then(res => {
+                console.log(res.data.data.items.name)
+                this.list[i].shopName = res.data.data.items.name
+
+              }).catch(error => {
+              });
+
+              axios({
+                method: 'get',
+                url: config.baseApi + "discount/find/id?id="+ this.list[i].discountId,
+                headers:{
+                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                }
+              }).then(res => {
+
+                this.list[i].discountName = res.data.data.items.name
+
+              }).catch(error => {
+              });
+
+            }
+            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.listLoading = false
+          }
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+      },
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -454,7 +503,7 @@ export default {
           swiperImgs: [],
           detail: '',
           discountId:'',
-          shopId:''
+          shopId:this.shopId
         }
       },
       handleCreate() {
@@ -485,7 +534,7 @@ export default {
                   message: '添加商品成功'
                 })
                 this.listQuery.page = 1
-                this.getList()
+                this.changeShop()
               }
             }).catch(error => {
               this.$notify.error({

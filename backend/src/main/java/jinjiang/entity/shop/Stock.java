@@ -35,7 +35,7 @@ public class Stock {//进货
     private double price; //价格
 
     @Column(name = "status")
-    private String status; //待发货、待收货、待上架、已上架
+    private String status; //待发货、待收货、待上架、已上架、退款中、已退款
 
     @Column(name = "time")
     private String time; //时间

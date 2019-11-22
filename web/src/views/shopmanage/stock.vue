@@ -3,7 +3,12 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 300px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
     </div>
 
@@ -28,6 +33,7 @@
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button v-show="scope.row.status=='待发货'" type="primary" size="mini" @click="handleSend(scope.row)">确认发货</el-button>
+          <el-button v-show="scope.row.status=='退款中'" type="primary" size="mini" @click="handleBack(scope.row)">确认退款</el-button>
           <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -153,6 +159,8 @@ export default {
           sort: 'add_time',
           order: 'desc'
         },
+        shopId:'',
+        shopIds:[],
         passwordForm:{
           password:'',
         },
@@ -210,7 +218,59 @@ export default {
           this.listLoading = false
         });
 
+
+        axios({
+          method: 'get',
+          url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+
+          this.shopIds = response.data.data.items.content
+
+        }).catch(error => {
+        });
+
+
       },
+
+      changeShop(){
+        var shopId=this.shopId
+        axios({
+          method: 'get',
+          url: config.baseApi + "stock/find/shopId?shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.list = response.data.data.items.content
+            for(let i=0;i<this.list.length;i++){
+              axios({
+                method: 'get',
+                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+                headers:{
+                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                }
+              }).then(res => {
+                console.log(res.data.data.items.name)
+                this.list[i].shopName = res.data.data.items.name
+
+              }).catch(error => {
+              });
+
+            }
+            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.listLoading = false
+          }
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+      },
+
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -352,6 +412,36 @@ export default {
             this.$notify.success({
               title: '成功',
               message: '发货成功'
+            })
+
+          }
+        }).catch(error => {
+          this.$notify.error({
+            title: '失败',
+            message: response.data.errmsg
+          })
+        });
+
+
+      },
+      handleSend(row) {
+        /*this.$notify.error({
+          title: '警告',
+          message: '用户删除操作不支持！'
+        })*/
+        var data = {id:row.id};
+        axios({
+          method: 'get',
+          url: config.baseApi + "stock/back?id="+row.id,
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.getList()
+            this.$notify.success({
+              title: '成功',
+              message: '退款成功'
             })
 
           }

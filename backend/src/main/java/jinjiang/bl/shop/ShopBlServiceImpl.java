@@ -111,6 +111,20 @@ public class ShopBlServiceImpl implements ShopBlService {
 
 
     @Override
+    public List<Shop> findIndexwx(double longitude, double latitude) throws IOException {
+        List<Shop> shops=shopdao.findAll();
+        for(int i=0;i<shops.size();i++){
+            Shop shop=shops.get(i);
+            String address=shop.getProvince()+shop.getCity()+shop.getDistrict()+shop.getDetail();
+            double[] o=getCoordinate(address);
+            DecimalFormat df   = new DecimalFormat("######0.00");
+            double distance=Double.valueOf(df.format(getDistance(latitude,longitude,o[1],o[0])/1000));
+            shop.setBalance(distance);
+        }
+        return shops;
+    }
+
+    @Override
     public Page<Shop> find(String query, Pageable pageable) {
         List<Shop> shops=shopdao.findAll();
         List<Shop> list=new ArrayList<>();

@@ -97,9 +97,49 @@ Page({
                         for (var i = 0; i < order.length; i++) {
                           orderList.push(order[i])
                         }
-                        this.setData({
-                          orderList: orderList
+                        wx.request({
+                          url: app.globalData.backendUrl + "stock/find/status/shopId",
+                          data: {
+                            status: '退款中',
+                            shopId: user.shopId
+                          },
+                          header: {
+                            'Authorization': 'Bearer ' + app.getToken(),
+                            'content-type': 'application/x-www-form-urlencoded'
+                          },
+                          method: 'GET',
+                          success: (res) => {
+                            /*console.log(res)*/
+                            var order = res.data.data.items
+                            for (var i = 0; i < order.length; i++) {
+                              orderList.push(order[i])
+                            }
+                            wx.request({
+                              url: app.globalData.backendUrl + "stock/find/status/shopId",
+                              data: {
+                                status: '已退款',
+                                shopId: user.shopId
+                              },
+                              header: {
+                                'Authorization': 'Bearer ' + app.getToken(),
+                                'content-type': 'application/x-www-form-urlencoded'
+                              },
+                              method: 'GET',
+                              success: (res) => {
+                                /*console.log(res)*/
+                                var order = res.data.data.items
+                                for (var i = 0; i < order.length; i++) {
+                                  orderList.push(order[i])
+                                }
+                                this.setData({
+                                  orderList: orderList
+                                })
+                              }
+                            })
+                            
+                          }
                         })
+                        
                       }
                     })
                   }

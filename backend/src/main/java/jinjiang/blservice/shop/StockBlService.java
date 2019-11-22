@@ -19,9 +19,15 @@ public interface StockBlService {
 
     void take(String id) throws NotExistException;
 
+    void refund(String id) throws NotExistException;
+
+    void back(String id) throws NotExistException;
+
     void grounding(String id) throws NotExistException;
 
     List<Stock> findByTypeAndShopId(String type, String shopId) throws NotExistException;
+
+    Page<Stock> findByShopId(String shopId, Pageable pageable);
 
     Page<Stock> findAll(Pageable pageable);
 

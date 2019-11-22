@@ -84,6 +84,43 @@ Page({
       }
     });
   },
+  refundOrder: function () {
+    let that = this;
+    let orderInfo = that.data.orderInfo;
+
+    wx.showModal({
+      title: '',
+      content: '确定退款？',
+      success: function (res) {
+        if (res.confirm) {
+          wx.request({
+            url: app.globalData.backendUrl + "stock/refund",
+            data: {
+              id: orderInfo.id
+            },
+            header: {
+              'Authorization': 'Bearer ' + app.getToken(),
+              'content-type': 'application/x-www-form-urlencoded'
+            },
+            method: 'GET',
+            success: (res) => {
+              /*console.log(res)*/
+              if (res.data.code === 0) {
+                wx.showToast({
+                  title: '退款申请成功'
+                });
+                util.redirect('/pages/applyIn/applyIn');
+              } else {
+                util.showErrorToast(res.message);
+              }
+            }
+          })
+
+        }
+      }
+    });
+  },
+
   // “取消订单并退款”点击效果
   groundingOrder: function() {
     let that = this;

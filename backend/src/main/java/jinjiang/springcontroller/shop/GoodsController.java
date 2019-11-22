@@ -95,6 +95,4 @@ public class GoodsController {
         result.put("items",goodsBlService.findGoodsByShopId(ShopId,pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
-
-
 }
