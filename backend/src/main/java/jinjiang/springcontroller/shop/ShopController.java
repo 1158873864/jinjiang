@@ -85,6 +85,15 @@ public class ShopController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找门店", notes = "")
+    @RequestMapping(value = "/find/index", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findIndex(@RequestParam("longitude") double longitude,@RequestParam("latitude") double latitude) throws NotExistException, IOException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",shopBlService.findIndex(longitude,latitude));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有门店", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody

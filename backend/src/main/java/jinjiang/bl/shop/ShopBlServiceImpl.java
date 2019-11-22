@@ -21,6 +21,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -111,8 +112,9 @@ public class ShopBlServiceImpl implements ShopBlService {
 
 
     @Override
-    public List<Shop> findIndexwx(double longitude, double latitude) throws IOException {
+    public String findIndex(double longitude, double latitude) throws IOException {
         List<Shop> shops=shopdao.findAll();
+        String id="";
         for(int i=0;i<shops.size();i++){
             Shop shop=shops.get(i);
             String address=shop.getProvince()+shop.getCity()+shop.getDistrict()+shop.getDetail();
@@ -121,7 +123,18 @@ public class ShopBlServiceImpl implements ShopBlService {
             double distance=Double.valueOf(df.format(getDistance(latitude,longitude,o[1],o[0])/1000));
             shop.setBalance(distance);
         }
-        return shops;
+        double min=10000000;
+        for(int i=0;i<shops.size();i++){
+            if(shops.get(i).getBalance()<min){
+                min=shops.get(i).getBalance();
+            }
+        }
+        for(int i=0;i<shops.size();i++){
+            if(shops.get(i).getBalance()==min){
+                id=shops.get(i).getId();
+            }
+        }
+        return id;
     }
 
     @Override

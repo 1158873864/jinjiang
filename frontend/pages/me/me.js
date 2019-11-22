@@ -150,6 +150,18 @@ Page({
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/订单管理.png',
         text: '订单管理',
         show: false
+      },
+      {
+        id: '44',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/线下.png',
+        text: '线下订单',
+        show: false
+      },
+      {
+        id: '45',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/线下.png',
+        text: '线下订单',
+        show: false
       }
     ]
   },
@@ -275,7 +287,11 @@ Page({
         url: '../orderManage/orderManage'
       })
     }
-
+    if ("44" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../offLine/offLine'
+      })
+    }
   },
 
   /**
@@ -347,6 +363,7 @@ Page({
           array4[0].show = true
           array4[1].show = true
           array4[3].show = true
+          array4[4].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -363,7 +380,6 @@ Page({
           array1[3].show = true
           array1[4].show = true
           array2[0].show = true
-          array2[1].show = true
           array3[0].show = true
           array3[1].show = true
           array3[2].show = true
@@ -396,6 +412,7 @@ Page({
           array4[1].show = true
           array4[2].show = true
           array4[3].show = true
+          array4[5].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -424,7 +441,6 @@ Page({
             array4: array4
           }) 
         }
-
         if (identity == 'member') {
           identity = '会员'
         }

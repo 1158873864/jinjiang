@@ -22,6 +22,8 @@ public interface ShopBlService {
 
     List<Shop> findAllwx(double longitude, double latitude) throws IOException;
 
+    String findIndex(double longitude, double latitude) throws IOException;
+
     Page<Shop> find(String query, Pageable pageable);
 
     double cal(String shopId, double longitude, double latitude) throws IOException;

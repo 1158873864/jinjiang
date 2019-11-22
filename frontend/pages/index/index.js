@@ -141,43 +141,77 @@ Page({
       }
     })
 
-    wx.request({
-      url: app.globalData.backendUrl + "goods/find/all",
-      data: {
-        page:0,
-        size:3
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
+    wx.getLocation({
+      type: 'wgs84',
       success: (res) => {
-        /*console.log(res)*/
-        this.setData({
-          hots: res.data.data.items.content
-        })
-      }
-    })
+        var latitude = res.latitude
+        var longitude = res.longitude
+        var speed = res.speed
+        var accuracy = res.accuracy
+      
 
-    wx.request({
-      url: app.globalData.backendUrl + "goods2/find/all",
-      data: {
-        page: 0,
-        size: 4
-      },
-      header: {
-        'Authorization': 'Bearer ' + app.getToken(),
-        'content-type': 'application/x-www-form-urlencoded'
-      },
-      method: 'GET',
-      success: (res) => {
-        /*console.log(res)*/
-        this.setData({
-          recommends: res.data.data.items.content
+        wx.request({
+          url: app.globalData.backendUrl + "shop/find/index",
+          data: {
+            longitude: longitude,
+            latitude: latitude
+          },
+          header: {
+            'Authorization': 'Bearer ' + app.getToken(),
+            'content-type': 'application/x-www-form-urlencoded'
+          },
+          method: 'GET',
+          success: (res) => {
+            /*console.log(res)*/
+            var id = res.data.data.items
+            wx.request({
+              url: app.globalData.backendUrl + "goods/find/ShopId",
+              data: {
+                ShopId:id,
+                page: 0,
+                size: 3
+              },
+              header: {
+                'Authorization': 'Bearer ' + app.getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'GET',
+              success: (res) => {
+                /*console.log(res)*/
+                this.setData({
+                  hots: res.data.data.items.content
+                })
+              }
+            })
+
+            wx.request({
+              url: app.globalData.backendUrl + "goods2/find/ShopId",
+              data: {
+                ShopId:id,
+                page: 0,
+                size: 4
+              },
+              header: {
+                'Authorization': 'Bearer ' + app.getToken(),
+                'content-type': 'application/x-www-form-urlencoded'
+              },
+              method: 'GET',
+              success: (res) => {
+                /*console.log(res)*/
+                this.setData({
+                  recommends: res.data.data.items.content
+                })
+              }
+            })
+          }
         })
       }
+
     })
+    
+    
+
+    
 
     wx.request({
       url: app.globalData.backendUrl + "integragoods/find/all",
