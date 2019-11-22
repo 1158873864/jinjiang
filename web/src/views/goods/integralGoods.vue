@@ -222,7 +222,7 @@ export default {
             formData.append('file', blobInfo.blob())
 
             axios.post('https://www.shaoshanlu.com:3389/upload', formData).then(res => {
-              success('http://47.106.171.65/'+res.data.data.filePath)
+              success('https://www.shaoshanlu.com/'+res.data.data.filePath)
             }).catch(res => {
               failure('error')
             })

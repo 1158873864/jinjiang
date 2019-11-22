@@ -3,7 +3,13 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+        <el-select v-model="dataForm.shopId">
+          <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+        </el-select>
+
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 300px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
       <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
     </div>
@@ -123,7 +129,7 @@
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
   export default {
-    name: 'User',
+    name: 'Shareholder',
     filters: {
 
     },
@@ -133,6 +139,7 @@
         list: null,
         total: 0,
         listLoading: true,
+        shopIds:[],
         listQuery: {
           page: 1,
           limit: 20,
@@ -220,6 +227,8 @@
           this.listLoading = false
         });
 
+
+
         axios({
           method: 'get',
           url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
@@ -302,6 +311,7 @@
           this.$refs['dataForm'].clearValidate()
         })
       },
+
       createData() {
         this.$refs['dataForm'].validate((valid) => {
           if (valid) {

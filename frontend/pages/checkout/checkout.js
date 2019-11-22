@@ -192,7 +192,7 @@ Page({
 
   },
   submitOrder: function () {
-    if (this.data.addressId =='0') {
+    if (this.data.addressId =='') {
       util.showErrorToast('请选择收货地址');
       return false;
     }

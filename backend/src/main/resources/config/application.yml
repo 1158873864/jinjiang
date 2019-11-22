@@ -4,7 +4,7 @@ server:
   port: 3389
 #  ssl:
 #      key-store: config/mycert.jks
-#      key-store-password: 93UQiHqB
+#      key-store-password: 3Wb0396O
 #      key-store-type: JKS
 logging:
   level:

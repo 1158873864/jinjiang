@@ -10,6 +10,7 @@ Page({
   data: {
     user:undefined,
     hasLogin: false,
+    identity:"会员",
     array: [{
       id: '0',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的订单.png',
@@ -46,31 +47,31 @@ Page({
       id: '10',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/会员.png',
       text: '会员推广',
-      show: true
+      show: false
     },
     {
       id: '11',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/客服经理.png',
       text: '客服经理',
-      show: true
+      show: false
     },
     {
       id: '12',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/会员等级.png',
       text: '会员等级',
-      show: true
+      show: false
     },
     {
       id: '13',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/旗下会员.png',
       text: '旗下会员',
-      show: true
+      show: false
     },
     {
       id: '14',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/生日.png',
       text: '会员生日',
-      show: true
+      show: false
     }
     ],
 
@@ -78,13 +79,13 @@ Page({
       id: '20',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/我的账户.png',
       text: '我的账户',
-      show: true
+      show: false
     },
     {
       id: '21',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/优惠券.png',
       text: '优惠券',
-      show: true
+      show: false
     }
     ],
 
@@ -92,37 +93,37 @@ Page({
       id: '30',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/消费记录.png',
       text: '消费记录',
-      show: true
+      show: false
     },
     {
       id: '32',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/销售提成.png',
       text: '销售提成',
-      show: true
+      show: false
     },
     {
       id: '33',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/账单.png',
       text: '会员消费',
-      show: true
+      show: false
     },
     {
       id: '34',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/账单.png',
       text: '股东销售',
-      show: true
+      show: false
     },
     {
         id: '35',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销明细',
-      show: true
+      show: false
     },
     {
         id: '36',
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销',
-      show: true
+      show: false
       }
     ],
 
@@ -130,25 +131,25 @@ Page({
       id: '40',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/个人信息.png',
       text: '编辑资料',
-      show: true
+      show: false
     },
     {
       id: '41',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/投诉.png',
       text: '投诉建议',
-      show: true
+      show: false
     },
     {
       id: '42',
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/管理.png',
       text: '管理酒庄',
-      show: true
+      show: false
     },
       {
         id: '43',
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/订单管理.png',
         text: '订单管理',
-        show: true
+        show: false
       }
     ]
   },
@@ -297,24 +298,33 @@ Page({
       method: 'GET',
       success: (res) => {
         /*console.log(res)*/
-        this.setData({
-          user: res.data.data.items
-        })
         var identity = res.data.data.items.identity
+        
+        
         if(identity=='member'){
           var array1 = this.data.array1
           var array2 = this.data.array2
           var array3 = this.data.array3
           var array4 = this.data.array4
-          array1[3].show= false
-          array1[4].show = false
-          array3[1].show = false
-          array3[2].show = false
-          array3[3].show = false
-          array3[4].show = false
-          array3[5].show = false
-          array4[2].show = false
-          array4[3].show = false
+          array1[0].show= true
+          array1[1].show = true
+          array1[2].show = true
+          array2[0].show = true
+          array2[1].show = true
+          array3[0].show = true
+          array4[0].show = true
+          array4[1].show = true
+
+
+          // array1[3].show = true
+          // array1[4].show = true
+          // array3[1].show = true
+          // array3[2].show = true
+          // array3[3].show = true
+          // array3[4].show = true
+          // array3[5].show = true
+          // array4[2].show = true
+          // array4[3].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -327,12 +337,16 @@ Page({
           var array2 = this.data.array2
           var array3 = this.data.array3
           var array4 = this.data.array4
-          array1[1].show = false
-          array1[2].show = false
-          array1[4].show = false
-          array3[3].show = false
-          array3[4].show = false
-          array4[2].show = false
+          array1[0].show = true
+          array1[3].show = true
+          array1[4].show = true
+          array2[0].show = true
+          array3[0].show = true
+          array3[1].show = true
+          array3[5].show = true
+          array4[0].show = true
+          array4[1].show = true
+          array4[3].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -345,11 +359,17 @@ Page({
           var array2 = this.data.array2
           var array3 = this.data.array3
           var array4 = this.data.array4
-          array1[1].show = false
-          array1[2].show = false
-          array3[3].show = false
-          array3[4].show = false
-          array4[2].show = false
+          array1[0].show = true
+          array1[3].show = true
+          array1[4].show = true
+          array2[0].show = true
+          array2[1].show = true
+          array3[0].show = true
+          array3[1].show = true
+          array3[2].show = true
+          array4[0].show = true
+          array4[1].show = true
+          array4[3].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -362,9 +382,20 @@ Page({
           var array2 = this.data.array2
           var array3 = this.data.array3
           var array4 = this.data.array4
-          array1[1].show = false
-          array1[2].show = false
-          array3[5].show = false
+          array1[0].show = true
+          array1[3].show = true
+          array1[4].show = true
+          array2[0].show = true
+          array2[1].show = true
+          array3[0].show = true
+          array3[1].show = true
+          array3[2].show = true
+          array3[3].show = true
+          array3[4].show = true
+          array4[0].show = true
+          array4[1].show = true
+          array4[2].show = true
+          array4[3].show = true
           this.setData({
             array1: array1,
             array2: array2,
@@ -393,6 +424,23 @@ Page({
             array4: array4
           }) 
         }
+
+        if (identity == 'member') {
+          identity = '会员'
+        }
+        else if (identity == 'shareholder') {
+          identity = '股东'
+        }
+        else if (identity == 'staff') {
+          identity = '员工'
+        }
+        else if (identity == 'manager') {
+          identity = '庄主'
+        }
+        this.setData({
+          user: res.data.data.items,
+          identity: identity
+        })
       }
     })
   },

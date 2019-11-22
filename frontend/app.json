@@ -70,7 +70,7 @@
         "pagePath": "pages/near/near",
         "iconPath": "img/near.png",
         "selectedIconPath": "img/near-icon.png",
-        "text": "附近"
+        "text": "酒庄"
       },
       {
         "pagePath": "pages/integral/integral",
