@@ -135,6 +135,16 @@ export const asyncRouterMap = [
           noCache: true
         }
       },
+      {
+        path: 'levelmanage',
+        component: () => import('@/views/module/levelmanage'),
+        name: 'levelmanage',
+        meta: {
+          // perms: ['GET /admin/stat/user'],
+          title: '等级管理',
+          noCache: true
+        }
+      }
    /*
       {
         path: 'address',
@@ -160,31 +170,7 @@ export const asyncRouterMap = [
     ]
   },
 
-   //等级管理
-   {
-	  path: '/module',
-	  component: Layout,
-	  redirect: 'noredirect',
-    alwaysShow: true,
-    hidden:false,
-	  name: 'module',
-	  meta: {
-	    title: '等级管理',
-	    icon: 'chart'
-	  },
-	  children: [
-	    {
-	      path: 'levelmanage',
-	      component: () => import('@/views/module/levelmanage'),
-	      name: 'levelmanage',
-	      meta: {
-	        // perms: ['GET /admin/stat/user'],
-	        title: '等级管理',
-	        noCache: true
-	      }
-	    }
-	  ]
-  },
+
   {
 	  path: '/shopmanage',
 	  component: Layout,
@@ -603,16 +589,6 @@ export const asyncRouterMap = [
         }
       },
       {
-        path: 'culture',
-        component: () => import('@/views/sys/culture'),
-        name: 'culture',
-        meta: {
-          perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
-          title: '文化推广',
-          noCache: true
-        }
-      },
-      {
         path: 'complain',
         component: () => import('@/views/sys/complain'),
         name: 'complain',
@@ -647,6 +623,16 @@ export const asyncRouterMap = [
       icon: 'chart'
     },
     children: [
+      {
+        path: 'culture',
+        component: () => import('@/views/sys/culture'),
+        name: 'culture',
+        meta: {
+          perms: ['GET /admin/admin/list', 'POST /admin/admin/create', 'POST /admin/admin/update', 'POST /admin/admin/delete'],
+          title: '文化推广',
+          noCache: true
+        }
+      },
       {
         path: 'recommend',
         component: () => import('@/views/recommend/recommend'),

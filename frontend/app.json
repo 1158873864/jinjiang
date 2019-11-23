@@ -47,7 +47,8 @@
     "pages/applyIn/applyIn",
     "pages/income/income",
     "pages/recharge/recharge",
-    "pages/offLine/offLine"
+    "pages/offLine/offLine",
+    "pages/offLineList/offLineList"
   ],
   "window": {
     "backgroundTextStyle": "light",

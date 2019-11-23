@@ -1,0 +1,30 @@
+<!--pages/particulars/curriculum/curriculum.wxml-->
+<!--index.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+
+<view class="container container--color-white">
+  <view class='box'  wx:for="{{offLine}}" wx:key="id">
+    <view>
+      <view class='vessel'>
+        <view class='left'>
+        <view class='title1'>提交人：{{item.name}}</view>
+        <view class='title1'>用户名称：{{item.username}}</view>
+        <view class='title1'>购买商品：{{item.goodsName}}</view>
+        <view class='title1'>数量：{{item.number}}</view>
+        <view class='title1'>状态：{{item.status}}</view>
+           <view class='title1' style="color:red;">¥{{item.price}}</view>
+          <view class='title'>{{item.time}}</view>
+        </view>
+       
+        <view class='right' wx:if="{{item.status=='待审批'}}">
+          <image class='btn1' src="https://take-out.oss-cn-hangzhou.aliyuncs.com/confirm.png" bindtap='onTouchThisArticle' data-id='{{item.id}}'></image>        
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>
+

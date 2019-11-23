@@ -20,7 +20,7 @@
       </view>
 
       <view class='info'>
-        <text class='info__key'>用户手机号</text>
+        <text class='info__key'>用户手机</text>
         <input class='info__value' placeholder='' bindinput='updatePhone'></input>
       </view>
 

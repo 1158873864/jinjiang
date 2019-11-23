@@ -24,14 +24,18 @@ public class Level {//等级
     @Column(name="discountId")
     private String discountId;//该等级会员所能获得的优惠卷对应的id
 
+    @Column(name="shopId")
+    private String shopId;//酒庄id
+
     public Level() {
     }
 
-    public Level(String name, double discount, String url, String discountId) {
+    public Level(String name, double discount, String url, String discountId, String shopId) {
         this.name = name;
         this.discount = discount;
         this.url = url;
         this.discountId = discountId;
+        this.shopId = shopId;
     }
 
     public String getId() {
@@ -72,5 +76,13 @@ public class Level {//等级
 
     public void setDiscountId(String discountId) {
         this.discountId = discountId;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

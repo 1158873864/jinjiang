@@ -64,6 +64,15 @@ public class LevelController  {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找等级", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getUserByShopId(@RequestParam("shopId") String shopId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",levelBlService);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有等级", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody
@@ -72,6 +81,4 @@ public class LevelController  {
         result.put("items",levelBlService.findAll(pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
-
-
 }

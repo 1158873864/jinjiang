@@ -26,15 +26,15 @@ router.beforeEach((to, from, next) => {
     } else {
       if (store.getters.perms.length === 0) { // 判断当前用户是否已拉取完user_info信息
         store.dispatch('GetUserInfo').then(res => { // 拉取user_info
-          const perms = res.data.data.perms
-          const level =  res.data.data.level//商家等级
+          const perms = res.data.data.items.limits
+          const level =  ''//商家等级
           const data = {
             perms:perms,
             level:level
           }
           store.dispatch('GenerateRoutes', { data }).then(() => { // 根据perms权限生成可访问的路由表
             console.log(store.getters.addRouters,'路由',perms);
-            
+
             router.addRoutes(store.getters.addRouters) // 动态添加可访问路由表
             next({ ...to, replace: true }) // hack方法 确保addRoutes已完成 ,set the replace: true so the navigation will not leave a history record
           })

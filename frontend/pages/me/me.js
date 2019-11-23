@@ -292,6 +292,11 @@ Page({
         url: '../offLine/offLine'
       })
     }
+    if ("45" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../offLineList/offLineList'
+      })
+    }
   },
 
   /**
@@ -402,7 +407,6 @@ Page({
           array1[3].show = true
           array1[4].show = true
           array2[0].show = true
-          array2[1].show = true
           array3[0].show = true
           array3[1].show = true
           array3[2].show = true

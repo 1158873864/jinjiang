@@ -57,19 +57,19 @@ public class AdminBlServiceImpl  implements AdminService {
     }
 
     @Override
-    public boolean login(String username, String password) {
+    public Admin login(String username, String password) {
         Optional<Admin> optionalAdmin=admindao.findByUsername(username);
         if(optionalAdmin.isPresent()){
             Admin admin=optionalAdmin.get();
             if(admin.getPassword().equals(password)){
-                return true;
+                return admin;
             }
             else{
-                return false;
+                return null;
             }
         }
         else{
-            return false;
+            return null;
         }
 
     }

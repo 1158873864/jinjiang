@@ -51,6 +51,18 @@
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- 添加或修改对话框 -->
+    <el-dialog :title="'请输入管理员密码'" :visible.sync="passwordView">
+      <el-form ref="loginForm" :rules="rules" :model="loginForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
+        <el-form-item label="密码" prop="password">
+          <el-input type="password" v-model="loginForm.password"/>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="passwordView = false">取消</el-button>
+        <el-button type="primary" @click="deleteShop()">确定</el-button>
+      </div>
+    </el-dialog>
+
     <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
       <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
         <el-form-item label="酒庄名称" prop="name">
@@ -117,6 +129,7 @@
   import { fetchList, createUser, updateUser } from '@/api/user'
   import { listshops,deleteshop,editshop } from '@/api/shop'
   import { createStorage, uploadPath,filePath } from '@/api/storage'
+  import { mapGetters } from 'vuex'
   import axios from 'axios'
   import * as config from '../../../config'
   import {
@@ -139,6 +152,7 @@
         total: 0,
         uploadPath,
         filePath,
+        passwordView: false,
         listLoading: true,
         listQuery: {
           page: 1,
@@ -147,9 +161,14 @@
           sort: 'add_time',
           order: 'desc'
         },
+        index:0,
         selectData:{},//选中的数据
         passwordForm:{
           password:'',
+        },
+        loginForm:{
+          username:'',
+          password:''
         },
         dataForm: {
           id:'',
@@ -164,6 +183,7 @@
           faceUrl:'',
           showUrl:''
         },
+        id:'',
         levels:[],
         dialogFormVisible: false,
         dialogStatus: '',
@@ -181,6 +201,11 @@
     },
     created() {
       this.getList()
+    },
+    computed: {
+      ...mapGetters([
+        'name'
+      ])
     },
     methods: {
       getList() {
@@ -359,36 +384,69 @@
           }
         })
       },
+      deleteShop(){
+        axios({
+          method: 'get',
+          url: config.baseApi + "admin/login?username="+this.loginForm.username+"&password="+this.loginForm.password,
+        }).then(response => {
+          console.log(response)
+          if(response.data.code==0){
+            var admin=response.data.data.items
+            if(admin!=null&&admin.username===this.loginForm.username){
+              console.log(this.id)
+              var data = {id:this.id};
+              axios({
+                method: 'get',
+                url: config.baseApi + "shop/delete?id="+this.id,
+                headers:{
+                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+                }
+              }).then(response => {
+                if(response.data.code==0){
+                  this.passwordView=false
+                  this.list.splice(this.index, 1)
+                  this.$notify.success({
+                    title: '成功',
+                    message: '删除酒庄成功'
+                  })
+                }
+              }).catch(error => {
+                this.$notify.error({
+                  title: '失败',
+                  message: response.data.message
+                })
+              });
+
+            }
+            else{
+              console.log(2)
+              this.$notify.error({
+                title: '失败',
+                message: '密码错误'
+              })
+            }
+          }
+        }).catch(error => {
+          console.log(3);
+          this.$notify.error({
+            title: '失败',
+            message: error
+          })
+        });
+      },
       handleDelete(row) {
         /*this.$notify.error({
           title: '警告',
           message: '用户删除操作不支持！'
         })*/
-        var data = {id:row.id};
-        axios({
-          method: 'get',
-          url: config.baseApi + "shop/delete?id="+row.id,
-          headers:{
-            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-          }
-        }).then(response => {
-          if(response.data.code==0){
-            const index = this.list.indexOf(row)
-            this.list.splice(index, 1)
-            this.$notify.success({
-              title: '成功',
-              message: '删除酒庄成功'
-            })
-
-          }
-        }).catch(error => {
-
-          this.$notify.error({
-            title: '失败',
-            message: response.data.errmsg
-          })
-        });
-
+        this.id=row.id
+        this.index = this.list.indexOf(row)
+        this.passwordView=true
+        var storage=window.localStorage;
+        this.loginForm.username=storage["username"];
+        this.$nextTick(() => {
+          this.$refs['loginForm'].clearValidate()
+        })
 
       }
 

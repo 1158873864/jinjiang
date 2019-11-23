@@ -64,7 +64,7 @@ const user = {
       const username = userInfo.username.trim()
       return new Promise((resolve, reject) => {
         loginByUsername(username, userInfo.password,"2").then(response => {
-          const token = response.data.data
+          const token = response.data.data.items.id
           commit('SET_TOKEN', token)
           setToken(token)
           resolve()
@@ -78,21 +78,21 @@ const user = {
     GetUserInfo({ commit, state }) {
       return new Promise((resolve, reject) => {
         getUserInfo(state.token).then(response => {
-          const data = response.data.data
-
-          if (data.perms && data.perms.length > 0) { // 验证返回的perms是否是一个非空数组
-            commit('SET_PERMS', data.perms)
+          const data = response.data.data.items
+          if (data.limits && data.limits.length > 0) { // 验证返回的perms是否是一个非空数组
+            commit('SET_PERMS', data.limits)
           } else {
             reject('getInfo: perms must be a non-null array !')
           }
           console.log(data,'用户基本信息')
-          commit('SET_USERID', data.userId)
+          commit('SET_USERID', data.id)
           commit('SET_SHOPID', data.shopId)
           commit('SET_DISTID', data.distId)
-
           commit('SET_ROLES', data.roles)
-          commit('SET_NAME', data.name)
-          commit('SET_AVATAR', data.avatar)
+          commit('SET_NAME', data.username)
+          var storage=window.localStorage;
+          storage["username"]=data.username;
+          commit('SET_AVATAR', data.face)
           commit('SET_INTRODUCTION', data.introduction)
           resolve(response)
         }).catch(error => {

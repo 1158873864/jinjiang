@@ -51,10 +51,13 @@ public class Discount {
     @Column(name="endTime")
     private String endTime;//结束日期
 
+    @Column(name="shopId")
+    private String shopId;//酒庄id
+
     public Discount() {
     }
 
-    public Discount(String name, String desc, String tag, double min, double discount, int limit, String goodsType, String type, int total, int timeType, int days, String startTime, String endTime) {
+    public Discount(String name, String desc, String tag, double min, double discount, int limit, String goodsType, String type, int total, int timeType, int days, String startTime, String endTime, String shopId) {
         this.name = name;
         this.desc = desc;
         this.tag = tag;
@@ -68,6 +71,7 @@ public class Discount {
         this.days = days;
         this.startTime = startTime;
         this.endTime = endTime;
+        this.shopId = shopId;
     }
 
     public String getId() {
@@ -180,5 +184,13 @@ public class Discount {
 
     public void setEndTime(String endTime) {
         this.endTime = endTime;
+    }
+
+    public String getShopId() {
+        return shopId;
+    }
+
+    public void setShopId(String shopId) {
+        this.shopId = shopId;
     }
 }

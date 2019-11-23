@@ -45,6 +45,7 @@ public class LevelBlserviceImpl implements LevelBlService {
             levelInfo.get().setDiscountId(level.getDiscountId());
             levelInfo.get().setName(level.getName());
             levelInfo.get().setUrl(level.getUrl());
+            levelInfo.get().setShopId(level.getShopId());
             levelDao.save(levelInfo.get());
         }else {
             throw new NotExistException("level ID", level.getId());

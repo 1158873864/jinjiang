@@ -69,6 +69,7 @@ public class DiscountBlServiceImpl implements DiscountBlservice {
             count.setTimeType(address.getTimeType());
             count.setType(address.getType());
             count.setTotal(address.getTotal());
+            count.setShopId(address.getShopId());
            disDao.save(count);
         }else {
             throw new NotExistException("diacount ID",address.getId());
