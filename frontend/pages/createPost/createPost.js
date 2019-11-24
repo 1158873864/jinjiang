@@ -37,34 +37,36 @@ Page({
           user: res.data.data.items
         })
 
-        // wx.getImageInfo({
-        //   src: user.faceUrl,
-        //   success: (res) => {
-        //     wx.hideLoading()
-        //     var faceTempUrl = res.path
-        //     api.getWxQrCode.call(that, (res) => {
-        //       console.log(res.imagePath)
-        //       that.setData({
-        //         faceTempUrl: faceTempUrl,
-        //         qrcode: res.imagePath
-        //       })
-        //       that.drawPost()
-        //     })
-        //   }
-        // })
-        console.log(user.faceUrl)
         wx.getImageInfo({
           src: user.faceUrl,
           success: (res) => {
-            console.log(100)
             wx.hideLoading()
             var faceTempUrl = res.path
+            api.getWxQrCode.call(that, (res) => {
+              console.log(res.imagePath)
               that.setData({
-                faceTempUrl: faceTempUrl
+                faceTempUrl: faceTempUrl,
+                qrcode: res.imagePath
               })
               that.drawPost()
+            })
           }
         })
+
+        // console.log(user.faceUrl)
+        // wx.getImageInfo({
+        //   src: user.faceUrl,
+        //   success: (res) => {
+        //     console.log(100)
+        //     wx.hideLoading()
+        //     var faceTempUrl = res.path
+        //       that.setData({
+        //         faceTempUrl: faceTempUrl
+        //       })
+        //       that.drawPost()
+        //   }
+        // })
+        
       }
     })
 

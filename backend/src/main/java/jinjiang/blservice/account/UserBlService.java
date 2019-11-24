@@ -2,6 +2,7 @@ package jinjiang.blservice.account;
 
 import jinjiang.entity.account.User;
 import jinjiang.exception.NotExistException;
+import jinjiang.response.MemberResponse;
 import jinjiang.response.account.OpenIdAndSessionKeyResponse;
 import jinjiang.response.account.QrCodeResponse;
 import org.springframework.data.domain.Page;
@@ -15,6 +16,8 @@ public interface UserBlService {
     void deleteUser(String id) throws NotExistException;
 
     void updateUser(User user) throws NotExistException;
+
+    List<MemberResponse> findByShareholderIdwx(String shareholderId);
 
     User findById(String id) throws NotExistException;
 

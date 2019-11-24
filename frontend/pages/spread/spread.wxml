@@ -32,5 +32,19 @@
     </button>
   </view>
 
+<view class="detail">
+   <view style="margin-left:40%;">推广记录</view>
+    <view class='box'  wx:for="{{list}}" wx:key="id">
+
+    
+      <view class='vessel'>
+          <view class='title'>会员名称：{{item.name}}</view>
+          <view class='title'>是否成功：{{item.status}}</view>
+        
+      </view>
+    
+  </view>
+</view>
+
 </view>
   

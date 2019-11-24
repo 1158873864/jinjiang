@@ -4,6 +4,10 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
+      <span>酒庄选择</span>
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
       <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
       <!--<el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>-->
     </div>
@@ -187,8 +191,11 @@ export default {
         name:'',
         discount:0,
         url:'',
-        discountId:''
+        discountId:'',
+        shopId:''
       },
+      shopId:'',
+      shopIds:[],
       isYesNo:'',//显示直播间或者商品
       list: [
       ],
@@ -257,6 +264,20 @@ export default {
         this.discount = []
 
       });
+
+      axios({
+        method: 'get',
+        url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+
+        this.shopIds = response.data.data.items.content
+
+      }).catch(error => {
+      });
+
     },
 
         uploadUrl: function(response) {
@@ -266,6 +287,41 @@ export default {
 
           console.log(response,11144, this.editForm.url );
     },
+
+    changeShop(){
+      var shopId=this.shopId
+      axios({
+        method: 'get',
+        url: config.baseApi + "level/find/shopId?shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+        this.list = response.data.data.items.content
+        this.total = response.data.data.items.totalPages
+        this.listLoading = false
+
+      }).catch(error => {
+        this.list = []
+        this.total = 0
+        this.listLoading = false
+      });
+      axios({
+        method: 'get',
+        url: config.baseApi + "discount/find/shopId?shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+
+        this.discount = response.data.data.items.content
+
+      }).catch(error => {
+        this.discount = []
+
+      });
+    },
+
     handleClose(){
     this.dialogVisible = false
     },
@@ -285,7 +341,7 @@ export default {
             message: '修改成功'
           })
           this.listQuery.page = 0
-          this.getList()
+          this.changeShop()
           this.dialogVisible = false
         }
       }).catch(error => {
@@ -311,6 +367,7 @@ export default {
       this.editForm.name=''
       this.editForm.discount=0,
       this.editForm.id='',
+        this.editForm.shopId=this.shopId
         this.editForm.discountId=''
     },
     handleCreateData() {
@@ -328,7 +385,7 @@ export default {
             message: '创建成功'
           })
           this.listQuery.page = 0
-          this.getList()
+          this.changeShop()
           this.dialogVisible = false
         }
       }).catch(error => {
@@ -346,6 +403,7 @@ export default {
       this.editForm.id = row.id;
       this.editForm.discount = row.discount;
       this.editForm.discountId = row.discountId;
+      this.editForm.shopId=row.shopId
       this.editForm.url = row.url;
       //this.$router.push({ path: '/goods/edit', query: { id: row.id }})
     },

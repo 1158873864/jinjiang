@@ -86,6 +86,16 @@ public class UserController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据id查找用户", notes = "")
+    @RequestMapping(value = "/find/shareholderId/wx", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByShareholderIdwx(@RequestParam("shareholderId") String shareholderId) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",userBlService.findByShareholderIdwx(shareholderId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "根据身份查找用户", notes = "")
     @RequestMapping(value = "/find/identity", method = RequestMethod.GET)
     @ResponseBody

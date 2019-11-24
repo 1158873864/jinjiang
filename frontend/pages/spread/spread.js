@@ -8,7 +8,8 @@ Page({
    * 页面的初始数据
    */
   data: {
-    user:{}
+    user:{},
+    list:[]
   },
 
 
@@ -36,6 +37,45 @@ Page({
       }
     })
 
+    wx.request({
+      url: app.globalData.backendUrl + "user/find/openid",
+      data: {
+        openid: app.getOpenid()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var user = res.data.data.items
+
+        this.setData({
+          user: res.data.data.items
+        })
+      }
+    })
+
+    wx.request({
+      url: app.globalData.backendUrl + "recommend/find/referrer",
+      data: {
+        referrer: app.getId()
+      },
+      header: {
+        'Authorization': 'Bearer ' + app.getToken(),
+        'content-type': 'application/x-www-form-urlencoded'
+      },
+      method: 'GET',
+      success: (res) => {
+        /*console.log(res)*/
+        var list=res.data.data.items
+        this.setData({
+          list: list
+        })
+      }
+    })
+
   },
 
   onShareAppMessage: function () {
@@ -44,7 +84,7 @@ Page({
     var userId = app.getOpenid();
     return {
       title: '金酱酒庄',
-      path: '/pages/index/index?id=' + app.getId(),
+      path: '/pages/index/index?id=' + userId,
       imageUrl: "http://47.106.171.65/record/7da730ee84084544aea2e7a8942790dc.jpg",
       success: function (res) {
         console.log("转发成功" + res);

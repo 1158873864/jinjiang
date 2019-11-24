@@ -1450,10 +1450,10 @@ function isAdminUsernameExistent(username, then) {
 function getWxQrCode(then) {
   var that = this
   wx.request({
-    url: app.globalData.backendUrl + "getWxQrCode",
+    url: app.globalData.backendUrl + "user/getWxQrCode",
     data: {
       scene: 'id=' + app.getOpenid(),
-      page: 'pages/me/myHistory/myHistory',
+      page: 'pages/index/index',
       width: 200,
       autoColor: true,
       lineColorR: 0,

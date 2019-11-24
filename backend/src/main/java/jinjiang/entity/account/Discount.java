@@ -45,7 +45,7 @@ public class Discount {
     @Column(name="days")
     private int days;//天数
 
-    @Column(name="startDate")
+    @Column(name="startTime")
     private String startTime;//开始日期
 
     @Column(name="endTime")

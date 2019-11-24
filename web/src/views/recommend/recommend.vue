@@ -10,7 +10,7 @@
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
-      <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
+      <el-table-column align="center" width="100px" label="ID" prop="id" sortable/>
 
       <el-table-column align="center" label="推荐人" prop="referrerName"/>
 
@@ -35,13 +35,13 @@
       <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
         <el-form-item label="推荐人" prop="referrer">
           <el-select v-model="dataForm.referrer">
-            <el-option v-for="item in referrers" :key="item.id" :label="item.name" :value="item.id"/>
+            <el-option v-for="item in referrers" :key="item.id" :label="item.username" :value="item.id"/>
           </el-select>
         </el-form-item>
 
         <el-form-item label="被推荐人" prop="user">
           <el-select v-model="dataForm.user">
-            <el-option v-for="item in users" :key="item.id" :label="item.name" :value="item.id"/>
+            <el-option v-for="item in users" :key="item.id" :label="item.username" :value="item.id"/>
           </el-select>
         </el-form-item>
 
@@ -155,7 +155,7 @@ export default {
               "X-Litemall-Admin-Token":sessionStorage.getItem('token')
             }
           }).then(res => {
-            this.list[i].referrerName = res.data.data.items.name
+            this.list[i].referrerName = res.data.data.items.username
           }).catch(error => {
           });
           axios({
@@ -165,7 +165,7 @@ export default {
               "X-Litemall-Admin-Token":sessionStorage.getItem('token')
             }
           }).then(res => {
-            this.list[i].userName = res.data.data.items.name
+            this.list[i].userName = res.data.data.items.username
 
           }).catch(error => {
           });
@@ -215,7 +215,7 @@ export default {
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               }
             }).then(res => {
-              this.list[i].referrerName = res.data.data.items.name
+              this.list[i].referrerName = res.data.data.items.username
             }).catch(error => {
             });
             axios({
@@ -225,7 +225,7 @@ export default {
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               }
             }).then(res => {
-              this.list[i].userName = res.data.data.items.name
+              this.list[i].userName = res.data.data.items.username
 
             }).catch(error => {
             });
@@ -323,7 +323,7 @@ export default {
                     }
                   }).then(res => {
 
-                    this.list[index].referrerName = res.data.data.items.name
+                    this.list[index].referrerName = res.data.data.items.username
 
                   }).catch(error => {
                   });
@@ -336,7 +336,7 @@ export default {
                     }
                   }).then(res => {
 
-                    this.list[index].userName = res.data.data.items.name
+                    this.list[index].userName = res.data.data.items.username
 
                   }).catch(error => {
                   });

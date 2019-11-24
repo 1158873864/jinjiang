@@ -13,9 +13,9 @@
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
 
-      <el-table-column align="center" label="股东名称" prop="username"/>
+      <el-table-column align="center" label="酒庄名称" prop="username"/>
 
-      <el-table-column align="center" label="股东收入" prop="price"/>
+      <el-table-column align="center" label="酒庄收入" prop="price"/>
 
       <el-table-column align="center" label="时间" prop="time"/>
 

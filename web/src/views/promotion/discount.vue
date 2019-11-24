@@ -4,6 +4,11 @@
     <!-- 查询和其他操作 -->
     <div class="filter-container">
 
+      <span>酒庄选择</span>
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+
       <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
   <!--     <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>-->
     </div>
@@ -18,7 +23,6 @@
       <el-table-column align="center" label="介绍" prop="desc"/>
 
       <el-table-column align="center" label="标签" prop="tag"/>
-
 
       <el-table-column align="center" label="最低消费" prop="min">
         <template slot-scope="scope">满{{ scope.row.min }}元可用</template>
@@ -259,6 +263,8 @@ export default {
         endTime: null,
         shopId:'',
       },
+      shopId:'',
+      shopIds:[],
       dialogFormVisible: false,
       dialogStatus: '',
       textMap: {
@@ -309,6 +315,19 @@ export default {
         this.listLoading = false
       });
 
+      axios({
+        method: 'get',
+        url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+
+        this.shopIds = response.data.data.items.content
+
+      }).catch(error => {
+      });
+
     },
     handleFilter() {
       this.listQuery.page = 0
@@ -329,8 +348,28 @@ export default {
         timeType: 0,
         days: 0,
         startTime: "",
-        endTime: ""
+        endTime: "",
+        shopId:this.shopId
       }
+    },
+    changeShop(){
+      var shopId=this.shopId
+      axios({
+        method: 'get',
+        url: config.baseApi + "discount/find/shopId?shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+        this.list = response.data.data.items.content
+        this.total = response.data.data.items.totalPages
+        this.listLoading = false
+
+      }).catch(error => {
+        this.list = []
+        this.total = 0
+        this.listLoading = false
+      });
     },
     handleCreate() {
       this.resetForm()
@@ -362,7 +401,7 @@ export default {
                 message: '创建优惠券成功'
               })
               this.listQuery.page = 0
-              this.getList()
+              this.changeShop()
             }
           }).catch(error => {
             this.$notify.error({

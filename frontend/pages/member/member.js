@@ -20,7 +20,7 @@ Page({
   onLoad: function(options) {
     
     wx.request({
-      url: app.globalData.backendUrl + "user/find/shareholderId",
+      url: app.globalData.backendUrl + "user/find/shareholderId/wx",
       data: {
         shareholderId: app.getId()
       },

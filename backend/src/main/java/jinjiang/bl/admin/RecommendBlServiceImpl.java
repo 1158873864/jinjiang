@@ -6,6 +6,7 @@ import jinjiang.dao.recommend.RecommendDao;
 import jinjiang.entity.account.User;
 import jinjiang.entity.recommend.Recommend;
 import jinjiang.exception.NotExistException;
+import jinjiang.response.RecommendResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -30,6 +31,8 @@ public class RecommendBlServiceImpl implements RecommendService {
 
     @Override
     public void addRecommend(Recommend recommend) {
+        Optional<User> tempr=userDao.findByOpenid(recommend.getReferrer());
+        recommend.setReferrer(tempr.get().getId());
         Optional<User> optionalUser=userDao.findById(recommend.getUser());
         Optional<User> referrer=userDao.findById(recommend.getReferrer());
         if(optionalUser.isPresent()){
@@ -101,9 +104,31 @@ public class RecommendBlServiceImpl implements RecommendService {
         }
     }
 
+
+
     @Override
     public Page<Recommend> findAll(Pageable pageable) {
         return recommendDao.findAll(pageable);
+    }
+
+
+    @Override
+    public List<RecommendResponse> findByReferrer(String referrer) {
+        List<Recommend> recommends=recommendDao.findByReferrer(referrer);
+        List<RecommendResponse> recommendResponses=new ArrayList<>();
+        for(Recommend recommend:recommends){
+            User user=userDao.findById(recommend.getReferrer()).get();
+            String status="";
+            if(recommend.isStatus()){
+                status="成功";
+            }
+            else{
+                status="未成功";
+            }
+            RecommendResponse recommendResponse=new RecommendResponse(user.getUsername(),status);
+            recommendResponses.add(recommendResponse);
+        }
+        return recommendResponses;
     }
 
 

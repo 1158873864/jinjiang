@@ -66,6 +66,16 @@ public class DisCountController {
     }
 
 
+    @ApiOperation(value = "根据id查找优惠", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getUserByShopId(@RequestParam("shopId") String shopId,Pageable pageable) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",discountBlService.findByShopId(shopId,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+
     @ApiOperation(value = "所有优惠", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody
@@ -74,5 +84,4 @@ public class DisCountController {
         result.put("items",discountBlService.findAll(pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
-
 }

@@ -2,10 +2,11 @@ package jinjiang.bl.account;
 
 
 import jinjiang.dao.account.AddressDao;
+import jinjiang.dao.recommend.RecommendDao;
 import jinjiang.dao.shop.ShopDao;
 import jinjiang.entity.account.Address;
-import jinjiang.entity.admin.Ad;
 import jinjiang.entity.shop.Shop;
+import jinjiang.response.MemberResponse;
 import jinjiang.response.account.OpenIdAndSessionKeyResponse;
 import jinjiang.response.account.QrCodeResponse;
 import net.sf.json.JSONObject;
@@ -34,12 +35,14 @@ public class UserBlServiceImpl implements UserBlService {
 	private final UserDao userDao;
 	private final ShopDao shopDao;
 	private final AddressDao addressDao;
+	private final RecommendDao recommendDao;
 
 	@Autowired
-	public UserBlServiceImpl(UserDao userDao, ShopDao shopDao, AddressDao addressDao) {
+	public UserBlServiceImpl(UserDao userDao, ShopDao shopDao, AddressDao addressDao, RecommendDao recommendDao) {
 		this.userDao = userDao;
 		this.shopDao = shopDao;
 		this.addressDao = addressDao;
+		this.recommendDao = recommendDao;
 	}
 
 	@Override
@@ -139,6 +142,20 @@ public class UserBlServiceImpl implements UserBlService {
 	@Override
 	public Page<User> findIdentityAndShop(String identity,String shopId,Pageable pageable) {
 		return userDao.findByIdentityAndShopId(identity,shopId,pageable);
+	}
+
+
+	@Override
+	public List<MemberResponse> findByShareholderIdwx(String shareholderId) {
+		List<User> users=userDao.findByShareholderId(shareholderId);
+		List<MemberResponse> memberResponses=new ArrayList<>();
+		for(User user:users){
+			int recommend=0;
+			recommend=recommendDao.findByReferrerAndStatus(user.getId(),true).size();
+			MemberResponse memberResponse=new MemberResponse(user.getFaceUrl(),user.getUsername(),user.getMobilePhone(),user.getLevel(),recommend,user.getRegtime());
+			memberResponses.add(memberResponse);
+		}
+		return memberResponses;
 	}
 
 

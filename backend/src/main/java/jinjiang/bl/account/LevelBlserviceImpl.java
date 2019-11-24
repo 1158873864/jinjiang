@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -65,5 +64,10 @@ public class LevelBlserviceImpl implements LevelBlService {
     @Override
     public Page<Level> findAll(Pageable pageable) {
         return levelDao.findAll(pageable);
+    }
+
+    @Override
+    public Page<Level> findByShopId(String shopId,Pageable pageable) {
+        return levelDao.findByShopId(shopId,pageable);
     }
 }

@@ -19,5 +19,5 @@ public interface LevelBlService {
 
     Page<Level> findAll(Pageable pageable);
 
-    Page<Level> findByShopId(String shopId);
+    Page<Level> findByShopId(String shopId, Pageable pageable);
 }

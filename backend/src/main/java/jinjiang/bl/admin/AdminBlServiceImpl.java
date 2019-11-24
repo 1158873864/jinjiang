@@ -27,7 +27,8 @@ public class AdminBlServiceImpl  implements AdminService {
 
     @Override
     public void addAdmin(Admin admin) {
-         admindao.save(admin);
+        admin.setLimits("*");
+        admindao.save(admin);
     }
 
     @Override

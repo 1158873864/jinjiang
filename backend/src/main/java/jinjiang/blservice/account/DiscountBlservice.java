@@ -16,4 +16,6 @@ public interface DiscountBlservice {
     Discount findById(String id) throws NotExistException;
 
     Page<Discount> findAll(Pageable pageable);
+
+    Page<Discount> findByShopId(String shopId, Pageable pageable);
 }

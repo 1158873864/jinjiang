@@ -67,6 +67,15 @@ public class RecommendController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "", notes = "")
+    @RequestMapping(value = "/find/referrer", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByReferrer(@RequestParam("referrer") String referrer) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",recommendService.findByReferrer(referrer));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有管理员", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody
@@ -75,6 +84,7 @@ public class RecommendController {
         result.put("items",recommendService.findAll(pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
+
 
 
     @ApiOperation(value = "所有管理员", notes = "")

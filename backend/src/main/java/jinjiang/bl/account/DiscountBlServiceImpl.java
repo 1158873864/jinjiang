@@ -27,17 +27,7 @@ public class DiscountBlServiceImpl implements DiscountBlservice {
 
     @Override
     public void addDiscount(Discount diacount) {
-        if(diacount.getTimeType()==0){
-            int days=diacount.getDays();
-            SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-            Calendar c = Calendar.getInstance();
-            System.out.println("当前日期:"+sf.format(c.getTime()));
-            c.add(Calendar.DAY_OF_MONTH, days);
-            System.out.println("增加一天后日期:"+sf.format(c.getTime()));
-            diacount.setStartTime(sf.format(c.getTime()));
-            diacount.setEndTime(sf.format(c.getTime()));
-            disDao.save(diacount);
-        }
+
         disDao.save(diacount);
     }
 
@@ -90,4 +80,11 @@ public class DiscountBlServiceImpl implements DiscountBlservice {
     public Page<Discount> findAll(Pageable pageable) {
         return disDao.findAll(pageable);
     }
+
+
+    @Override
+    public Page<Discount> findByShopId(String shopId,Pageable pageable) {
+        return disDao.findByShopId(shopId,pageable);
+    }
+
 }

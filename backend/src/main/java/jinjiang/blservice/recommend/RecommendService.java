@@ -1,10 +1,12 @@
 package jinjiang.blservice.recommend;
 
-import jinjiang.entity.admin.Culture;
 import jinjiang.entity.recommend.Recommend;
 import jinjiang.exception.NotExistException;
+import jinjiang.response.RecommendResponse;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+
+import java.util.List;
 
 public interface RecommendService {
 
@@ -17,6 +19,8 @@ public interface RecommendService {
     Recommend findById(String id) throws NotExistException;
 
     Page<Recommend> findAll(Pageable pageable);
+
+    List<RecommendResponse> findByReferrer(String referrer);
 
     Page<Recommend> find(String query, Pageable pageable);
 }

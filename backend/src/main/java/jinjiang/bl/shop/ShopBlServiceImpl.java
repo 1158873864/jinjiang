@@ -1,8 +1,12 @@
 package jinjiang.bl.shop;
 
 import jinjiang.blservice.shop.ShopBlService;
+import jinjiang.dao.account.DiscountDao;
+import jinjiang.dao.account.LevelDao;
 import jinjiang.dao.admin.DeductDao;
 import jinjiang.dao.shop.ShopDao;
+import jinjiang.entity.account.Discount;
+import jinjiang.entity.account.Level;
 import jinjiang.entity.admin.Deduct;
 import jinjiang.entity.shop.Shop;
 import jinjiang.exception.NotExistException;
@@ -21,7 +25,6 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -29,19 +32,31 @@ import java.util.Optional;
 public class ShopBlServiceImpl implements ShopBlService {
     private final ShopDao shopdao;
     private final DeductDao deductDao;
+    private final DiscountDao discountDao;
+    private final LevelDao levelDao;
 
     private static final double EARTH_RADIUS = 6371393;
 
     @Autowired
-    public ShopBlServiceImpl(ShopDao shopdao, DeductDao deductDao){
+    public ShopBlServiceImpl(ShopDao shopdao, DeductDao deductDao, DiscountDao discountDao, LevelDao levelDao){
         this.shopdao=shopdao;
         this.deductDao = deductDao;
+        this.discountDao = discountDao;
+        this.levelDao = levelDao;
     }
 
     @Override
     public void addShop(Shop shop) {
         String id=shopdao.save(shop).getId();
         Deduct deduct=new Deduct(0.3,0.3,0.3,0.1,id);
+        Discount discount=new Discount("直推奖","直推奖","直推奖",0,888,1,"1","",1000,0,100,"","",id);
+        String discountid=discountDao.save(discount).getId();
+        Level level=new Level("非会员",0,"","直推奖",id);
+        levelDao.save(level);
+        level=new Level("普通会员",10000,"","直推奖",id);
+        levelDao.save(level);
+        level=new Level("高级会员",50000,"","直推奖",id);
+        levelDao.save(level);
         deductDao.save(deduct);
     }
 

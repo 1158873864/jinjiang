@@ -1,5 +1,6 @@
 package jinjiang.bl.order;
 
+import jinjiang.blservice.account.CouponService;
 import jinjiang.blservice.order.OrderBlService;
 import jinjiang.dao.account.BalanceDao;
 import jinjiang.dao.account.CouponDao;
@@ -50,8 +51,9 @@ public class OrderBlServiceImpl implements OrderBlService {
     private final RecommendDao recommendDao;
     private final DiscountDao discountDao;
     private final CouponDao couponDao;
+    private final CouponService couponService;
     @Autowired
-    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao, ShopBalanceDao shopBalanceDao, RecommendDao recommendDao, DiscountDao discountDao, CouponDao couponDao){
+    public OrderBlServiceImpl(OrderDao orderdoa, UserDao userDao, GoodsDao goodsDao, Goods2Dao goods2Dao, IntegraGoodsDao integraGoodsDao, DeductDao deductDao, ShopDao shopDao, BalanceDao balanceDao, ShopBalanceDao shopBalanceDao, RecommendDao recommendDao, DiscountDao discountDao, CouponDao couponDao, CouponService couponService){
         this.orderdoa=orderdoa;
         this.userDao = userDao;
         this.goodsDao = goodsDao;
@@ -64,6 +66,7 @@ public class OrderBlServiceImpl implements OrderBlService {
         this.recommendDao = recommendDao;
         this.discountDao = discountDao;
         this.couponDao = couponDao;
+        this.couponService = couponService;
     }
 
     @Override
@@ -539,18 +542,7 @@ public class OrderBlServiceImpl implements OrderBlService {
 
     @Override
     public void pay(Order o) throws NotExistException {
-        Optional<Recommend> optionalRecommend=recommendDao.findByUser(o.getUserId());
-        if(optionalRecommend.isPresent()){
-            Recommend recommend=optionalRecommend.get();
-            recommend.setStatus(true);
-            recommendDao.save(recommend);
-            Optional<Discount> optionalDiscount=discountDao.findByGoodsType("1");
-            if(optionalDiscount.isPresent()){
-                Discount discount=optionalDiscount.get();
-                Coupon coupon=new Coupon(o.getUserId(),discount.getId(),"未使用",discount.getStartTime(),discount.getEndTime());
-                couponDao.save(coupon);
-            }
-        }
+
         String id=o.getId();
         double actualPrice=o.getPrice();
         List<String> goodsName=new ArrayList<>();
@@ -588,6 +580,19 @@ public class OrderBlServiceImpl implements OrderBlService {
                             shopId=goods2.getShopId();
                             stock+=goods2.getStockPrice();
                         }
+                    }
+                }
+                Optional<Recommend> optionalRecommend=recommendDao.findByUser(o.getUserId());
+                if(optionalRecommend.isPresent()){
+                    Recommend recommend=optionalRecommend.get();
+                    recommend.setStatus(true);
+                    recommendDao.save(recommend);
+                    Optional<Discount> optionalDiscount=discountDao.findByGoodsTypeAndShopId("1",shopId);
+                    if(optionalDiscount.isPresent()){
+                        Discount discount=optionalDiscount.get();
+                        Coupon coupon=new Coupon(o.getUserId(),discount.getId(),"未使用",discount.getStartTime(),discount.getEndTime());
+                        //couponDao.save(coupon);
+                        couponService.addCoupon(coupon);
                     }
                 }
                 profit=actualPrice-stock;
@@ -787,18 +792,7 @@ public class OrderBlServiceImpl implements OrderBlService {
 
                     if (sortedMap.get("return_code").equals("SUCCESS")) {
                         if (sortedMap.get("result_code").equals("SUCCESS")) {
-                            Optional<Recommend> optionalRecommend=recommendDao.findByUser(o.getUserId());
-                            if(optionalRecommend.isPresent()){
-                                Recommend recommend=optionalRecommend.get();
-                                recommend.setStatus(true);
-                                recommendDao.save(recommend);
-                                Optional<Discount> optionalDiscount=discountDao.findByGoodsType("1");
-                                if(optionalDiscount.isPresent()){
-                                    Discount discount=optionalDiscount.get();
-                                    Coupon coupon=new Coupon(o.getUserId(),discount.getId(),"未使用",discount.getStartTime(),discount.getEndTime());
-                                    couponDao.save(coupon);
-                                }
-                            }
+
                             String id=o.getId();
                             double actualPrice=o.getPrice();
                             List<String> goodsName=new ArrayList<>();
@@ -837,6 +831,20 @@ public class OrderBlServiceImpl implements OrderBlService {
                                             }
                                         }
                                     }
+                                    Optional<Recommend> optionalRecommend=recommendDao.findByUser(o.getUserId());
+                                    if(optionalRecommend.isPresent()){
+                                        Recommend recommend=optionalRecommend.get();
+                                        recommend.setStatus(true);
+                                        recommendDao.save(recommend);
+                                        Optional<Discount> optionalDiscount=discountDao.findByGoodsTypeAndShopId("1",shopId);
+                                        if(optionalDiscount.isPresent()){
+                                            Discount discount=optionalDiscount.get();
+                                            Coupon coupon=new Coupon(o.getUserId(),discount.getId(),"未使用",discount.getStartTime(),discount.getEndTime());
+                                            //couponDao.save(coupon);
+                                            couponService.addCoupon(coupon);
+                                        }
+                                    }
+
                                     profit=actualPrice-stock;
                                     Balance balance=new Balance(user.getId(),user.getUsername(),"支出",actualPrice,"购买商品",FormatDateTime.toLongDateString(new Date()),goodsName);
                                     balanceDao.save(balance);

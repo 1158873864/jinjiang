@@ -67,9 +67,9 @@ public class LevelController  {
     @ApiOperation(value = "根据id查找等级", notes = "")
     @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
     @ResponseBody
-    public ResponseEntity<Result> getUserByShopId(@RequestParam("shopId") String shopId) throws NotExistException {
+    public ResponseEntity<Result> getUserByShopId(@RequestParam("shopId") String shopId,Pageable pageable) throws NotExistException {
         Map<String, Object> result = new HashMap<>();
-        result.put("items",levelBlService);
+        result.put("items",levelBlService.findByShopId(shopId,pageable));
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 

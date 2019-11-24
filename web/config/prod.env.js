@@ -6,5 +6,4 @@ module.exports = {
   BASE_API:'"https://www.shaoshanlu.com:3389/"',
   BASE_API_NEW: '"https://sandc.xyz:8889/wx"',
 
-
 }

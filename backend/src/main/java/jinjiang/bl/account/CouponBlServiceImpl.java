@@ -2,8 +2,9 @@ package jinjiang.bl.account;
 
 import jinjiang.blservice.account.CouponService;
 import jinjiang.dao.account.CouponDao;
+import jinjiang.dao.account.DiscountDao;
 import jinjiang.entity.account.Coupon;
-import jinjiang.entity.admin.Culture;
+import jinjiang.entity.account.Discount;
 import jinjiang.exception.NotExistException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -11,23 +12,46 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CouponBlServiceImpl implements CouponService {
     private final CouponDao couponDao;
-
+    private final DiscountDao discountDao;
     @Autowired
-    public CouponBlServiceImpl(CouponDao couponDao){
+    public CouponBlServiceImpl(CouponDao couponDao, DiscountDao discountDao){
+
 
         this.couponDao = couponDao;
+        this.discountDao = discountDao;
     }
 
     @Override
     public void addCoupon(Coupon coupon) {
-         couponDao.save(coupon);
+        Optional<Discount> optionalDiscount=discountDao.findById(coupon.getDiscount());
+        coupon.setStatus("未使用");
+        if(optionalDiscount.isPresent()){
+            Discount diacount=optionalDiscount.get();
+            if(diacount.getTimeType()==0){
+                int days=diacount.getDays();
+                SimpleDateFormat sf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+                Calendar c = Calendar.getInstance();
+                System.out.println("当前日期:"+sf.format(c.getTime()));
+                coupon.setStartTime(sf.format(c.getTime()));
+                c.add(Calendar.DAY_OF_MONTH, days);
+                System.out.println("增加一天后日期:"+sf.format(c.getTime()));
+                coupon.setEndTime(sf.format(c.getTime()));
+            }
+            else{
+                coupon.setStartTime(diacount.getStartTime());
+                coupon.setEndTime(diacount.getEndTime());
+            }
+        }
+        couponDao.save(coupon);
     }
 
     @Override

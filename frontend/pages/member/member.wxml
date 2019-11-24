@@ -16,6 +16,8 @@
         <view class='right'>
           <view class='title'>{{item.username}}</view>
            <view class='title'>{{item.mobilePhone}}</view>
+           <view class='title'>{{item.level}}</view>
+            <view class='title'>成功推荐：{{item.recommend}}人</view>
           <view class='shoping'>
             <!-- <text style='color: rgb(247, 198, 17);'>￥</text> -->
             

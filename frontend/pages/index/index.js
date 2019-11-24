@@ -48,6 +48,7 @@ Page({
 
   //事件处理函数
   onLoad: function(options) {
+    if (options.id != "" && options.id!=null){
     var referrer=options.id
     wx.setStorageSync('referrer', referrer)
     if(app.getLogin()){
@@ -68,6 +69,7 @@ Page({
           
         }
       })
+    }
     }
     wx.request({
       url: app.globalData.backendUrl + "ad/find/showPlace",

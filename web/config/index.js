@@ -85,6 +85,6 @@ module.exports = {
     // `npm run build:prod --generate_report`
     generateAnalyzerReport: process.env.npm_config_generate_report || false
   },
-  //baseApi: 'https://www.shaoshanlu.com:3389/'
-  baseApi: 'http://localhost:3389/'
+  baseApi: 'https://www.shaoshanlu.com:3389/'
+  //baseApi: 'http://localhost:3389/'
 }
