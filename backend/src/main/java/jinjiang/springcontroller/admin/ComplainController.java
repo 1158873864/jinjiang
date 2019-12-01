@@ -78,6 +78,15 @@ public class ComplainController {
 
 
     @ApiOperation(value = "所有管理员", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getAllUser(@RequestParam("shopId") String shopId,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",complainService.findByShopId(shopId,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "所有管理员", notes = "")
     @RequestMapping(value = "/find/query", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity<Result> get(@RequestParam("query") String query,Pageable pageable) {

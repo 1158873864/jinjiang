@@ -21,13 +21,17 @@ public class Complain {
 	@Column(name = "username")
 	private String username; //投诉者用户名
 
+	@Column(name = "shopId")
+	private String shopId; //酒庄id
+
 	public Complain() {
 	}
 
-	public Complain(String content, String time, String username) {
+	public Complain(String content, String time, String username, String shopId) {
 		this.content = content;
 		this.time = time;
 		this.username = username;
+		this.shopId = shopId;
 	}
 
 	public String getId() {
@@ -60,5 +64,13 @@ public class Complain {
 
 	public void setUsername(String username) {
 		this.username = username;
+	}
+
+	public String getShopId() {
+		return shopId;
+	}
+
+	public void setShopId(String shopId) {
+		this.shopId = shopId;
 	}
 }

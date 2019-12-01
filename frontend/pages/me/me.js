@@ -391,6 +391,7 @@ Page({
           array4[0].show = true
           array4[1].show = true
           array4[3].show = true
+          array4[4].show = true
           this.setData({
             array1: array1,
             array2: array2,

@@ -23,4 +23,6 @@ public interface RecommendService {
     List<RecommendResponse> findByReferrer(String referrer);
 
     Page<Recommend> find(String query, Pageable pageable);
+
+    Page<Recommend> findByShopId(String shopId, Pageable pageable);
 }

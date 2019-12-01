@@ -3,7 +3,19 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+
+      <span>股东选择</span>
+
+      <el-select v-model="shareholderId" @change="changeShareholder">
+        <el-option v-for="item in shareholderIds" :key="item.id" :label="item.username" :value="item.id"/>
+      </el-select>
+
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 100px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
     </div>
 
@@ -150,7 +162,7 @@ export default {
         passwordForm:{
           password:'',
         },
-        shopIds:[],
+        shareholderId:'',
         dataForm: {
           id: '',
           userId: '',
@@ -164,6 +176,9 @@ export default {
           BuyTime: '',
           status: ''
         },
+        shopId:'',
+        shopIds:[],
+        shareholderIds:[],
         statuses:['待付款','待发货','待收货','待评价','已完成'],
         levels:[],
         dialogFormVisible: false,
@@ -188,6 +203,30 @@ export default {
       getList() {
         axios({
           method: 'get',
+          url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+
+          this.shopIds = response.data.data.items.content
+
+        }).catch(error => {
+        });
+
+        axios({
+          method: 'get',
+          url: config.baseApi + "user/find/identity?identity=shareholder&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          this.shareholderIds = response.data.data.items.content
+        }).catch(error => {
+        });
+
+        axios({
+          method: 'get',
           url: config.baseApi + "balance/find/type?type=赊账",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
@@ -195,7 +234,6 @@ export default {
         }).then(response => {
           if(response.data.code==0){
             this.list = response.data.data.items
-
             this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
@@ -207,6 +245,60 @@ export default {
 
 
       },
+      changeShop(){
+        var shopId=this.shopId
+        axios({
+          method: 'get',
+          url: config.baseApi + "balance/find/shopId/type?shopId="+shopId+"&type=赊账",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.list = response.data.data.items
+            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.listLoading = false
+          }
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+
+
+        axios({
+          method: 'get',
+          url: config.baseApi + "user/find/identity-shopId?identity=shareholder&shopId="+shopId+"&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          this.shareholderIds = response.data.data.items.content
+        }).catch(error => {
+        });
+
+      },
+      changeShareholder(){
+        var shareholder=this.shareholderId
+        axios({
+          method: 'get',
+          url: config.baseApi + "balance/find/userId/type?userId="+shareholder+"&type=赊账",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.list = response.data.data.items
+            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.listLoading = false
+          }
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+      },
+
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -365,7 +457,7 @@ export default {
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除商品成功'
+              message: '删除成功'
             })
 
           }

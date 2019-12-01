@@ -4,34 +4,33 @@
     <!-- 查询和其他操作 -->
     <div class="filter-container">
       <span>酒庄选择</span>
+
       <el-select v-model="shopId" @change="changeShop">
         <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
       </el-select>
+
       <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 300px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-      <el-button class="filter-item" type="primary" icon="el-icon-edit" @click="handleCreate">添加</el-button>
+      <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
 
-      <el-table-column align="center" label="用户名" prop="username"/>
+      <el-table-column align="center" label="id" prop="id"/>
 
-      <el-table-column align="center" label="姓名" prop="name"/>
+      <el-table-column align="center" label="酒庄名称" prop="name"/>
 
-      <el-table-column align="center" label="手机号码" prop="mobilePhone"/>
+      <el-table-column align="center" label="价格" prop="price"/>
 
-      <el-table-column align="center" label="生日" prop="birthday"/>
+      <el-table-column align="center" label="详细内容" prop="detail"/>
 
-      <el-table-column align="center" label="余额" prop="balance"/>
+      <el-table-column align="center" label="时间" prop="time"/>
 
-      <el-table-column align="center" label="酒庄" prop="shopName">
-
-      </el-table-column>
+      <el-table-column align="center" label="所购买商品名称列表" prop="goodsList"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
-          <el-button type="primary" size="mini" @click="handleUpdate(scope.row)">编辑</el-button>
           <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -40,37 +39,47 @@
     <pagination v-show="total>0" :total="total" :page.sync="listQuery.page" :limit.sync="listQuery.limit" @pagination="getList" />
 
     <!-- 添加或修改对话框 -->
-    <el-dialog :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
-      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style="width: 400px; margin-left:50px;">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="dataForm.username"/>
-        </el-form-item>
-
-
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="dataForm.name"/>
-        </el-form-item>
-
-        <el-form-item label="手机号码" prop="mobilePhone">
-          <el-input v-model="dataForm.mobilePhone"/>
-        </el-form-item>
-
-        <el-form-item label="生日" prop="birthday">
-          <el-date-picker v-model="dataForm.birthday" type="date" value-format="yyyy-MM-dd"/>
-        </el-form-item>
-
-
-        <el-form-item label="余额" prop="balance">
-          <el-input v-model="dataForm.balance"/>
-        </el-form-item>
-
-        <el-form-item label="身份" prop="identity">
-          <el-select v-model="dataForm.identity">
-            <el-option v-for="item in inde" :key="item.value" :label="item.label" :value="item.value"/>
+    <el-dialog customClass="customWidth" :title="textMap[dialogStatus]" :visible.sync="dialogFormVisible">
+      <el-form ref="dataForm" :rules="rules" :model="dataForm" status-icon label-position="left" label-width="100px" style=" margin-left:50px;">
+        <el-form-item label="用户" prop="userId">
+          <el-select v-model="dataForm.userId">
+            <el-option v-for="item in users" :key="item.id" :label="item.name" :value="item.id"/>
           </el-select>
         </el-form-item>
 
+        <el-form-item label="送货地址" prop="address">
+          <el-input v-model="dataForm.address"/>
+        </el-form-item>
 
+        <el-form-item label="联系手机" prop="mobilePone">
+          <el-input v-model="dataForm.mobilePone"/>
+        </el-form-item>
+
+        <el-form-item label="收货人" prop="person">
+          <el-input v-model="dataForm.person"/>
+        </el-form-item>
+
+        <el-form-item label="运费" prop="freight">
+          <el-input v-model="dataForm.freight"/>
+        </el-form-item>
+
+        <el-form-item label="总价" prop="price">
+          <el-input v-model="dataForm.price"/>
+        </el-form-item>
+
+        <el-form-item label="优惠" prop="discountPrice">
+          <el-input v-model="dataForm.discountPrice"/>
+        </el-form-item>
+
+        <el-form-item label="购买时间" prop="BuyTime">
+          <el-input v-model="dataForm.BuyTime"/>
+        </el-form-item>
+
+        <el-form-item label="状态">
+          <el-select v-model="dataForm.status">
+            <el-option v-for="item in statuses" :key="item" :label="item" :value="item"/>
+          </el-select>
+        </el-form-item>
 
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -83,30 +92,60 @@
   </div>
 </template>
 
+
+<style>
+  .tip-pic{
+    color: #cacdd4;
+    font-size: 13px;
+  }
+  .avatar-uploader .el-upload {
+    width: 145px;
+    height: 145px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .avatar-uploader .el-upload:hover {
+    border-color: #20a0ff;
+  }
+
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 120px;
+    height: 120px;
+    line-height: 120px;
+    text-align: center;
+  }
+
+  .avatar {
+    width: 145px;
+    height: 145px;
+    display: block;
+  }
+  .customWidth{
+    width:80%;
+  }
+</style>
+
 <script>
-  import { fetchList, createUser, updateUser } from '@/api/user'
-  import { listshops,deleteshop,editshop } from '@/api/shop'
+  import { createStorage, uploadPath,filePath } from '@/api/storage'
+  import { uploadDetailPic } from '@/api/upload'
   import axios from 'axios'
   import * as config from '../../../config'
-  import {
-    getAll,
-    postData,
-    getDataByID,
-    putData,
-    deleteData,
-    getSearch
-  } from '@/api/dbhelper'
-
   import Pagination from '@/components/Pagination' // Secondary package based on el-pagination
 
-  export default {
-    name: 'User',
-    filters: {
 
-    },
+  export default {
+    name: 'Order',
     components: { Pagination },
     data() {
       return {
+        uploadPath,
+        filePath,
         list: null,
         total: 0,
         listLoading: true,
@@ -120,30 +159,22 @@
         passwordForm:{
           password:'',
         },
-        inde: [{'label':'会员','value':'member'},{'label':'股东','value':'shareholder'},{'label':'员工','value':'staff'},{'label':'庄主','value':'manager'}],
-        dataForm: {
-          id: '',
-          username: '',
-          openid: '',
-          name: '',
-          mobilePhone: '',
-          defaultAddress: '',
-          faceUrl: '',
-          identity: 'staff',
-          birthday: '',
-          email: '',
-          remark: '',
-          level: '',
-          balance: 0,
-          takeBalance:0,
-          integral:0,
-          regtime:'',
-          shopId:'',
-          shareholderId:'',
-          invest:0
-        },
         shopId:'',
         shopIds:[],
+        dataForm: {
+          id: '',
+          userId: '',
+          address: '',
+          mobilePone: '',
+          person: '',
+          freight: 0,
+          price: 0,
+          discountPrice: 0,
+          goodsList: [],
+          BuyTime: '',
+          status: ''
+        },
+        statuses:['待付款','待发货','待收货','待评价','已完成'],
         levels:[],
         dialogFormVisible: false,
         dialogStatus: '',
@@ -159,38 +190,21 @@
         downloadLoading: false
       }
     },
+
     created() {
       this.getList()
     },
     methods: {
       getList() {
-
-
         axios({
           method: 'get',
-          url: config.baseApi + "user/find/identity?identity=staff&page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "shopBalance/find/type?type=支出",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = response.data.data.items.content
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                console.log(res.data.data.items.name)
-                this.list[i].shopName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-            }
-            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.list = response.data.data.items
             this.listLoading = false
           }
         }).catch(error => {
@@ -198,6 +212,7 @@
           this.total = 0
           this.listLoading = false
         });
+
 
         axios({
           method: 'get',
@@ -212,36 +227,29 @@
         }).catch(error => {
         });
 
+
       },
+      handleDownload() {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['id', '酒庄名称', '价格', '详细内容', '时间','所购买商品名称列表']
+          const filterVal = ['id', 'name', 'price', 'detail', 'time', 'goodsList']
+          excel.export_json_to_excel2(tHeader, this.list, filterVal, '酒庄支出信息')
+          this.downloadLoading = false
+        })
+      },
+
       changeShop(){
         var shopId=this.shopId
         axios({
           method: 'get',
-          url: config.baseApi + "user/find/identity-shopId?identity=staff&shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "shopBalance/find/type/shopId?type=支出&shopId="+this.shopId,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
-          if(response.data.code==0){
-            this.list = response.data.data.items.content
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                console.log(res.data.data.items.name)
-                this.list[i].shopName = res.data.data.items.name
-
-              }).catch(error => {
-              });
-
-            }
-            this.total = response.data.data.items.totalPages//response.data.data.total
-            this.listLoading = false
-          }
+          this.list = response.data.data.items
+          this.listLoading = false
         }).catch(error => {
           this.list = []
           this.total = 0
@@ -255,7 +263,7 @@
         this.listLoading = true
         axios({
           method: 'get',
-          url: config.baseApi + "user/find/identity/query?identity=staff&query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "order/find/query?query="+this.listQuery.key+"&page="+ (this.listQuery.page-1)+"&size=20",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -265,13 +273,12 @@
             for(let i=0;i<this.list.length;i++){
               axios({
                 method: 'get',
-                url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
                 headers:{
                   "X-Litemall-Admin-Token":sessionStorage.getItem('token')
                 }
               }).then(res => {
-                console.log(res.data.data.items.name)
-                this.list[i].shopName = res.data.data.items.name
+                this.list[i].goods = res.data.data.items
 
               }).catch(error => {
               });
@@ -289,24 +296,16 @@
       resetForm() {
         this.dataForm = {
           id: '',
-          username: '',
-          openid: '',
-          name: '',
-          mobilePhone: '',
-          defaultAddress: '',
-          faceUrl: '',
-          identity: 'staff',
-          birthday: '',
-          email: '',
-          remark: '',
-          level: '',
-          balance: 0,
-          takeBalance:0,
-          integral:0,
-          regtime:'',
-          shopId:this.shopId,
-          shareholderId:'',
-          invest:0
+          userId: '',
+          address: '',
+          mobilePone: '',
+          person: '',
+          freight: 0,
+          price: 0,
+          discountPrice: 0,
+          goodsList: [],
+          BuyTime: '',
+          status: ''
         }
       },
       handleCreate() {
@@ -323,7 +322,7 @@
 
             axios({
               method: 'post',
-              url: config.baseApi + "user/add",
+              url: config.baseApi + "order/add",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -334,10 +333,10 @@
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: '成功',
-                  message: '添加用户成功'
+                  message: '添加商品成功'
                 })
                 this.listQuery.page = 1
-                this.changeShop()
+                this.getList()
               }
             }).catch(error => {
               this.$notify.error({
@@ -366,7 +365,7 @@
 
             axios({
               method: 'put',
-              url: config.baseApi + "user/update",
+              url: config.baseApi + "order/update",
               headers:{
                 "X-Litemall-Admin-Token":sessionStorage.getItem('token')
               },
@@ -377,23 +376,13 @@
                   if (v.id === this.dataForm.id) {
                     const index = this.list.indexOf(v)
                     this.list.splice(index, 1, this.dataForm)
-                    axios({
-                      method: 'get',
-                      url: config.baseApi + "shop/find/id?id="+ this.dataForm.shopId,
-                      headers:{
-                        "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                      }
-                    }).then(res => {
-                      this.list[index].shopName = res.data.data.items.name
-                    }).catch(error => {
-                    });
                     break
                   }
                 }
                 this.dialogFormVisible = false
                 this.$notify.success({
                   title: '成功',
-                  message: '更新用户成功'
+                  message: '更新商品成功'
                 })
 
               }
@@ -416,7 +405,7 @@
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "user/delete?id="+row.id,
+          url: config.baseApi + "shopBalance/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -426,12 +415,11 @@
             this.list.splice(index, 1)
             this.$notify.success({
               title: '成功',
-              message: '删除用户成功'
+              message: '删除成功'
             })
 
           }
         }).catch(error => {
-
           this.$notify.error({
             title: '失败',
             message: response.data.errmsg
@@ -442,5 +430,8 @@
       }
 
     }
+
   }
 </script>
+
+

@@ -54,6 +54,7 @@ public class ComplainBlServiceImpl implements ComplainService {
             newcomplain.setContent(complain.getContent());
             newcomplain.setTime(complain.getTime());
             newcomplain.setUsername(complain.getUsername());
+            newcomplain.setShopId(complain.getShopId());
            complainDao.save(newcomplain);
         }else {
             throw new NotExistException("address ID", complain.getId());
@@ -73,6 +74,12 @@ public class ComplainBlServiceImpl implements ComplainService {
     @Override
     public Page<Complain> findAll(Pageable pageable) {
         return complainDao.findAll(pageable);
+    }
+
+
+    @Override
+    public Page<Complain> findByShopId(String shopId,Pageable pageable) {
+        return complainDao.findByShopId(shopId,pageable);
     }
 
 

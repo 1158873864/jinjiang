@@ -44,6 +44,7 @@ public class RecommendBlServiceImpl implements RecommendService {
                         if(user.getRemark().equals("")){
                             if(referrer.isPresent()){
                                 User r=referrer.get();
+                                user.setShopId(r.getShopId());
                                 if(r.getIdentity().equals("shareholder")){
                                     user.setShareholderId(r.getId());
                                     userDao.save(user);
@@ -139,6 +140,23 @@ public class RecommendBlServiceImpl implements RecommendService {
         for(Recommend recommend:recommends){
             if(recommend.getReferrer().indexOf(query)!=(-1)||recommend.getUser().indexOf(query)!=(-1)||recommend.getId().indexOf(query)!=(-1)){
                 list.add(recommend);
+            }
+        }
+        return listConvertToPage(list,pageable);
+    }
+
+    @Override
+    public Page<Recommend> findByShopId(String shopId, Pageable pageable) {
+        List<Recommend> recommends=recommendDao.findAll();
+        List<Recommend> list=new ArrayList<>();
+        for(Recommend recommend:recommends){
+            String userId=recommend.getReferrer();
+            Optional<User> user=userDao.findById(userId);
+            if(user.isPresent()){
+                String id=user.get().getShopId();
+                if(id.equals(shopId)){
+                    list.add(recommend);
+                }
             }
         }
         return listConvertToPage(list,pageable);

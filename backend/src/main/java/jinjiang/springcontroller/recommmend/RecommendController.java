@@ -85,6 +85,14 @@ public class RecommendController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "所有管理员", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> getAllUser(@RequestParam("shopId") String shopId,Pageable pageable) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",recommendService.findByShopId(shopId, pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
 
 
     @ApiOperation(value = "所有管理员", notes = "")

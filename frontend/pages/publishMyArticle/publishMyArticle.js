@@ -50,7 +50,8 @@ Page({
         id:'',
         content: this.data.content,
         time:'',
-        username: this.data.user.username
+        username: this.data.user.username,
+        shopId:this.data.user.shopId
       },
       header: {
         'Authorization': 'Bearer ' + app.getToken(),

@@ -17,19 +17,14 @@
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
-      <el-table-column align="center" width="100px" label="用户ID" prop="id" sortable/>
 
       <el-table-column align="center" label="用户名" prop="username"/>
-
-      <el-table-column align="center" label="微信openid" prop="openid"/>
 
       <el-table-column align="center" label="姓名" prop="name"/>
 
       <el-table-column align="center" label="手机号码" prop="mobilePhone"/>
 
       <el-table-column align="center" label="生日" prop="birthday"/>
-
-      <el-table-column align="center" label="邮箱" prop="email"/>
 
       <el-table-column align="center" label="余额" prop="balance"/>
 
@@ -57,9 +52,7 @@
         <el-form-item label="用户名" prop="username">
           <el-input v-model="dataForm.username"/>
         </el-form-item>
-        <el-form-item label="微信openid" prop="openid">
-          <el-input v-model="dataForm.openid"/>
-        </el-form-item>
+
 
         <el-form-item label="姓名" prop="name">
           <el-input v-model="dataForm.name"/>
@@ -73,9 +66,6 @@
           <el-date-picker v-model="dataForm.birthday" type="date" value-format="yyyy-MM-dd"/>
         </el-form-item>
 
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="dataForm.email"/>
-        </el-form-item>
 
         <el-form-item label="余额" prop="balance">
           <el-input v-model="dataForm.balance"/>

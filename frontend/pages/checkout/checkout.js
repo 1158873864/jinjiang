@@ -244,7 +244,7 @@ Page({
               content: '您的身份为股东，是否赊账',
               success: function (res) {
                 if (res.confirm) {
-                  if (that.data.user.invest * 0.3 > that.data.actualPrice){
+                  if (that.data.user.invest  > that.data.actualPrice){
                   wx.request({
                     url: app.globalData.backendUrl + "balance/add",
                     data: {

@@ -5,8 +5,8 @@
     <div class="filter-container">
       <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-        <el-date-picker type="date" value-format="yyyy-MM-dd"/>
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">按时间查找</el-button>
+        <!--<el-date-picker type="date" value-format="yyyy-MM-dd"/>-->
+      <!--<el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">按时间查找</el-button>-->
       <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
@@ -20,6 +20,9 @@
       <el-table-column align="center" label="消费时间" prop="time"/>
 
       <el-table-column align="center" label="详细内容" prop="detail"/>
+
+      <el-table-column align="center" label="所购买商品名称列表" prop="goodsList"/>
+
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -207,6 +210,17 @@
         });
 
       },
+
+    handleDownload() {
+      console.log(1)
+      this.downloadLoading = true
+      import('@/vendor/Export2Excel').then(excel => {
+        const tHeader = ['消费id', '用户ID', '用户名', '价格', '详细内容', '时间','所购买商品名称列表']
+        const filterVal = ['id', 'userId', 'username', 'price', 'detail', 'time','goodsList']
+        excel.export_json_to_excel2(tHeader, this.list, filterVal, '用户消费情况')
+        this.downloadLoading = false
+      })
+    },
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -378,16 +392,6 @@
 
 
       }
-
-    },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['地址ID', '用户ID', '收获人', '手机号', '省', '市', '区', '地址', '是否默认']
-        const filterVal = ['id', 'userId', 'name', 'mobile', 'province', 'city', 'area', 'address', 'isDefault']
-        excel.export_json_to_excel2(tHeader, this.list, filterVal, '用户地址信息')
-        this.downloadLoading = false
-      })
     }
   }
 </script>

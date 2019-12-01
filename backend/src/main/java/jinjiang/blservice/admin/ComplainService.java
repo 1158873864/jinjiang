@@ -17,5 +17,7 @@ public interface ComplainService {
 
     Page<Complain> findAll(Pageable pageable);
 
+    Page<Complain> findByShopId(String shopId, Pageable pageable);
+
     Page<Complain> find(String query, Pageable pageable);
 }

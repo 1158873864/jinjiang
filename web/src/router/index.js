@@ -707,7 +707,17 @@ export const asyncRouterMap = [
         name: 'statGoods',
         meta: {
           perms: ['GET /admin/stat/goods'],
-          title: '酒庄收发存',
+          title: '酒庄收入',
+          noCache: true
+        }
+      },
+      {
+        path: 'outcome',
+        component: () => import('@/views/stat/outcome'),
+        name: 'statOutcome',
+        meta: {
+          perms: ['GET /admin/stat/outcome'],
+          title: '酒庄支出',
           noCache: true
         }
       }

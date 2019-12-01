@@ -3,23 +3,31 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 300px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
-      <el-date-picker type="date" value-format="yyyy-MM-dd"/>
-      <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">按时间查找</el-button>
       <el-button :loading="downloadLoading" class="filter-item" type="primary" icon="el-icon-download" @click="handleDownload">导出</el-button>
     </div>
 
     <!-- 查询结果 -->
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
 
-      <el-table-column align="center" label="酒庄名称" prop="username"/>
+      <el-table-column align="center" label="id" prop="id"/>
 
-      <el-table-column align="center" label="酒庄收入" prop="price"/>
+      <el-table-column align="center" label="酒庄名称" prop="name"/>
+
+      <el-table-column align="center" label="价格" prop="price"/>
+
+      <el-table-column align="center" label="详细内容" prop="detail"/>
 
       <el-table-column align="center" label="时间" prop="time"/>
 
-      <el-table-column align="center" label="详细内容" prop="detail"/>
+      <el-table-column align="center" label="所购买商品名称列表" prop="goodsList"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
@@ -151,6 +159,7 @@
         passwordForm:{
           password:'',
         },
+        shopId:'',
         shopIds:[],
         dataForm: {
           id: '',
@@ -189,14 +198,13 @@
       getList() {
         axios({
           method: 'get',
-          url: config.baseApi + "balance/find/type?type=收入",
+          url: config.baseApi + "shopBalance/find/type?type=收入",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
             this.list = response.data.data.items
-            this.total = response.data.data.items.totalPages//response.data.data.total
             this.listLoading = false
           }
         }).catch(error => {
@@ -205,7 +213,50 @@
           this.listLoading = false
         });
 
+
+        axios({
+          method: 'get',
+          url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+
+          this.shopIds = response.data.data.items.content
+
+        }).catch(error => {
+        });
+
+
       },
+      handleDownload() {
+        this.downloadLoading = true
+        import('@/vendor/Export2Excel').then(excel => {
+          const tHeader = ['id', '酒庄名称', '价格', '详细内容', '时间','所购买商品名称列表']
+          const filterVal = ['id', 'name', 'price', 'detail', 'time', 'goodsList']
+          excel.export_json_to_excel2(tHeader, this.list, filterVal, '酒庄收入信息')
+          this.downloadLoading = false
+        })
+      },
+
+      changeShop(){
+        var shopId=this.shopId
+        axios({
+          method: 'get',
+          url: config.baseApi + "shopBalance/find/type/shopId?type=收入&shopId="+this.shopId,
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          this.list = response.data.data.items
+          this.listLoading = false
+        }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
+        });
+      },
+
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -354,7 +405,7 @@
         var data = {id:row.id};
         axios({
           method: 'get',
-          url: config.baseApi + "balance/delete?id="+row.id,
+          url: config.baseApi + "shopBalance/delete?id="+row.id,
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
@@ -378,16 +429,8 @@
 
       }
 
-    },
-    handleDownload() {
-      this.downloadLoading = true
-      import('@/vendor/Export2Excel').then(excel => {
-        const tHeader = ['地址ID', '用户ID', '收获人', '手机号', '省', '市', '区', '地址', '是否默认']
-        const filterVal = ['id', 'userId', 'name', 'mobile', 'province', 'city', 'area', 'address', 'isDefault']
-        excel.export_json_to_excel2(tHeader, this.list, filterVal, '用户地址信息')
-        this.downloadLoading = false
-      })
     }
+
   }
 </script>
 
