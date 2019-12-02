@@ -145,6 +145,33 @@ public class OrderController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "所有订单", notes = "")
+    @RequestMapping(value = "/find/all/admin", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findAll() {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",orderBlService.findAll());
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "所有订单", notes = "")
+    @RequestMapping(value = "/find/status", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findByStatus(@RequestParam("status") String status) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",orderBlService.findByStatus(status));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "所有订单", notes = "")
+    @RequestMapping(value = "/find/shopId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findByShopId(@RequestParam("shopId") String shopId) {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",orderBlService.findByShopId(shopId));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "", notes = "")
     @RequestMapping(value = "/cancel", method = RequestMethod.GET)
     @ResponseBody
@@ -182,6 +209,14 @@ public class OrderController {
     @ResponseBody
     public ResponseEntity<Result> integralTake(@RequestParam("id") String id) throws NotExistException {
         orderBlService.integralTake(id);
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
+    }
+
+    @ApiOperation(value = "", notes = "")
+    @RequestMapping(value = "/pass", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> pass(@RequestParam("id") String id) throws NotExistException {
+        orderBlService.pass(id);
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(),HttpStatus.OK);
     }
 

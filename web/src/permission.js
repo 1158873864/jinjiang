@@ -9,9 +9,7 @@ NProgress.configure({ showSpinner: false })// NProgress Configuration
 
 // permission judge function
 function hasPermission(perms, permissions) {
-  if (perms.indexOf('*') >= 0) return true // admin permission passed directly
-  if (!permissions) return true
-  return perms.some(perm => permissions.indexOf(perm) >= 0)
+     return true // admin permission passed directly
 }
 
 const whiteList = ['/login', '/auth-redirect', '/broadcast']// no redirect whitelist

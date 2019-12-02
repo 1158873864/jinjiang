@@ -32,6 +32,8 @@ public interface OrderBlService {
 
     void integralTake(String id) throws NotExistException;
 
+    void pass(String id) throws NotExistException;
+
     void refund(String id) throws NotExistException;
 
     void pay(Order o) throws NotExistException;
@@ -42,7 +44,13 @@ public interface OrderBlService {
 
     List<OrderResponse> findAllWX(String userId);
 
+    List<OrderResponse> findAll();
+
     List<OrderResponse> findByStatusWX(String userId, String status);
+
+    List<OrderResponse> findByShopId(String shopId);
+
+    List<OrderResponse> findByStatus(String status);
 
     List<OrderResponse> findByStatusAndShopId(String status, String shopId);
 

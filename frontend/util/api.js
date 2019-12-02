@@ -1484,6 +1484,44 @@ function getWxQrCode(then) {
   })
 }
 
+
+function getWxQrCode2(then) {
+  var that = this
+  wx.request({
+    url: app.globalData.backendUrl + "user/getWxQrCode",
+    data: {
+      scene: 'id=' + app.getOpenid(),
+      page: 'pages/offLine/offLine',
+      width: 200,
+      autoColor: true,
+      lineColorR: 0,
+      lineColorG: 0,
+      lineColorB: 0,
+      isHyaline: true
+    },
+    header: {
+      'Authorization': 'Bearer ' + app.getToken(),
+      'content-type': 'application/x-www-form-urlencoded'
+    },
+    method: 'GET',
+    success: (res) => {
+      if (res.statusCode == 200) {
+        console.log(res)
+        if (res.data.ok) {
+          wx.getImageInfo({
+            src: app.globalData.picUrl + res.data.imagePath,
+            success: (res) => {
+              if (then) then({
+                imagePath: res.path
+              })
+            }
+          })
+        }
+      }
+    }
+  })
+}
+
 function getMySubmittedEnterprise(openid, then) {
   var that = this
   wx.request({
@@ -1919,6 +1957,7 @@ module.exports = {
   getMyCourseListBefore: getMyCourseListBefore,
   isAdminUsernameExistent: isAdminUsernameExistent,
   getWxQrCode: getWxQrCode,
+  getWxQrCode2: getWxQrCode2,
   getMySubmittedEnterprise: getMySubmittedEnterprise,
   getClassificationDescriptionList: getClassificationDescriptionList,
   getNewsListBefore: getNewsListBefore,

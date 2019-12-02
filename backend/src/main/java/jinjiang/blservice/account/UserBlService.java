@@ -17,6 +17,8 @@ public interface UserBlService {
 
     void updateUser(User user) throws NotExistException;
 
+    Page<User> findIdentityAndShopAndLevel(String identity, String shopId, String levelId, Pageable pageable);
+
     List<MemberResponse> findByShareholderIdwx(String shareholderId);
 
     User findById(String id) throws NotExistException;

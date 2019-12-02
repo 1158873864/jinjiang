@@ -3,7 +3,19 @@
 
     <!-- 查询和其他操作 -->
     <div class="filter-container">
-      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;" placeholder="请输入关键词"/>
+      <span>酒庄选择</span>
+
+      <el-select v-model="shopId" @change="changeShop">
+        <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
+      </el-select>
+
+      <span>状态选择</span>
+
+      <el-select v-model="status" @change="changeShop">
+        <el-option v-for="item in statuses" :key="item" :label="item" :value="item"/>
+      </el-select>
+
+      <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 100px;" placeholder="请输入关键词"/>
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
     </div>
 
@@ -11,21 +23,23 @@
     <el-table v-loading="listLoading" :data="list" size="small" element-loading-text="正在查询中。。。" border fit highlight-current-row>
       <el-table-column type="expand">
         <template slot-scope="props">
-          <el-table :data="list.goods" size="small" border fit highlight-current-row>
+          <el-table :data="props.row.goodsList" size="small" border fit highlight-current-row>
             <el-table-column align="center" label="商品编号" prop="id" />
             <el-table-column align="center" label="商品名称" prop="name" />
-            <el-table-column align="center" label="商品简介" prop="brief" />
-            <el-table-column align="center" label="零售价" prop="price" />
-            <el-table-column align="center" label="会员价格" prop="memberPrice" />
-            <el-table-column align="center" label="进货价格" prop="stockPrice"/>
-            <el-table-column align="center" label="对应门店id" prop="shopId" />
+            <el-table-column align="center" label="商品规格" prop="standard" />
+            <el-table-column align="center" label="价格" prop="price" />
+            <el-table-column align="center" property="imageUrl" label="商品图片">
+              <template slot-scope="scope">
+                <img v-if="scope.row.imageUrl" :src="scope.row.imageUrl" width="40">
+              </template>
+            </el-table-column>
           </el-table>
         </template>
       </el-table-column>
 
       <el-table-column align="center" width="100px" label="订单ID" prop="id" sortable/>
 
-      <el-table-column align="center" label="用户名称" prop="userName"/>
+      <el-table-column align="center" label="用户id" prop="userId"/>
 
       <el-table-column align="center" label="送货地址" prop="address"/>
 
@@ -39,12 +53,14 @@
 
       <el-table-column align="center" label="优惠" prop="discountPrice"/>
 
-      <el-table-column align="center" label="购买时间" prop="BuyTime"/>
+      <el-table-column align="center" label="购买时间" prop="buyTime"/>
 
       <el-table-column align="center" label="状态" prop="status"/>
 
       <el-table-column align="center" label="操作" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
+
+            <el-button v-show="scope.row.status=='积分待发货'" type="primary" size="mini" @click="handleSend(scope.row)">确认发货</el-button>
           <el-button type="danger" size="mini" @click="handleDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
@@ -173,7 +189,9 @@ export default {
         passwordForm:{
           password:'',
         },
+        shopId:'',
         shopIds:[],
+        status:'',
         dataForm: {
           id: '',
           userId: '',
@@ -187,7 +205,7 @@ export default {
           BuyTime: '',
           status: ''
         },
-        statuses:['待付款','待发货','待收货','待评价','已完成'],
+        statuses:['待付款','待发货','待收货','待评价','已完成','已取消','退款中','已退款','积分待收货','积分待发货','积分待审核','积分已完成'],
         levels:[],
         dialogFormVisible: false,
         dialogStatus: '',
@@ -209,31 +227,31 @@ export default {
     },
     methods: {
       getList() {
+
         axios({
           method: 'get',
-          url: config.baseApi + "order/find/all?page="+ (this.listQuery.page-1)+"&size=20",
+          url: config.baseApi + "shop/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+
+          this.shopIds = response.data.data.items.content
+
+        }).catch(error => {
+        });
+
+
+        axios({
+          method: 'get',
+          url: config.baseApi + "order/find/all/admin",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
           if(response.data.code==0){
-            this.list = response.data.data.items.content
-
-            for(let i=0;i<this.list.length;i++){
-              axios({
-                method: 'get',
-                url: config.baseApi + "goods/find/id?id="+ this.list[i].shopId,
-                headers:{
-                  "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-                }
-              }).then(res => {
-                this.list[i].goods = res.data.data.items
-
-              }).catch(error => {
-              });
-
-            }
-            this.total = response.data.data.items.totalPages//response.data.data.total
+            this.list = response.data.data.items
+            this.total = response.data.data.items.length//response.data.data.total
             this.listLoading = false
           }
         }).catch(error => {
@@ -242,20 +260,92 @@ export default {
           this.listLoading = false
         });
 
-        axios({
+
+
+      },
+      changeShop(){
+        var shopId=this.shopId
+        var status=this.status
+        if(shopId===''&&status==''){
+          axios({
           method: 'get',
-          url: config.baseApi + "user/find/all?&page="+ (this.listQuery.page-1)+"&size=100",
+          url: config.baseApi + "order/find/all/admin",
           headers:{
             "X-Litemall-Admin-Token":sessionStorage.getItem('token')
           }
         }).then(response => {
-
-          this.users = response.data.data.items.content
-
+          if(response.data.code==0){
+            this.list = response.data.data.items
+            this.total = response.data.data.items.length//response.data.data.total
+            this.listLoading = false
+          }
         }).catch(error => {
+          this.list = []
+          this.total = 0
+          this.listLoading = false
         });
 
+        }
+        else if(shopId===''){
+          axios({
+            method: 'get',
+            url: config.baseApi + "order/find/status?status="+status,
+            headers:{
+              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+            }
+          }).then(response => {
+            if(response.data.code==0){
+              this.list = response.data.data.items
+              this.total = response.data.data.items.length//response.data.data.total
+              this.listLoading = false
+            }
+          }).catch(error => {
+            this.list = []
+            this.total = 0
+            this.listLoading = false
+          });
+        }
+        else if(status===''){
+          axios({
+            method: 'get',
+            url: config.baseApi + "order/find/shopId?shopId="+shopId,
+            headers:{
+              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+            }
+          }).then(response => {
+            if(response.data.code==0){
+              this.list = response.data.data.items
+              this.total = response.data.data.items.length//response.data.data.total
+              this.listLoading = false
+            }
+          }).catch(error => {
+            this.list = []
+            this.total = 0
+            this.listLoading = false
+          });
+        }
+        else{
+          axios({
+            method: 'get',
+            url: config.baseApi + "order/find/status/shopId?shopId="+shopId+"&status="+status,
+            headers:{
+              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+            }
+          }).then(response => {
+            if(response.data.code==0){
+              this.list = response.data.data.items
+              this.total = response.data.data.items.length//response.data.data.total
+              this.listLoading = false
+            }
+          }).catch(error => {
+            this.list = []
+            this.total = 0
+            this.listLoading = false
+          });
+        }
+
       },
+
       handleFilter() {
         this.listQuery.page = 1
         this.list=[]
@@ -395,6 +485,36 @@ export default {
 
           }
         })
+      },
+      handleSend(row) {
+        /*this.$notify.error({
+          title: '警告',
+          message: '用户删除操作不支持！'
+        })*/
+        var data = {id:row.id};
+        axios({
+          method: 'get',
+          url: config.baseApi + "order/integralSend?id="+row.id,
+          headers:{
+            "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+          }
+        }).then(response => {
+          if(response.data.code==0){
+            this.getList()
+            this.$notify.success({
+              title: '成功',
+              message: '发货成功'
+            })
+
+          }
+        }).catch(error => {
+          this.$notify.error({
+            title: '失败',
+            message: response.data.errmsg
+          })
+        });
+
+
       },
       handleDelete(row) {
         /*this.$notify.error({

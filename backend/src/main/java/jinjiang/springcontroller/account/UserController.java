@@ -132,6 +132,15 @@ public class UserController {
         return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
     }
 
+    @ApiOperation(value = "根据门店和身份查找用户", notes = "")
+    @RequestMapping(value = "/find/identity-shopId-levelId", method = RequestMethod.GET)
+    @ResponseBody
+    public ResponseEntity<Result> findUserByIdentityAndShopIdAndLevelId(@RequestParam("identity") String identity,@RequestParam("shopId") String shopId,@RequestParam("levelId") String levelId,Pageable pageable) throws NotExistException {
+        Map<String, Object> result = new HashMap<>();
+        result.put("items",userBlService.findIdentityAndShopAndLevel(identity,shopId,levelId,pageable));
+        return new ResponseEntity<>(ResultGenerator.genSuccessResult(result),HttpStatus.OK);
+    }
+
     @ApiOperation(value = "所有用户", notes = "")
     @RequestMapping(value = "/find/all", method = RequestMethod.GET)
     @ResponseBody

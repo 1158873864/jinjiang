@@ -151,7 +151,7 @@ Page({
         imageUrl: this.data.goods.imageUrl,
         number: this.data.number,
         price: this.data.price,
-        status: '待审批',
+        status: '已审批',
         time: ''
       },
       header: {

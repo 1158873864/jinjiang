@@ -66,6 +66,9 @@ Page({
         /*console.log(res)*/
         var checkedGoodsList=res.data.data.items.goodsList
         var actualPrice = res.data.data.items.price + res.data.data.items.freight
+        if (res.data.data.items.status==="积分待审核"){
+          var actualPrice=0  
+        }
         var orderTotalPrice = res.data.data.items.price
         var order = res.data.data.items
         this.setData({
@@ -198,7 +201,7 @@ Page({
     }
     var that = this
     var order=this.data.order
-    order.price=this.data.actualPrice
+   
     order.person = this.data.checkedAddress.person
     order.mobilePone = this.data.checkedAddress.mobilePhone
     order.address = this.data.checkedAddress.province + this.data.checkedAddress.city + this.data.checkedAddress.district + this.data.checkedAddress.detail
@@ -214,7 +217,7 @@ Page({
       }
     order.goodsList = goods
     if(order.status=='待付款'){
-
+      order.price = this.data.actualPrice
       if(this.data.pay==='余额'){
         if (this.data.user.balance >= order.price) {
           order.status = '待发货'
@@ -350,6 +353,7 @@ Page({
       
     }
     else{
+      
       wx.request({
         url: app.globalData.backendUrl + "order/update",
         data: order,

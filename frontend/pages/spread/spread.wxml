@@ -27,7 +27,7 @@
       <text class='modal__text'>分享给好友</text>
     </button>
     <button class='modal__button modal__right' bindtap='drawPost'>
-      <image class='modal__image' src='http://junrongcenter.oss-cn-beijing.aliyuncs.com/img/%E4%B8%AA%E4%BA%BA/post.png'></image>
+      <image class='modal__image' src='https://take-out.oss-cn-hangzhou.aliyuncs.com/%E6%B5%B7%E6%8A%A5.png'></image>
       <text class='modal__text'>生成海报</text>
     </button>
   </view>

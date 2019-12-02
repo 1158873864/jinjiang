@@ -183,7 +183,6 @@ Page({
         success: (res) => {
           /*console.log(res)*/
           var orderList = res.data.data.items
-
           this.setData({
             orderList: orderList,
             showType: showType

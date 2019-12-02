@@ -48,7 +48,11 @@
     "pages/income/income",
     "pages/recharge/recharge",
     "pages/offLine/offLine",
-    "pages/offLineList/offLineList"
+    "pages/offLineList/offLineList",
+    "pages/integralManageDetail/integralManageDetail",
+    "pages/integralManage/integralManage",
+    "pages/integralRecord/integralRecord",
+    "pages/qrcode/qrcode"
   ],
   "window": {
     "backgroundTextStyle": "light",

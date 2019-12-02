@@ -1,0 +1,29 @@
+<!--pages/particulars/curriculum/curriculum.wxml-->
+<!--index.wxml-->
+<import src='/template/findBar/searchBar.wxml'></import>
+<import src='/template/adBar/adBar.wxml'></import>
+<import src='/template/likeIcon/likeIcon.wxml'></import>
+
+<view class="container container--color-white">
+
+
+
+  <view class='box'  wx:for="{{courseList}}" wx:key="id">
+    <view data-kind='{{item.kind}}' data-id='{{item.id}}'>
+      <view class='vessel'>
+        <view class='left'>
+        
+          <view class='title1'><view wx:for="{{item.goodsList}}" wx:key="id" wx:for-item="gitem">{{gitem}}</view></view>
+          <view class='title'>{{item.detail}}</view>
+          <view class='title'>{{item.time}}</view>
+          
+        </view>
+        <view class='right'>
+          <view class='title1' style="color:red;">积分{{item.price}}</view>
+        </view>
+        
+      </view>
+    </view>
+  </view>
+</view>
+

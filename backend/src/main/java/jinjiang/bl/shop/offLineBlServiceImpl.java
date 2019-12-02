@@ -46,7 +46,7 @@ public class offLineBlServiceImpl implements OffLineBlService {
     @Override
     public OffLine addOffLine(OffLine offLine) {
         offLine.setTime(offLine.getTime());
-        offLine.setStatus("待审批");
+        offLine.setStatus("已审批");
         String mobilePhone=offLine.getUserId();
         Optional<User> optionalUser=userDao.findByMobilePhone(mobilePhone);
         if(optionalUser.isPresent()){

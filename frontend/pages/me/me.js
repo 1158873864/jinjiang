@@ -72,7 +72,13 @@ Page({
       src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/生日.png',
       text: '会员生日',
       show: false
-    }
+    },
+      {
+        id: '15',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/线下.png',
+        text: '线下购物',
+        show: false
+      },
     ],
 
     array2: [{
@@ -124,6 +130,12 @@ Page({
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/报销.png',
         text: '报销',
       show: false
+      },
+      {
+        id: '37',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/账单.png',
+        text: '积分兑换',
+        show: false
       }
     ],
 
@@ -161,6 +173,12 @@ Page({
         id: '45',
         src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/线下.png',
         text: '线下订单',
+        show: false
+      },
+      {
+        id: '46',
+        src: 'https://take-out.oss-cn-hangzhou.aliyuncs.com/订单管理.png',
+        text: '积分订单',
         show: false
       }
     ]
@@ -223,6 +241,11 @@ Page({
         url: '../birthday/birthday'
       })
     }
+    if ("15" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../qrcode/qrcode'
+      })
+    }
 
     if ("20" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
@@ -266,6 +289,11 @@ Page({
         url: '../submitExpense/submitExpense'
       })
     }
+    if ("37" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../integralRecord/integralRecord'
+      })
+    }
 
     if ("40" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
@@ -295,6 +323,11 @@ Page({
     if ("45" == e.currentTarget.dataset.goodsid) {
       wx.navigateTo({
         url: '../offLineList/offLineList'
+      })
+    }
+    if ("46" == e.currentTarget.dataset.goodsid) {
+      wx.navigateTo({
+        url: '../integralManage/integralManage'
       })
     }
   },
@@ -330,9 +363,11 @@ Page({
           array1[0].show= true
           array1[1].show = true
           array1[2].show = true
+          array1[5].show = true
           array2[0].show = true
           array2[1].show = true
           array3[0].show = true
+          array3[6].show = true
           array4[0].show = true
           array4[1].show = true
 
@@ -418,6 +453,7 @@ Page({
           array4[2].show = true
           array4[3].show = true
           array4[5].show = true
+          array4[6].show = true
           this.setData({
             array1: array1,
             array2: array2,

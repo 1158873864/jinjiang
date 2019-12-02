@@ -20,7 +20,7 @@ public class Balance {//人员交易
     private String username; //用户名
 
     @Column(name = "type")
-    private String type; //收入、支出、赊账、充值
+    private String type; //收入、支出、赊账、充值、积分
 
     @Column(name = "price")
     private double price; //价格

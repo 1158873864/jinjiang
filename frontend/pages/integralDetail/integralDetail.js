@@ -406,11 +406,11 @@ Page({
                     mobilePone: '',
                     person: '',
                     freight: 0,
-                    price: 0,
+                    price: that.data.goods.integral,
                     discountPrice: 0,
                     goodsList: goodsList,
                     buyTime: '',
-                    status: '积分待发货',
+                    status: '积分待审核',
                     type: '送货上门',
                     remark: ''
                   },

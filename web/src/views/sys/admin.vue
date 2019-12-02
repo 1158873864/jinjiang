@@ -59,8 +59,18 @@
           <el-input v-model="editForm.password" style="width: 200px;"/>
         </el-form-item>
 
+
         <el-form-item label="权限" >
-          <el-input v-model="editForm.limits" style="width: 200px;"/>
+          <div>
+            <input type='checkbox' class='input-checkbox' :checked="fruitIds.length === fruits.length" @click='checkedAll()'>全选
+            <div v-for='(fruit, index) in fruits' :key="index">
+
+              <!--判断fruitIds是否包含当前fruit，fruitIds.indexOf(fruit.fruitId)返回包含fruit的下标, 若不包含则返回-1-->
+              <input type='checkbox' :checked="fruitIds.indexOf(fruit.fruitId) > -1" name='checkboxinput' class='input-checkbox' @click='checkedOne(fruit.fruitId)'>
+              {{fruit.value}}
+            </div>
+          </div>
+
         </el-form-item>
 
         <el-form-item label="管理员头像" prop="editForm.face">
@@ -176,6 +186,35 @@
     },
     data() {
       return {
+        fruits:[{
+          fruitId:'人员管理',
+          value:'人员管理'
+        },{
+          fruitId:'酒庄管理',
+          value:'酒庄管理'
+        },{
+          fruitId:'商品管理',
+          value:'商品管理'
+        },{
+          fruitId:'优惠券管理',
+          value:'优惠券管理'
+        },{
+          fruitId:'系统管理',
+          value:'系统管理'
+        },{
+          fruitId:'推广管理',
+          value:'推广管理'
+        },{
+          fruitId:'订单管理',
+          value:'订单管理'
+        },{
+          fruitId:'统计',
+          value:'统计'
+        }
+
+        ],
+        fruitIds:[],
+        isCheckedAll: false,
         dialogStatus:'',
         textMap: {
           update: '编辑',
@@ -226,6 +265,32 @@
       this.getList()
     },
     methods: {
+      checkedOne (fruitId) {
+        let idIndex = this.fruitIds.indexOf(fruitId)
+        if (idIndex >= 0) {
+          // 如果已经包含了该id, 则去除(单选按钮由选中变为非选中状态)
+          this.fruitIds.splice(idIndex, 1)
+        } else {
+          // 选中该checkbox
+          this.fruitIds.push(fruitId)
+        }
+        if(this.fruitIds.length==this.fruits.length){
+          this.isCheckedAll=true;
+        }
+      },
+      checkedAll () {
+        this.isCheckedAll = !this.isCheckedAll
+        if (this.isCheckedAll) {
+          // 全选时
+          this.fruitIds = []
+          this.fruits.forEach(function (fruit) {
+            this.fruitIds.push(fruit.fruitId)
+          }, this)
+        } else {
+          this.fruitIds = []
+        }
+      },
+
       getList() {
         this.listLoading = true  //listShopGoods
 
@@ -282,6 +347,17 @@
       },
       //提交编辑
       handleSubmit(){
+        var ids=this.fruitIds
+        var limits=""
+        for(var i=0;i<ids.length;i++){
+          if(i!=(ids.length-1)){
+            limits=limits+ids[i]+","
+          }
+          else{
+            limits=limits+ids[i]
+          }
+        }
+        this.editForm.limits = limits;
         axios({
           method: 'put',
           url: config.baseApi + "admin/update",
@@ -320,11 +396,11 @@
         this.dialogStatus  = 'create'
         this.dialogVisible = true
         this.editForm.username=''
-
         this.editForm.password=''
           this.editForm.date=''
           this.editForm.id=''
-          this.editForm.limits=''
+        this.editForm.limits = '';
+        this.fruitIds=[]
         this.editForm.face=''
       },
       handleCreateData() {
@@ -336,6 +412,18 @@
         }
         let systemDate = date.year + '-' +  date.month + '-' + 0 + date.date;
         this.editForm.date=systemDate
+
+        var ids=this.fruitIds
+        var limits=""
+        for(var i=0;i<ids.length;i++){
+          if(i!=(ids.length-1)){
+            limits=limits+ids[i]+","
+          }
+          else{
+            limits=limits+ids[i]
+          }
+        }
+        this.editForm.limits = limits
         axios({
           method: 'post',
           url: config.baseApi + "admin/add",
@@ -367,6 +455,7 @@
         this.editForm.username = row.username;
         this.editForm.id = row.id;
         this.editForm.password = row.password;
+        this.fruitIds=row.limits.split(",")
         this.editForm.limits = row.limits;
         this.editForm.face = row.face;
         this.editForm.date = row.date;

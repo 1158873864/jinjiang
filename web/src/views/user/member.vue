@@ -8,6 +8,12 @@
       <el-select v-model="shopId" @change="changeShop">
         <el-option v-for="item in shopIds" :key="item.id" :label="item.name" :value="item.id"/>
       </el-select>
+
+      <span>等级选择</span>
+
+      <el-select v-model="levelId" @change="changeLevel">
+        <el-option v-for="item in levelIds" :key="item.name" :label="item.name" :value="item.name"/>
+      </el-select>
       <el-input v-model="listQuery.key" clearable class="filter-item" style="width: 200px;margin-left: 200px;" placeholder="请输入关键词"/>
 
       <el-button class="filter-item" type="primary" icon="el-icon-search" @click="handleFilter">查找</el-button>
@@ -26,7 +32,7 @@
 
       <el-table-column align="center" label="生日" prop="birthday"/>
 
-      <el-table-column align="center" label="用户等级" prop="levelName"/>
+      <el-table-column align="center" label="用户等级" prop="level"/>
 
       <el-table-column align="center" label="余额" prop="balance"/>
 
@@ -67,7 +73,7 @@
 
         <el-form-item label="用户等级" prop="level">
           <el-select v-model="dataForm.level">
-            <el-option v-for="item in levels" :key="item.id" :label="item.name" :value="item.id"/>
+            <el-option v-for="item in levels" :key="item.name" :label="item.name" :value="item.name"/>
           </el-select>
         </el-form-item>
 
@@ -143,6 +149,8 @@ export default {
       listLoading: true,
       shopId:'',
       shopIds:[],
+      levelId:'',
+      levelIds:[],
       listQuery: {
         page: 1,
         limit: 20,
@@ -232,18 +240,7 @@ export default {
 
           }).catch(error => {
           });
-          axios({
-            method: 'get',
-            url: config.baseApi + "level/find/id?id="+ this.list[i].level,
-            headers:{
-              "X-Litemall-Admin-Token":sessionStorage.getItem('token')
-            }
-          }).then(res => {
-            console.log(res.data.data.items.name)
-            this.list[i].levelName = res.data.data.items.name
 
-          }).catch(error => {
-          });
         }
         this.total = response.data.data.items.totalPages//response.data.data.total
         this.listLoading = false
@@ -276,7 +273,7 @@ export default {
     }).then(response => {
 
       this.levels = response.data.data.items.content
-
+      this.levelIds= response.data.data.items.content
     }).catch(error => {
     });
 
@@ -286,6 +283,69 @@ export default {
       axios({
         method: 'get',
         url: config.baseApi + "user/find/identity-shopId?identity=member&shopId="+this.shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+        if(response.data.code==0){
+          this.list = response.data.data.items.content
+          for(let i=0;i<this.list.length;i++){
+            axios({
+              method: 'get',
+              url: config.baseApi + "user/find/id?id="+ this.list[i].shareholderId,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              console.log(res.data.data.items.name)
+              this.list[i].shareholderName = res.data.data.items.name
+
+            }).catch(error => {
+            });
+            axios({
+              method: 'get',
+              url: config.baseApi + "shop/find/id?id="+ this.list[i].shopId,
+              headers:{
+                "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+              }
+            }).then(res => {
+              console.log(res.data.data.items.name)
+              this.list[i].shopName = res.data.data.items.name
+
+            }).catch(error => {
+            });
+
+          }
+          this.total = response.data.data.items.totalPages//response.data.data.total
+          this.listLoading = false
+        }
+      }).catch(error => {
+        this.list = []
+        this.total = 0
+        this.listLoading = false
+      });
+
+      axios({
+        method: 'get',
+        url: config.baseApi + "level/find/shopId?shopId="+shopId+"&page="+ (this.listQuery.page-1)+"&size=20",
+        headers:{
+          "X-Litemall-Admin-Token":sessionStorage.getItem('token')
+        }
+      }).then(response => {
+
+        this.levels = response.data.data.items.content
+        this.levelIds= response.data.data.items.content
+      }).catch(error => {
+      });
+
+    },
+
+    changeLevel(){
+      var shopId=this.shopId
+      var levelId=this.levelId
+      axios({
+        method: 'get',
+        url: config.baseApi + "user/find/identity-shopId-levelId?identity=member&shopId="+this.shopId+"&levelId="+levelId+"&page="+ (this.listQuery.page-1)+"&size=20",
         headers:{
           "X-Litemall-Admin-Token":sessionStorage.getItem('token')
         }
@@ -339,6 +399,8 @@ export default {
         this.total = 0
         this.listLoading = false
       });
+
+
     },
 
     handleFilter() {

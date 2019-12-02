@@ -144,6 +144,11 @@ public class UserBlServiceImpl implements UserBlService {
 		return userDao.findByIdentityAndShopId(identity,shopId,pageable);
 	}
 
+	@Override
+	public Page<User> findIdentityAndShopAndLevel(String identity,String shopId,String levelId,Pageable pageable) {
+		return userDao.findByIdentityAndShopIdAndLevel(identity,shopId,levelId,pageable);
+	}
+
 
 	@Override
 	public List<MemberResponse> findByShareholderIdwx(String shareholderId) {

@@ -1,0 +1,88 @@
+<view class="container1">
+  <view class="order-info">
+    <view class="item-a">下单时间：{{orderInfo.buyTime}}</view>
+    <view class="item-b">订单编号：{{orderInfo.id}}</view>
+    <view class="item-c">
+      <view class="l">实付：
+        <text class="cost">￥{{orderInfo.price}}</text>
+      </view>
+      <view class="r">
+        <view class="btn active" bindtap="sendOrder" wx:if="{{orderInfo.status=='积分待审核'}}">审核通过</view>
+         
+      </view>
+    </view>
+  </view>
+
+  <view class="order-goods">
+    <view class="h">
+      <view class="label">商品信息</view>
+      <view class="status">{{orderInfo.status}}</view>
+    </view>
+    <view class="goods">
+      <view class="item" wx:for="{{orderGoods}}" wx:key="id">
+        <view class="img">
+          <image src="{{item.imageUrl}}"></image>
+        </view>
+        <view class="info">
+          <view class="t">
+            <text class="name">{{item.name}}</text>
+            <text class="number">x1</text>
+          </view>
+          <view class="attr">{{item.standard}}</view>
+          <view class="price">￥{{item.price}}</view>
+          <view class="btn active" wx:if="{{handleOption.comment && (item.comment == 0)}}">
+            <navigator url="../../commentPost/commentPost?orderId={{item.orderId}}&&valueId={{item.goodsId}}&type=0">去评价</navigator>
+          </view>
+          <view class="btn active" wx:if="{{handleOption.rebuy}}">
+            <navigator url="../goods/goods?id={{item.id}}">再次购买</navigator>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="order-bottom">
+      <view class="address">
+        <view class="t">
+          <text class="name">{{orderInfo.person}}</text>
+          <text class="mobile">{{orderInfo.mobilePone}}</text>
+        </view>
+        <view class="b">{{orderInfo.address}}</view>
+      </view>
+      <view class="total">
+        <view class="t">
+          <text class="label">商品合计：</text>
+          <text class="txt">￥{{orderInfo.price-orderInfo.freight+orderInfo.discountPrice}}</text>
+        </view>
+        <view class="t">
+          <text class="label">运费：</text>
+          <text class="txt">￥{{orderInfo.freight}}</text>
+        </view>
+        <view class="t">
+          <text class="label">优惠：</text>
+          <text class="txt">￥-{{orderInfo.discountPrice}}</text>
+        </view>
+      </view>
+      <view class="pay-fee">
+        <text class="label">实付：</text>
+        <text class="txt">￥{{orderInfo.price}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 物流信息,仅收货状态下可见 -->
+  <!-- <view class="order-express" bindtap="expandDetail" wx:if="{{ handleOption.confirm }}">
+    <view class="order-express">
+      <view class="title">
+        <view class="t">快递公司：{{expressInfo.shipperName}}</view>
+        <view class="b">物流单号：{{expressInfo.logisticCode}}</view>
+      </view>
+      <image class="ti" src="/static/images/address_right.png" background-size="cover"></image>
+    </view>
+    <view class="traces" wx:for="{{expressInfo.Traces}}" wx:key="item" wx:for-item="iitem" wx:if="{{ flag }}">
+      <view class="trace">
+        <view class="acceptStation">{{iitem.AcceptStation}}</view>
+        <view class="acceptTime">{{iitem.AcceptTime}}</view>
+      </view>
+    </view>
+  </view> -->
+</view>
