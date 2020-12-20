@@ -8,10 +8,10 @@ const {
 
 Page({
   data: {
-    ad1: 'http://47.106.171.65/record/7da730ee84084544aea2e7a8942790dc.jpg',
-    ad2: 'http://47.106.171.65/record/28a7612ff3b74c7aaaa812f7c1001721.jpg',
-    ad3: 'http://47.106.171.65/record/9aa8782a09624f6199b272caf8ea9116.jpg',
-    ad4: 'http://47.106.171.65/record/48578487e4ce4c8ab205ff0d59461dba.jpg',
+    ad1: 'https://www.shaoshanlu.com/record/7da730ee84084544aea2e7a8942790dc.jpg',
+    ad2: 'https://www.shaoshanlu.com/record/28a7612ff3b74c7aaaa812f7c1001721.jpg',
+    ad3: 'https://www.shaoshanlu.com/record/9aa8782a09624f6199b272caf8ea9116.jpg',
+    ad4: 'https://www.shaoshanlu.com/record/48578487e4ce4c8ab205ff0d59461dba.jpg',
     hots: [],
     recommends: [0,0,0,0],
     integrals: [0, 0, 0, 0],
